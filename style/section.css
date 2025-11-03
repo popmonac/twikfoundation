@@ -1,0 +1,1659 @@
+
+/* ========================================
+   1. CSS VARIABLES & ROOT STYLES
+   ======================================== */
+
+
+
+/* ========================================
+   2. HEADER & SECTION TITLE STYLES
+   ======================================== */
+.section-header {
+    text-align: center;
+    margin-bottom: 60px;
+    position: relative;
+}
+
+.section-header::after {
+    content: '';
+    position: absolute;
+    bottom: -20px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 80px;
+    height: 3px;
+    background: var(--gradient-primary);
+    border-radius: 2px;
+}
+
+.section-title {
+    font-size: 2.5rem;
+    font-weight: 700;
+    background: var(--gradient-text);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    margin-bottom: 16px;
+    line-height: 1.2;
+}
+
+.section-subtitle,
+.brands-subtitle {
+    font-size: 1.1rem;
+    color: var(--text-secondary);
+    max-width: 600px;
+    margin: 0 auto;
+    line-height: 1.6;
+}
+
+
+/* ========================================
+   3. CONTAINER & LAYOUT STYLES
+   .container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 24px;
+    position: relative;
+    z-index: 2;
+}
+   ======================================== */
+
+
+
+/* ========================================
+   4. ABOUT SECTION STYLES
+   ======================================== */
+.about_section {
+    margin-top: 2rem;
+    padding: 100px 0;
+    background: var(--background-gradient);
+    position: relative;
+    overflow: hidden;
+}
+
+.about_section::before {
+    content: '';
+    position: absolute;
+    top: -50%;
+    right: -20%;
+    width: 600px;
+    height: 600px;
+    background: radial-gradient(circle, rgba(220, 38, 38, 0.08) 0%, transparent 70%);
+    pointer-events: none;
+}
+
+/* About Grid Layout */
+.about_grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 80px;
+    align-items: center;
+}
+
+/* Image Pyramid Container */
+.image_pyramid {
+    position: relative;
+    min-height: 600px;
+    padding: 40px 0;
+}
+
+/* Background Image (Landscape) */
+.bg_image {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 85%;
+    height: 400px;
+    border-radius: 24px;
+    overflow: hidden;
+    box-shadow: 0 20px 60px rgba(0, 0, 0, 0.15);
+    z-index: 1;
+    transition: transform 0.4s ease;
+}
+
+.bg_image:hover {
+    transform: scale(1.02);
+}
+
+.bg_image img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+/* Portrait Image (Taller) */
+.portrait_image {
+    position: absolute;
+    top: 80px;
+    right: 0;
+    width: 45%;
+    height: 400px;
+    border-radius: 24px;
+    overflow: hidden;
+    box-shadow: var(--shadow-primary);
+    border: 6px solid white;
+    z-index: 3;
+    transition: transform 0.4s ease;
+}
+
+.portrait_image:hover {
+    transform: translateY(-10px) scale(1.02);
+}
+
+.portrait_image img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+/* Small Landscape Image (Floating) */
+.small_landscape {
+    position: absolute;
+    bottom: 40px;
+    left: 10px;
+    width: 70%;
+    height: 280px;
+    border-radius: 20px;
+    overflow: hidden;
+    box-shadow: 0 15px 45px rgba(220, 38, 38, 0.25);
+    border: 6px solid white;
+    z-index: 2;
+    transition: transform 0.4s ease;
+}
+
+.small_landscape:hover {
+    transform: translateY(-8px) rotate(-2deg);
+}
+
+.small_landscape img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+/* Decorative Elements for Image Pyramid */
+.image_pyramid::before {
+    content: '';
+    position: absolute;
+    top: -20px;
+    right: -20px;
+    width: 150px;
+    height: 150px;
+    background: var(--gradient-primary);
+    opacity: 0.1;
+    border-radius: 50%;
+    z-index: 0;
+}
+
+.image_pyramid::after {
+    content: '';
+    position: absolute;
+    bottom: -30px;
+    left: -30px;
+    width: 200px;
+    height: 200px;
+    background: var(--gradient-primary);
+    opacity: 0.08;
+    border-radius: 30% 70% 70% 30% / 30% 30% 70% 70%;
+    z-index: 0;
+}
+
+/* About Content Section */
+.about_content {
+    padding: 0 20px;
+}
+
+.top_title {
+    font-size: 0.9rem;
+    font-weight: 600;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    background: var(--gradient-text);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    margin-bottom: 16px;
+    display: inline-block;
+}
+
+.about_content h2 {
+    font-size: 3rem;
+    font-weight: 700;
+    color: var(--text-primary);
+    margin-bottom: 24px;
+    line-height: 1.2;
+}
+
+.about_content p {
+    font-size: 1.1rem;
+    color: var(--text-secondary);
+    margin-bottom: 24px;
+    line-height: 1.8;
+}
+
+/* Mission Points List */
+.mission-points {
+    list-style: none;
+    margin: 32px 0;
+}
+
+.mission-points li {
+    display: flex;
+    align-items: center;
+    margin-bottom: 16px;
+    font-size: 1.1rem;
+    color: var(--text-secondary);
+}
+
+.mission-points li::before {
+    content: '✓';
+    background: var(--gradient-primary);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    font-weight: bold;
+    font-size: 1.2rem;
+    margin-right: 16px;
+}
+
+/* Primary CTA Button */
+.primary_btn {
+    display: inline-block;
+    padding: 16px 40px;
+    background: var(--gradient-primary);
+    color: white;
+    text-decoration: none;
+    border-radius: 50px;
+    font-weight: 600;
+    font-size: 1rem;
+    transition: all 0.3s ease;
+    box-shadow: 0 8px 24px rgba(220, 38, 38, 0.3);
+    position: relative;
+    overflow: hidden;
+    margin-top: 16px;
+}
+
+.primary_btn::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(135deg, rgba(255, 255, 255, 0.2), transparent);
+    transition: left 0.5s ease;
+}
+
+.primary_btn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 12px 32px rgba(220, 38, 38, 0.4);
+}
+
+.primary_btn:hover::before {
+    left: 100%;
+}
+
+
+/* ========================================
+   5. PROGRAMS SECTION STYLES
+   ======================================== */
+.programs , .impact-gallery-section {
+    padding: 20px 0 60px   0;
+    background: var(--background-secondary);
+}
+
+.programs-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+    gap: 2rem;
+    margin-bottom: 3rem;
+}
+
+.program-card {
+    background: var(--background-primary);
+    padding: 2.5rem;
+    border-radius: 20px;
+    text-align: center;
+    border: 2px solid var(--border-light);
+    transition: all 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+    position: relative;
+    overflow: hidden;
+}
+
+.program-card:hover {
+    transform: translateY(-8px);
+    box-shadow: var(--shadow-primary);
+    border-color: var(--border-hover);
+}
+
+.program-card::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 4px;
+    background: var(--gradient-primary);
+}
+
+
+.program-card h3 {
+    font-size: 1.5rem;
+    margin-bottom: 1rem;
+    color: var(--text-primary);
+    font-weight: 700;
+}
+
+.program-card p {
+    color: var(--text-secondary);
+    margin-bottom: 24px;
+}
+
+.program-features {
+    list-style: none;
+    margin-bottom: 24px;
+}
+
+.program-features li {
+    color: var(--text-secondary);
+    margin-bottom: 8px;
+    padding-left: 20px;
+    position: relative;
+}
+
+.program-features li::before {
+    content: '•';
+    color: var(--primary-red);
+    font-size: 1.2rem;
+    position: absolute;
+    left: 0;
+}
+
+
+/* ========================================
+   6. BREAK SECTION (QUOTE) STYLES
+   ======================================== */
+.break-1 {
+    position: relative;
+    height: 70vh;
+    margin: 0 0 2rem 0;
+    border-radius: 25px;
+    overflow: hidden;
+    box-shadow: var(--shadow-primary);
+}
+
+.break-1 .back-image {
+    position: absolute;
+    top: 0;
+    left: 0;
+    background-image: url(https://images.unsplash.com/photo-1522202176988-66273c2fd55f?ixlib=rb-4.0.3&auto=format&fit=crop&w=1200&q=80);
+    background-position: center;
+    background-size: cover;
+    width: 100%;
+    height: 100%;
+    transition: transform 8s ease;
+}
+
+.break-1:hover .back-image {
+    transform: scale(1.05);
+}
+
+.break-1 .overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(135deg, rgba(220, 38, 38, 0.7) 0%, rgba(31, 41, 55, 0.8) 100%);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.break-1 .quote-content {
+    text-align: center;
+    color: var(--text-light);
+    max-width: 800px;
+    padding: 2rem;
+}
+
+.break-1 .quote {
+    font-size: 3rem;
+    font-weight: 700;
+    margin-bottom: 2rem;
+    text-shadow: 0 2px 20px rgba(0, 0, 0, 0.5);
+    line-height: 1.2;
+}
+
+.break-1 .author {
+    font-size: 1.3rem;
+    font-style: italic;
+    opacity: 0.9;
+}
+
+
+/* ========================================
+   7. BLOG SECTION STYLES
+   ======================================== */
+.blog-section {
+    padding: 30px 20px;
+} 
+
+.blog-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+    gap: 40px;
+    margin-top: 48px;
+}
+
+/* Blog Card */
+.blog-card {
+    background: white;
+    border-radius: 20px;
+    overflow: hidden;
+    box-shadow: 0 10px 40px rgba(0, 0, 0, 0.08);
+    border: 1px solid var(--border-light);
+    transition: all 0.3s ease;
+    display: flex;
+    flex-direction: column;
+}
+
+.blog-card:hover {
+    transform: translateY(-8px);
+    box-shadow: var(--shadow-primary);
+}
+
+/* Card Image */
+.card-image {
+    position: relative;
+    height: 240px;
+    overflow: hidden;
+    background: linear-gradient(135deg, #fef2f2, #f3f4f6);
+}
+
+.card-image img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.5s ease;
+}
+
+.blog-card:hover .card-image img {
+    transform: scale(1.05);
+}
+
+/* Category Badge */
+.card-category {
+    position: absolute;
+    top: 16px;
+    left: 16px;
+    background: var(--gradient-primary);
+    color: white;
+    padding: 8px 16px;
+    border-radius: 20px;
+    font-size: 0.85rem;
+    font-weight: 600;
+    letter-spacing: 0.3px;
+    box-shadow: 0 4px 12px rgba(220, 38, 38, 0.3);
+}
+
+/* Card Content */
+.card-content {
+    padding: 32px;
+    display: flex;
+    flex-direction: column;
+    flex-grow: 1;
+}
+
+.card-title {
+    font-size: 1.5rem;
+    font-weight: 700;
+    color: var(--text-primary);
+    margin-bottom: 12px;
+    line-height: 1.3;
+    transition: color 0.3s ease;
+}
+
+.blog-card:hover .card-title {
+    background: var(--gradient-text);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+
+.card-excerpt {
+    font-size: 1rem;
+    color: var(--text-secondary);
+    margin-bottom: 24px;
+    line-height: 1.6;
+    flex-grow: 1;
+}
+
+/* Card Meta */
+.card-meta {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin-bottom: 20px;
+    padding-top: 16px;
+    border-top: 1px solid var(--border-light);
+    font-size: 0.9rem;
+    color: var(--text-muted);
+}
+
+.card-author {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.author-avatar {
+    width: 32px;
+    height: 32px;
+    border-radius: 50%;
+    background: var(--gradient-primary);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: white;
+    font-weight: 600;
+    font-size: 0.9rem;
+}
+
+.author-name {
+    font-weight: 500;
+    color: var(--text-secondary);
+}
+
+.card-date {
+    color: var(--text-muted);
+}
+
+/* Read More Button */
+.read-more {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    color: var(--primary-red);
+    text-decoration: none;
+    font-weight: 600;
+    font-size: 0.95rem;
+    transition: all 0.3s ease;
+    position: relative;
+}
+
+.read-more::after {
+    content: '→';
+    transition: transform 0.3s ease;
+}
+
+.read-more:hover {
+    gap: 12px;
+}
+
+.read-more:hover::after {
+    transform: translateX(4px);
+}
+
+/* View All Button */
+.view-all-container {
+    text-align: center;
+    margin-top: 64px;
+}
+
+.btn-view-all {
+    background: var(--gradient-primary);
+    color: white;
+    padding: 16px 40px;
+    border: none;
+    border-radius: 50px;
+    font-size: 1.1rem;
+    font-weight: 600;
+    text-decoration: none;
+    display: inline-block;
+    transition: all 0.3s ease;
+    box-shadow: var(--shadow-primary);
+    cursor: pointer;
+}
+
+.btn-view-all:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 15px 35px rgba(220, 38, 38, 0.3);
+}
+
+
+/* ========================================
+   8. TESTIMONIALS SECTION STYLES
+   ======================================== */
+.testimonials {
+    padding: 60px 20px;
+    background: var(--background-primary);
+    overflow: hidden;
+}
+
+.testimonials-header {
+    text-align: center;
+    margin-bottom: 60px;
+    position: relative;
+    padding: 0 20px;
+}
+
+.testimonials-header::after {
+    content: '';
+    position: absolute;
+    bottom: -20px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 80px;
+    height: 3px;
+    background: var(--gradient-primary);
+    border-radius: 2px;
+}
+
+/* Testimonials Container with Horizontal Scrolling */
+.testimonials-container {
+    position: relative;
+    overflow: hidden;
+    margin-top: 40px;
+    padding: 20px 0;
+}
+
+.testimonials-grid {
+    display: flex;
+    gap: 30px;
+    animation: scrollHorizontal 30s linear infinite;
+    width: max-content;
+    padding-left: 20px;
+}
+
+.testimonials-grid:hover {
+    animation-play-state: paused;
+}
+
+/* Individual Testimonial Card */
+.testimonial-card {
+    position: relative;
+    height: 320px;
+    width: 350px;
+    min-width: 350px;
+    border-radius: 20px;
+    overflow: hidden;
+    cursor: pointer;
+    transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+    flex-shrink: 0;
+}
+
+.testimonial-card:hover {
+    transform: translateY(-8px) scale(1.02);
+    box-shadow: var(--shadow-primary);
+}
+
+.testimonial-bg {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    transition: transform 0.4s ease;
+    opacity: 0.8;
+}
+
+.testimonial-card:hover .testimonial-bg {
+    transform: scale(1.05);
+}
+
+.testimonial-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(135deg, rgba(220, 38, 38, 0.5) 0%, rgba(31, 41, 55, 0.5) 50%, rgba(0, 0, 0, 0.5) 100%);
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    padding: 30px;
+    text-align: center;
+    opacity: 1;
+    transition: opacity 0.4s ease;
+}
+
+.quote-icon {
+    font-size: 2.5rem;
+    color: var(--accent-white);
+    opacity: 0.9;
+    margin-bottom: 15px;
+}
+
+.testimonial-content {
+    color: var(--text-light);
+}
+
+.testimonial-text {
+    font-size: clamp(0.9rem, 1.5vw, 1.05rem);
+    line-height: 1.5;
+    margin-bottom: 20px;
+    font-style: italic;
+    display: -webkit-box;
+    -webkit-line-clamp: 4;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+}
+
+.testimonial-author {
+    font-weight: 700;
+    font-size: clamp(0.95rem, 1.5vw, 1.1rem);
+    margin-bottom: 5px;
+}
+
+.testimonial-role {
+    font-size: clamp(0.8rem, 1.2vw, 0.9rem);
+    opacity: 0.9;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+.social-indicator {
+    position: absolute;
+    top: 20px;
+    right: 20px;
+    background: rgba(33, 32, 32, 0.9);
+    backdrop-filter: blur(10px);
+    padding: 8px 12px;
+    border-radius: 20px;
+    font-size: 0.8rem;
+    color: var(--accent-white);
+    font-weight: 800;
+    z-index: 2;
+}
+
+
+/* ========================================
+   9. BRANDS SECTION STYLES (FIXED)
+   ======================================== */
+.brands-section {
+    padding: 80px 0;
+    background: var(--background-secondary);
+    overflow: hidden;
+}
+
+.brands-slider-container {
+    position: relative;
+    width: 100%;
+    overflow: hidden;
+    margin-top: 40px;
+}
+
+.brands-slider {
+    display: flex;
+    flex-direction: column;
+    gap: 30px;
+}
+
+/* Brand Rows */
+.brand-row {
+    display: flex;
+    gap: 30px;
+    width: max-content;
+    will-change: transform;
+}
+
+/* Scroll Animations */
+.scroll-left {
+    animation: scrollLeft 30s linear infinite;
+}
+
+.scroll-right {
+    animation: scrollRight 35s linear infinite;
+}
+
+/* Pause animation on hover */
+.brand-row:hover {
+    animation-play-state: paused;
+}
+
+/* Individual Brand Logo Card */
+.brand-logo-card {
+    min-width: 200px;
+    height: 120px;
+    background: var(--background-primary);
+    border-radius: 15px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 20px;
+    border: 1px solid var(--border-light);
+    transition: all 0.3s ease;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05);
+    flex-shrink: 0;
+}
+
+.brand-logo-card:hover {
+    transform: translateY(-5px);
+    box-shadow: var(--shadow-primary);
+    border-color: var(--border-hover);
+}
+
+.brand-logo-card img {
+    max-width: 100%;
+    max-height: 100%;
+    object-fit: contain;
+    filter: grayscale(5%);
+    opacity: 0.7;
+    transition: all 0.3s ease;
+}
+
+.brand-logo-card:hover img {
+    filter: grayscale(0%);
+    opacity: 1;
+}
+
+
+/* ========================================
+   10. INVITATION/TRANSFORMATION SECTION
+   ======================================== */
+.twik-invitation-section {
+    position: relative;
+    padding: 8rem 2rem;
+    background: var(--gradient-primary);
+    overflow: hidden;
+}
+
+.twik-invitation-section::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><defs><pattern id="grid" width="10" height="10" patternUnits="userSpaceOnUse"><path d="M 10 0 L 0 0 0 10" fill="none" stroke="rgba(255,255,255,0.05)" stroke-width="0.5"/></pattern></defs><rect width="100" height="100" fill="url(%23grid)"/></svg>');
+    opacity: 0.5;
+}
+
+.twik-invitation-container {
+    max-width: 1400px;
+    margin: 0 auto;
+    position: relative;
+    z-index: 2;
+}
+
+.twik-section-header {
+    text-align: center;
+    margin-bottom: 5rem;
+    animation: fadeInUp 1s ease-out;
+}
+
+.twik-section-title {
+    font-size: clamp(2rem, 5vw, 3.5rem);
+    font-weight: 800;
+    line-height: 1.2;
+    margin-bottom: 1.5rem;
+    color: var(--text-light);
+    text-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+}
+
+.twik-section-subtitle {
+    font-size: clamp(1rem, 2.5vw, 1.35rem);
+    color: rgba(255, 255, 255, 0.9);
+    max-width: 800px;
+    margin: 0 auto;
+    line-height: 1.7;
+}
+
+.twik-transformation-visual {
+    display: grid;
+    grid-template-columns: 1fr auto 1fr;
+    gap: 2rem;
+    align-items: center;
+    max-width: 1200px;
+    margin: 0 auto;
+}
+
+.twik-blog-card {
+    background: var(--background-primary);
+    border-radius: 24px;
+    overflow: hidden;
+    box-shadow: var(--shadow-card);
+    transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+    position: relative;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+}
+
+.twik-blog-card:hover {
+    transform: translateY(-12px) scale(1.02);
+    box-shadow: 0 20px 50px rgba(0, 0, 0, 0.25);
+}
+
+.twik-card-image {
+    height: 280px;
+    position: relative;
+    overflow: hidden;
+}
+
+.twik-card-image img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.twik-blog-card:hover .twik-card-image img {
+    transform: scale(1.1);
+}
+
+.twik-card-image::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(to bottom, transparent 0%, rgba(0, 0, 0, 0.1) 50%, rgba(0, 0, 0, 0.3) 100%);
+}
+
+.twik-card-category {
+    position: absolute;
+    top: 1.5rem;
+    left: 1.5rem;
+    background: rgba(255, 255, 255, 0.95);
+    backdrop-filter: blur(10px);
+    padding: 0.6rem 1.25rem;
+    border-radius: 25px;
+    font-size: 0.875rem;
+    font-weight: 700;
+    color: var(--primary-red);
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    z-index: 3;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+}
+
+.twik-card-content {
+    padding: 2rem;
+    flex-grow: 1;
+    display: flex;
+    flex-direction: column;
+}
+
+.twik-card-title {
+    font-size: clamp(1.5rem, 3vw, 1.85rem);
+    font-weight: 700;
+    margin-bottom: 1rem;
+    color: var(--text-primary);
+    line-height: 1.3;
+}
+
+.twik-card-excerpt {
+    color: var(--text-secondary);
+    line-height: 1.7;
+    font-size: 1.05rem;
+    flex-grow: 1;
+}
+
+.twik-transform-arrow {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    animation: pulse 2s ease-in-out infinite;
+}
+
+.twik-arrow-icon {
+    font-size: 2.5rem;
+    color: var(--text-light);
+    font-weight: 700;
+    animation: slideRight 1.5s ease-in-out infinite;
+}
+
+
+/* ========================================
+   11. UTILITY & ANIMATION STYLES
+   ======================================== */
+.reveal {
+    opacity: 1;
+    transform: translateY(0px);
+    transition: all 0.8s ease;
+}
+
+.reveal.active {
+    transform: translateY(0);
+}
+
+
+
+/* ========================================
+   12. KEYFRAME ANIMATIONS
+   ======================================== */
+@keyframes fadeInUp {
+    from {
+        opacity: 0;
+        transform: translateY(40px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+@keyframes pulse {
+    0%, 100% {
+        transform: scale(1);
+        box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15);
+    }
+    50% {
+        transform: scale(1.05);
+        box-shadow: 0 12px 35px rgba(0, 0, 0, 0.25);
+    }
+}
+
+@keyframes slideRight {
+    0%, 100% {
+        transform: translateX(0);
+    }
+    50% {
+        transform: translateX(8px);
+    }
+}
+
+@keyframes slideDown {
+    0%, 100% {
+        transform: rotate(90deg) translateX(0);
+    }
+    50% {
+        transform: rotate(90deg) translateX(8px);
+    }
+}
+
+@keyframes scrollHorizontal {
+    0% {
+        transform: translateX(0);
+    }
+    50% {
+        transform: translateX(calc(-50% + 50vw));
+    }
+    100% {
+        transform: translateX(0);
+    }
+}
+
+/* Brand Logo Scroll Animations */
+@keyframes scrollLeft {
+    0% {
+        transform: translateX(0);
+    }
+    100% {
+        transform: translateX(-50%);
+    }
+}
+
+@keyframes scrollRight {
+    0% {
+        transform: translateX(-50%);
+    }
+    100% {
+        transform: translateX(0);
+    }
+}
+
+
+/* ========================================
+   13. RESPONSIVE MEDIA QUERIES
+   ======================================== */
+
+/* Large Desktop (1440px and above) */
+@media (min-width: 1440px) {
+    .brands-slider {
+        gap: 40px;
+    }
+    
+    .brand-logo-card {
+        min-width: 220px;
+        height: 140px;
+    }
+}
+
+/* Desktop (1200px - 1439px) */
+@media (min-width: 1200px) and (max-width: 1439px) {
+    .brand-logo-card {
+        min-width: 200px;
+        height: 120px;
+    }
+}
+
+/* Laptop/Small Desktop (1024px - 1199px) */
+@media (min-width: 1024px) and (max-width: 1199px) {
+    .blog-grid {
+        grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+        gap: 32px;
+    }
+
+    .section-title {
+        font-size: 2.5rem;
+    }
+
+    .twik-invitation-section {
+        padding: 6rem 1.5rem;
+    }
+
+    .twik-transformation-visual {
+        gap: 1.5rem;
+    }
+
+    .twik-card-image {
+        height: 240px;
+    }
+
+    .twik-arrow-icon {
+        font-size: 2rem;
+    }
+    
+    .brand-logo-card {
+        min-width: 180px;
+        height: 110px;
+    }
+    
+    .brands-slider {
+        gap: 25px;
+    }
+}
+
+/* Tablet (768px - 1023px) */
+@media (max-width: 1023px) {
+    /* About Section Responsive */
+    .about_grid {
+        grid-template-columns: 1fr;
+        gap: 60px;
+    }
+
+    .image_pyramid {
+        min-height: 500px;
+        margin-bottom: 40px;
+    }
+
+    .bg_image {
+        width: 90%;
+        height: 350px;
+    }
+
+    .portrait_image {
+        height: 450px;
+        width: 50%;
+    }
+
+    .small_landscape {
+        width: 55%;
+        height: 250px;
+    }
+    
+    /* Brands Section Responsive */
+    .brand-logo-card {
+        min-width: 170px;
+        height: 100px;
+    }
+    
+    .brands-slider {
+        gap: 20px;
+    }
+}
+
+/* Mobile Landscape & Tablet Portrait (768px - 991px) */
+@media (max-width: 991px) {
+    .about_section {
+        padding: 60px 0;
+    }
+
+    .about_content h2 {
+        font-size: 2rem;
+    }
+
+    .about_content p {
+        font-size: 1rem;
+    }
+
+    .image_pyramid {
+        min-height: 450px;
+    }
+
+    .bg_image {
+        width: 100%;
+        height: 300px;
+    }
+
+    .portrait_image {
+        height: 400px;
+        width: 55%;
+        top: 60px;
+    }
+
+    .small_landscape {
+        width: 60%;
+        height: 220px;
+        bottom: 20px;
+        left: 30px;
+    }
+}
+
+/* Tablet Portrait (768px - 899px) */
+@media (min-width: 768px) and (max-width: 899px) {
+    .testimonials {
+        padding: 60px 15px;
+    }
+    
+    .testimonials-header {
+        margin-bottom: 40px;
+    }
+    
+    .testimonial-card {
+        height: 290px;
+        width: 300px;
+        min-width: 300px;
+    }
+    
+    .testimonials-grid {
+        gap: 20px;
+    }
+    
+    .testimonial-overlay {
+        padding: 22px;
+    }
+    
+    .quote-icon {
+        font-size: 2.2rem;
+    }
+}
+
+/* Mobile & Small Tablets (max-width: 767px) */
+@media (max-width: 767px) {
+
+    .programs , .impact-gallery-section {
+        padding: 20px 0;
+        background: var(--background-secondary);
+    }
+
+    .programs-grid {
+        display: grid;
+        justify-content: center;
+        align-content: center;
+    }
+
+    .blog-section {
+        padding: 30px 0;
+    }
+
+    .section-header {
+        margin-bottom: 48px;
+    }
+
+    .section-title {
+        font-size: 2rem;
+    }
+
+    .section-subtitle {
+        font-size: 1rem;
+    }
+
+    .blog-grid {
+        grid-template-columns: 1fr;
+        gap: 24px;
+    }
+
+    .card-image {
+        height: 200px;
+    }
+
+    .card-content {
+        padding: 24px;
+    }
+
+    .card-title {
+        font-size: 1.3rem;
+    }
+
+    .view-all-container {
+        margin-top: 48px;
+    }
+
+    .twik-invitation-section {
+        padding: 5rem 1.25rem;
+    }
+
+    .twik-section-header {
+        margin-bottom: 3rem;
+    }
+
+    .twik-section-title {
+        font-size: 2rem;
+        margin-bottom: 1rem;
+    }
+
+    .twik-section-subtitle {
+        font-size: 1rem;
+    }
+
+    .twik-transformation-visual {
+        grid-template-columns: 1fr;
+        gap: 2.5rem;
+    }
+
+    .twik-arrow-icon {
+        font-size: 1.75rem;
+        transform: rotate(90deg);
+        animation: slideDown 1.5s ease-in-out infinite;
+    }
+
+    .twik-card-image {
+        height: 220px;
+    }
+
+    .twik-card-content {
+        padding: 1.75rem;
+    }
+
+    .twik-card-title {
+        font-size: 1.5rem;
+    }
+
+    .twik-card-excerpt {
+        font-size: 1rem;
+    }
+
+    .twik-card-category {
+        top: 1rem;
+        left: 1rem;
+        padding: 0.5rem 1rem;
+        font-size: 0.75rem;
+    }
+    
+    /* Brands Section Mobile */
+    .brands-section {
+        padding: 60px 0;
+    }
+    
+    .brand-logo-card {
+        min-width: 150px;
+        height: 90px;
+        padding: 15px;
+    }
+    
+    .brands-slider {
+        gap: 15px;
+    }
+    
+    .brand-row {
+        gap: 15px;
+    }
+}
+
+/* Mobile Portrait (480px - 639px) */
+@media (min-width: 480px) and (max-width: 639px) {
+
+    .testimonials {
+        padding: 50px 10px;
+    }
+    
+    .testimonials-header {
+        margin-bottom: 35px;
+    }
+    
+    .testimonial-card {
+        height: 270px;
+        width: 270px;
+        min-width: 270px;
+    }
+    
+    .testimonials-grid {
+        gap: 15px;
+        padding-left: 10px;
+    }
+    
+    .testimonial-overlay {
+        padding: 18px;
+    }
+    
+    .quote-icon {
+        font-size: 1.8rem;
+        margin-bottom: 10px;
+    }
+    
+    .testimonial-text {
+        -webkit-line-clamp: 3;
+        margin-bottom: 12px;
+    }
+    
+    .social-indicator {
+        top: 12px;
+        right: 12px;
+        padding: 6px 10px;
+        font-size: 0.7rem;
+    }
+}
+
+/* Small Mobile (max-width: 479px) */
+@media (max-width: 479px) {
+    .section-title {
+        font-size: 1.75rem;
+    }
+
+    .card-content {
+        padding: 20px;
+    }
+
+    .card-title {
+        font-size: 1.2rem;
+    }
+
+    .card-excerpt {
+        font-size: 0.95rem;
+    }
+
+    .btn-view-all {
+        padding: 14px 32px;
+        font-size: 1rem;
+    }
+
+    .twik-invitation-section {
+        padding: 4rem 1rem;
+    }
+
+    .twik-section-header {
+        margin-bottom: 2.5rem;
+    }
+
+    .twik-section-title {
+        font-size: 1.75rem;
+    }
+
+    .twik-transformation-visual {
+        gap: 2rem;
+    }
+
+    .twik-card-image {
+        height: 200px;
+    }
+
+    .twik-card-content {
+        padding: 1.5rem;
+    }
+
+    .twik-card-title {
+        font-size: 1.35rem;
+        margin-bottom: 0.75rem;
+    }
+
+    .twik-card-excerpt {
+        font-size: 0.95rem;
+        line-height: 1.6;
+    }
+
+    .twik-arrow-icon {
+        font-size: 1.5rem;
+    }
+    
+    /* Brands Section Small Mobile */
+    .brands-section {
+        padding: 50px 0;
+    }
+    
+    .brand-logo-card {
+        min-width: 140px;
+        height: 80px;
+        padding: 12px;
+    }
+    
+    .brands-slider {
+        gap: 12px;
+    }
+    
+    .brand-row {
+        gap: 12px;
+    }
+    
+    /* Testimonials Small Mobile */
+    .testimonials {
+        padding: 40px 10px;
+    }
+    
+    .testimonials-header {
+        margin-bottom: 30px;
+    }
+    
+    .testimonials-header::after {
+        width: 60px;
+        height: 2px;
+    }
+    
+    .testimonial-card {
+        height: 260px;
+        width: 260px;
+        min-width: 260px;
+    }
+    
+    .testimonials-grid {
+        gap: 12px;
+        padding-left: 10px;
+    }
+    
+    .testimonial-overlay {
+        padding: 15px;
+    }
+    
+    .quote-icon {
+        font-size: 1.6rem;
+        margin-bottom: 8px;
+    }
+    
+    .testimonial-text {
+        -webkit-line-clamp: 3;
+        margin-bottom: 10px;
+        line-height: 1.4;
+    }
+    
+    .testimonial-author {
+        margin-bottom: 3px;
+    }
+    
+    .social-indicator {
+        top: 10px;
+        right: 10px;
+        padding: 5px 8px;
+        font-size: 0.65rem;
+    }
+}
+
+/* Extra Small Mobile (max-width: 319px) */
+@media (max-width: 319px) {
+    .testimonials {
+        padding: 35px 8px;
+    }
+    
+    .testimonial-card {
+        height: 240px;
+        width: 240px;
+        min-width: 240px;
+    }
+    
+    .testimonials-grid {
+        gap: 10px;
+        padding-left: 8px;
+    }
+    
+    .testimonial-overlay {
+        padding: 12px;
+    }
+    
+    .quote-icon {
+        font-size: 1.4rem;
+        margin-bottom: 6px;
+    }
+    
+    .testimonial-text {
+        -webkit-line-clamp: 2;
+        margin-bottom: 8px;
+        font-size: 0.85rem;
+    }
+    
+    .social-indicator {
+        top: 8px;
+        right: 8px;
+        padding: 4px 6px;
+        font-size: 0.6rem;
+    }
+    
+    /* Brands Extra Small Mobile */
+    .brand-logo-card {
+        min-width: 120px;
+        height: 70px;
+        padding: 10px;
+    }
+}
+
+
+/* ========================================
+   14. ACCESSIBILITY & PERFORMANCE
+   ======================================== */
+
+/* Reduced Motion Support */
+@media (prefers-reduced-motion: reduce) {
+    *,
+    *::before,
+    *::after {
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.01ms !important;
+    }
+    
+    .testimonials-grid,
+    .brand-row {
+        animation: none;
+    }
+}
+
+/* High Contrast Mode Support */
+@media (prefers-contrast: high) {
+    .twik-blog-card,
+    .brand-logo-card {
+        border: 2px solid var(--text-primary);
+    }
+}
+
+/* Hover Effects - Disable on Touch Devices */
+@media (hover: none) and (pointer: coarse) {
+    .testimonial-card:hover,
+    .brand-logo-card:hover {
+        transform: none;
+    }
+    
+    .testimonial-card:active {
+        transform: scale(0.98);
+    }
+    
+    .brand-logo-card:active {
+        transform: scale(0.97);
+    }
+}
+
+/* Performance Optimizations */
+.brand-row,
+.testimonials-grid {
+    will-change: transform;
+}

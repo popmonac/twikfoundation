@@ -1,0 +1,534 @@
+:root {
+  /* Primary Colors - Matching TWiK Logo */
+  --primary-red: #dc2626;
+  --primary-black: #1f2937;
+  --accent-white: #ffffff;
+  /* Background Colors */
+  --background-primary: #ffffff;
+  --background-secondary: #f8fafc;
+  --background-gradient: linear-gradient(135deg, #fef2f2 0%, #f9fafb 50%, #ffffff 100%);
+  /* Text Colors */
+  --text-primary: #1f2937;
+  --text-secondary: #4b5563;
+  --text-muted: #9ca3af;
+  --text-light: #ffffff;
+  /* Border and Effects */
+  --border-light: rgba(220, 38, 38, 0.1);
+  --border-hover: rgba(220, 38, 38, 0.3);
+  --shadow-primary: 0 10px 25px rgba(220, 38, 38, 0.15);
+  --backdrop-blur: blur(10px);
+  /* Gradients */
+  --gradient-primary: linear-gradient(135deg, var(--primary-red), var(--primary-black));
+   --gradient-sec: linear-gradient(135deg, var(--primary-red), var(--primary-black));
+  --gradient-text: linear-gradient(135deg, var(--primary-red), var(--primary-black));
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: 'Inter', '-apple-system' , 'BlinkMacSystemFont', 'Segoe UI', sans-serif;
+  line-height: 1.6;
+  color: var(--text-primary);
+  background: var(--background-primary);
+  overflow-x: hidden;
+}
+
+.container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 2rem;
+}
+
+/* Section Styling */
+.section {
+  padding: 6rem 0;
+  position: relative;
+}
+
+.section::after {
+    content: '';
+    position: absolute;
+    bottom: -20px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 80px;
+    height: 3px;
+    background: var(--gradient-primary);
+    border-radius: 2px;
+}
+
+.section-title {
+  font-size: clamp(2.5rem, 5vw, 4rem);
+  font-weight: 800;
+  line-height: 1.1;
+  margin-bottom: 2rem;
+  background: var(--gradient-text);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  text-align: center;
+}
+
+/* Reveal Animation */
+.reveal {
+  opacity: 0;
+  transform: translateY(50px);
+  transition: all 0.8s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+}
+
+.reveal.visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* Section 2: Barriers Section */
+.barriers-section {
+  background: var(--background-gradient);
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+}
+
+.barriers-content {
+  text-align: center;
+}
+
+.barriers-split {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 4rem;
+  align-items: center;
+  margin-top: 3rem;
+}
+
+.classroom-image {
+  position: relative;
+  border-radius: 20px;
+  overflow: hidden;
+  box-shadow: var(--shadow-primary);
+  transform: perspective(1000px) rotateY(-5deg);
+  transition: transform 0.6s ease;
+}
+
+.classroom-image:hover {
+  transform: perspective(1000px) rotateY(0deg) scale(1.02);
+}
+
+.classroom-image img {
+  width: 100%;
+  height: 400px;
+  object-fit: cover;
+  display: block;
+}
+
+.barriers-story {
+  text-align: left;
+  padding: 2rem;
+}
+
+.story-line {
+  font-size: 1.5rem;
+  margin-bottom: 1.5rem;
+  opacity: 0;
+  animation: fadeInStagger 0.8s ease forwards;
+  color: var(--text-secondary);
+  font-weight: 500;
+}
+
+.story-line:nth-child(1) { animation-delay: 0.2s; }
+.story-line:nth-child(2) { animation-delay: 0.4s; }
+.story-line:nth-child(3) { animation-delay: 0.6s; }
+
+.story-line:last-child {
+  color: var(--primary-red);
+  font-weight: 700;
+  font-size: 1.8rem;
+}
+
+.why-exist-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 1rem 2rem;
+  background: var(--gradient-primary);
+  color: var(--text-light);
+  text-decoration: none;
+  border-radius: 50px;
+  font-weight: 600;
+  margin-top: 2rem;
+  transition: all 0.3s ease;
+  box-shadow: var(--shadow-primary);
+}
+
+.why-exist-btn:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 15px 35px rgba(220, 38, 38, 0.25);
+}
+
+/* Section 3: Spark Section */
+.spark-section {
+  background: var(--background-secondary);
+}
+
+.spark-header {
+  text-align: center;
+  margin-bottom: 4rem;
+}
+
+
+
+/* Section 4: Transformation Section */
+.transformation-section {
+  background: var(--background-primary);
+}
+
+.transformation-header {
+  text-align: center;
+  margin-bottom: 4rem;
+}
+
+
+/* Section 5: Reach Section */
+.reach-section {
+  background: var(--background-gradient);
+}
+
+.reach-header {
+  text-align: center;
+  margin-bottom: 4rem;
+}
+
+.interactive-map {
+  position: relative;
+  width: 100%;
+  height: 400px;
+  background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 300"><rect width="400" height="300" fill="%23f3f4f6"/><path d="M50 50 L350 50 L350 250 L50 250 Z" fill="%23e5e7eb" stroke="%23d1d5db"/></svg>') center/contain no-repeat;
+  margin: 3rem 0;
+  border-radius: 20px;
+  overflow: hidden;
+}
+
+.map-dot {
+  position: absolute;
+  width: 16px;
+  height: 16px;
+  background: var(--primary-red);
+  border-radius: 50%;
+  border: 3px solid var(--accent-white);
+  cursor: pointer;
+  transition: all 0.3s ease;
+  animation: pulse 2s infinite;
+}
+
+.map-dot:hover {
+  transform: scale(1.5);
+  z-index: 10;
+}
+
+.reach-stats {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 2rem;
+  margin: 4rem 0;
+}
+
+.stat-item {
+  text-align: center;
+  padding: 2rem;
+  background: var(--background-primary);
+  border-radius: 20px;
+  box-shadow: 0 5px 20px rgba(0, 0, 0, 0.05);
+  transition: transform 0.3s ease;
+}
+
+.stat-item:hover {
+  transform: translateY(-5px);
+}
+
+.stat-number {
+  display: block;
+  font-size: 2.5rem;
+  font-weight: 800;
+  margin-bottom: 0.5rem;
+}
+
+.stat-item p {
+  color: var(--text-secondary);
+  font-weight: 500;
+}
+
+.student-quotes {
+  margin-top: 3rem;
+}
+
+.quote-card {
+  background: var(--background-primary);
+  padding: 2.5rem;
+  border-radius: 20px;
+  text-align: center;
+  box-shadow: var(--shadow-primary);
+  border-left: 5px solid var(--primary-red);
+}
+
+.quote-text {
+  font-size: 1.3rem;
+  font-style: italic;
+  margin-bottom: 1rem;
+  color: var(--text-secondary);
+}
+
+.quote-author {
+  font-weight: 600;
+  color: var(--primary-red);
+}
+
+
+
+/* Section 7: Social Proof */
+.social-proof-section {
+  background: var(--background-primary);
+}
+
+.social-header {
+  text-align: center;
+  margin-bottom: 4rem;
+}
+
+.social-posts {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 2rem;
+}
+
+.social-post {
+  background: var(--background-secondary);
+  padding: 2rem;
+  border-radius: 20px;
+  border-left: 4px solid var(--primary-red);
+  transition: transform 0.3s ease;
+}
+
+.social-post:hover {
+  transform: translateX(5px);
+}
+
+.post-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 1rem;
+}
+
+.post-author {
+  font-weight: 600;
+  color: var(--primary-red);
+}
+
+.post-platform {
+  font-size: 0.8rem;
+  color: var(--text-muted);
+  background: var(--background-primary);
+  padding: 0.3rem 0.8rem;
+  border-radius: 15px;
+}
+
+.social-post p {
+  font-size: 1.1rem;
+  color: var(--text-secondary);
+  line-height: 1.6;
+}
+
+/* Section 8: Invitation Section */
+.invitation-section {
+  background: var(--gradient-primary);
+  color: var(--text-light);
+  position: relative;
+  overflow: hidden;
+}
+
+.invitation-content {
+  position: relative;
+  z-index: 2;
+  text-align: center;
+}
+
+.invitation-section .section-title {
+  color: var(--text-light);
+  background: none;
+  -webkit-text-fill-color: var(--text-light);
+  
+}
+
+.invitation-subtitle {
+  font-size: 1.3rem;
+  margin-bottom: 3rem;
+  opacity: 0.9;
+}
+
+.invitation-buttons {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1rem;
+  justify-content: center;
+  margin-bottom: 3rem;
+}
+
+.invitation-btn {
+  padding: 1.2rem 2.5rem;
+  border-radius: 50px;
+  text-decoration: none;
+  font-weight: 600;
+  transition: all 0.3s ease;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.invitation-btn.primary {
+  background: var(--accent-white);
+  color: var(--primary-red);
+}
+
+.invitation-btn.secondary {
+  background: transparent;
+  color: var(--text-light);
+  border: 2px solid var(--accent-white);
+}
+
+.invitation-btn.tertiary {
+  background: rgba(255, 255, 255, 0.1);
+  color: var(--text-light);
+  backdrop-filter: var(--backdrop-blur);
+}
+
+.invitation-btn:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
+}
+
+.invitation-bg {
+  position: absolute;
+  top: 0;
+  right: 0;
+  width: 50%;
+  height: 100%;
+  opacity: 0.1;
+  z-index: 1;
+}
+
+.invitation-bg img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+/* Section 9: Moments Gallery */
+.moment-section {
+  background: var(--background-secondary);
+}
+
+.moment-header {
+  text-align: center;
+  margin-bottom: 4rem;
+}
+
+.moments-gallery {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 2rem;
+}
+
+.moment-item {
+  position: relative;
+  border-radius: 20px;
+  overflow: hidden;
+  aspect-ratio: 1;
+  cursor: pointer;
+  transition: transform 0.4s ease;
+}
+
+.moment-item:hover {
+  transform: scale(1.03);
+}
+
+.moment-item img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.6s ease;
+}
+
+.moment-overlay {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  background: linear-gradient(transparent, rgba(0, 0, 0, 0.8));
+  color: var(--text-light);
+  padding: 2rem;
+  transform: translateY(100%);
+  transition: transform 0.4s ease;
+  font-weight: 500;
+}
+
+.moment-item:hover .moment-overlay {
+  transform: translateY(0);
+}
+
+.moment-item:hover img {
+  transform: scale(1.1);
+}
+
+/* Section 10: Stay in Touch */
+.stay-touch-section {
+  background: var(--background-primary);
+}
+
+.touch-header {
+  text-align: center;
+  margin-bottom: 3rem;
+}
+
+.newsletter-form {
+  display: flex;
+  max-width: 500px;
+  margin: 0 auto 3rem;
+  gap: 1rem;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+
+.newsletter-input {
+  flex: 1;
+  min-width: 250px;
+  padding: 1.2rem 1.5rem;
+  border: 2px solid var(--border-light);
+  border-radius: 50px;
+  font-size: 1rem;
+  outline: none;
+  transition: border-color 0.3s ease;
+}
+
+.newsletter-input:focus {
+  border-color: var(--primary-red);
+}
+
+.newsletter-btn {
+  padding: 1.2rem 2.5rem;
+  background: var(--primary-red);
+  color: var(--text-light);
+  border: none;
+  border-radius: 50px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.newsletter-btn:hover {
+  background: var(--primary-black);
+  transform: translateY(-2px);
+}
