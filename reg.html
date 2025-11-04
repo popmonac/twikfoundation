@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Register - Google AI Program | TWiK Foundation</title>
     <link rel="stylesheet" href="style/nav.css">
+    <script src="script/home.js" defer></script>
     <style>
        :root {
             --primary-red: #dc2626;
@@ -35,6 +36,22 @@
             line-height: 1.6;
             color: var(--text-primary);
             background: var(--background-secondary);
+        }
+
+          .logo {
+            display: flex;
+            align-items: center;
+            transition: transform 0.3s ease;
+        }
+
+        .logo:hover {
+            transform: scale(1.05);
+        }
+
+        .iconnn {
+            height: 50px;
+            width: auto;
+            object-fit: contain;
         }
 
         /* Hero Section */
@@ -432,6 +449,13 @@
 
         /* Tablets (768px and below) */
         @media (max-width: 768px) {
+
+
+            .iconnn {
+                height: 40px;
+            }
+
+
             .hero {
                 padding: 7rem 1.5rem 2.5rem;
             }
@@ -666,6 +690,11 @@
 
         /* Small mobile devices (480px and below) */
         @media (max-width: 480px) {
+
+            .iconnn {
+                height: 35px;
+            }
+
             .hero {
                 padding: 6rem 0.75rem 1.75rem;
             }
@@ -789,6 +818,10 @@
 
         /* Extra small devices (360px and below) */
         @media (max-width: 360px) {
+             .iconnn {
+                height: 30px;
+            }
+
             .hero h1 {
                 font-size: 1.35rem;
             }
@@ -834,7 +867,8 @@
 </head>
 
 <body>
-    <!-- Navigation -->
+    
+   <!-- Navigation -->
     <nav class="navbar" id="navbar">
         <div class="nav-container">
             <!-- Logo -->
@@ -842,14 +876,49 @@
                 <img src="image/twik.png" class="logo-icon" alt="TWiK Logo">
             </a>
 
-             <a href="#home" class="nav-logo">
-                    <img src="image/google.png" class="logo-iconnn" alt="TWiK Logo">
+             <a href="#home" class="logo">
+                    <img src="image/google.png" class="iconnn" alt="TWiK Logo">
                 </a>
                 <a href="#home" class="nav-logo">
-                    <img src="image/electrons.png" class="logo-iconnn" alt="TWiK Logo">
+                    <img src="image/electrons.png" class="iconnn" alt="TWiK Logo">
                 </a>
 
-           
+            <!-- Desktop Navigation Menu -->
+            <ul class="nav-menu">
+                <li class="nav-item">
+                    <a href="#Home" class="nav-link active">Home</a>
+                </li>
+                <li class="nav-item">
+                    <a href="#about" class="nav-link">About Us</a>
+                </li>
+                <li class="nav-item">
+                    <a href="#blog" class="nav-link">Spotlight</a>
+                </li>
+                
+            </ul>
+
+            <!-- CTA Button 
+            <a href="join.html" class="nav-cta">Join the Movement</a>-->
+
+            <!-- Mobile Toggle -->
+            <button class="mobile-toggle" id="mobileToggle">
+                <span class="hamburger-line"></span>
+                <span class="hamburger-line"></span>
+                <span class="hamburger-line"></span>
+            </button>
+        </div>
+
+        <!-- Mobile Menu -->
+        <div class="mobile-menu" id="mobileMenu">
+            <ul class="mobile-nav-menu">
+                <li><a href="index.html" class="mobile-nav-link active">Home</a></li>
+                <li><a href="index.html#about" class="mobile-nav-link">About Us</a></li>
+                <li><a href="index.html#blog" class="mobile-nav-link">Spotlight</a></li>
+                <li class="mobile-cta">
+                    <a href="index.html#join" class="nav-cta">Join the Movement</a>
+                </li>
+            </ul>
+        </div>
     </nav>
 
     <!-- Hero Section -->
@@ -895,12 +964,10 @@
                 <p>Before proceeding, please have the following information ready:</p>
                 <ul>
                     <li><strong>Full Name:</strong> As it appears on your student ID</li>
-                    <li><strong>Email Address:</strong> Your active email (preferably university email)</li>
-                    <li><strong>Phone Number:</strong> Your active WhatsApp number</li>
+                    <li><strong>Email Address:</strong> Your active email</li>
                     <li><strong>University/Institution:</strong> Full name of your university</li>
-                    <li><strong>Department:</strong> Your current department</li>
-                    <li><strong>Matric Number:</strong> Your student registration number</li>
-                    <li><strong>Year of Study:</strong> Current level (100-600)</li>
+                    
+                    <li><strong>School fee receipt / ID:</strong> Last or recent school fee receipt /  student ID</li>
                 </ul>
             </div>
 
@@ -916,7 +983,7 @@
             <div class="success-message" id="successMessage1">
                 <div class="success-icon">✅</div>
                 <h3>Great Start!</h3>
-                <p>Now proceed to Step 2 to fill the enrollment form</p>
+                <p>Now proceed to Step 2 to fill the progress tracking form</p>
             </div>
         </div>
 
@@ -932,12 +999,12 @@
                 <h4>🎯 Important Information</h4>
                 <p>This official Google enrollment form will:</p>
                 <ul>
-                    <li>Activate your Google AI Program learning account</li>
-                    <li>Grant you free access to Gemini Pro</li>
-                    <li>Set up your progress tracking dashboard</li>
-                    <li>Enroll you in the certification program</li>
+                    <li>Fill the form for  progress tracking </li>
+                    <li>Future opportunities</li>
+                    
+                  
                 </ul>
-                <p style="margin-top: 1rem;"><strong>Note:</strong> Please fill all fields accurately. This information will be used throughout the program.</p>
+                <p style="margin-top: 1rem;"><strong>Note:</strong> Please fill all fields accurately. This information will be used when writing a recommendation report to Google.</p>
             </div>
 
             <!-- Embedded Google Form -->
@@ -952,7 +1019,7 @@
             <div class="success-message" id="successMessage2">
                 <div class="success-icon">✅</div>
                 <h3>Form Submitted Successfully!</h3>
-                <p>One more step! Join the WhatsApp community to complete your registration</p>
+                <p>One more step! Join the progress tracking platform to complete your registration</p>
             </div>
         </div>
 
@@ -960,30 +1027,31 @@
         <div class="step-card" id="step3Card">
             <div class="step-header">
                 <div class="step-number-badge">Step 3 of 3</div>
-                <h2>Join the WhatsApp Community</h2>
-                <p class="subtitle">Connect with your peers and stay updated throughout the program</p>
+                <h2>Join the progress tracking platform</h2>
+                <p class="subtitle">Connect with others learning and using AI</p>
             </div>
 
             <div class="info-box">
-                <h4>💬 Why Join the WhatsApp Group?</h4>
-                <p>The WhatsApp community is essential for your success in this program:</p>
+                <h4>💬 Why join progress tracking platform?</h4>
+                <p>The platform is essential for your success in this program:</p>
                 <ul>
+                    <li><strong>Exhibition:</strong> Share knowledge and showcase your what you are doing with AI</li>
                     <li><strong>Real-Time Updates:</strong> Get instant notifications about program activities, deadlines, and opportunities</li>
                     <li><strong>Peer Learning:</strong> Share knowledge, ask questions, and learn from fellow students</li>
                     <li><strong>Mentorship Access:</strong> Direct communication with program coordinators and mentors</li>
                     <li><strong>Progress Tracking:</strong> Share your projects and get feedback from the community</li>
-                    <li><strong>Networking:</strong> Build lasting connections with AI enthusiasts across your university</li>
-                    <li><strong>Recognition:</strong> Outstanding contributors will be highlighted to Google at program end</li>
+                    <li><strong>Networking:</strong> Build lasting connections with AI enthusiasts across Africa</li>
+                    <li><strong>Recognition:</strong> Outstanding contributors will be highlighted to Google at the end of the program</li>
                 </ul>
             </div>
 
             <button class="bttn bttn-whatsapp" onclick="joinWhatsAppGroup()">
                 <span class="bttn-icon">💬</span>
-                <span>Join WhatsApp Community</span>
+                <span>Join the progress tracking platform</span>
             </button>
 
             <button class="bttn bttn-secondary" onclick="completeStep(3)">
-                I've Joined the WhatsApp Group
+                I've Joined the progress tracking platform
             </button>
 
             <div class="success-message" id="successMessage3">
@@ -997,18 +1065,11 @@
         <div class="completion-card" id="completionCard" style="display: none;">
             <div class="success-icon">🎊</div>
             <h2>Congratulations!</h2>
-            <p>You've successfully completed your registration for the Google AI Program</p>
-            <p>Check your email for:</p>
-            <ul style="list-style: none; padding: 0; margin: 2rem 0;">
-                <li style="margin: 0.75rem 0;">✅ Welcome email with program details</li>
-                <li style="margin: 0.75rem 0;">✅ Gemini Pro access credentials</li>
-                <li style="margin: 0.75rem 0;">✅ Learning materials and resources</li>
-                <li style="margin: 0.75rem 0;">✅ Your first week's assignments</li>
-            </ul>
+            <p>You've successfully completed your registration for the Google AI Program.login to your Google Gemini to start enjoying the pro access.</p>
             <p style="margin-top: 2rem;"><strong>What's Next?</strong></p>
-            <p>Your university's Institutional Coordinator will contact you within 48 hours with onboarding information.</p>
+            <p>Write your first AI prompt and share the response on the progress tracking platform. Start making everyday count with AI.</p>
             
-            <a href="eai.html" class="bttn" style="margin-top: 2rem;">
+            <a href="teai.html" class="bttn" style="margin-top: 2rem;">
                 <span>Back to Program Info</span>
             </a>
         </div>
