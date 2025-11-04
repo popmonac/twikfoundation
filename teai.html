@@ -156,7 +156,8 @@
         /* Section Header */
         .section-header {
             text-align: center;
-            margin-bottom: 3rem;
+            margin-bottom: rem;
+            
         }
 
         .section-header h2 {
@@ -174,13 +175,9 @@
             color: var(--text-secondary);
             max-width: 700px;
             margin: 0 auto;
+            margin-bottom: 2rem;
         }
-
-        /* Container Sections */
-        .container {
-            padding: 4rem 2rem;
-        }
-
+       
         /* Program Overview */
         .overview-grid {
             display: grid;
@@ -237,9 +234,7 @@
         /* Benefits Section */
         .benefits-section {
             background: var(--background-secondary);
-            padding: 5rem 2rem;
-            margin: 4rem 0;
-            border-radius: 30px;
+            
         }
 
         .benefits-grid {
@@ -294,7 +289,7 @@
             max-width: 800px;
             margin: 0 auto;
             position: relative;
-            padding: 2rem 0;
+        
         }
 
         .timeline::before {
@@ -500,7 +495,7 @@
         /* Responsive Design */
         @media (max-width: 1024px) {
             .container {
-                padding: 3rem 1.5rem;
+                padding:  0 1.5rem;
             }
 
             .timeline::before {
@@ -535,7 +530,7 @@
             }
 
             .container {
-                padding: 3rem 1rem;
+                padding: 0 1rem;
             }
 
             .overview-grid,
@@ -605,7 +600,7 @@
             }
 
             .container {
-                padding: 2.5rem 0.75rem;
+                padding: 0 0.75rem;
             }
 
             .overview-card,
@@ -654,7 +649,7 @@
             }
 
             .container {
-                padding: 2rem 0.5rem;
+                padding: 0 0.5rem;
             }
         }
         
@@ -725,46 +720,47 @@
 
 
     <!-- Program Overview -->
-    <div class="container" id="about">
+    <section class="container" id="about">
         <div class="section-header">
             <h2>About The Program</h2>
-            <p>Connecting Nigerian students to Google's Africa Digital & AI Skills Initiative</p>
+            <p>Connecting African students to Google's Africa Digital & AI Skills Initiative</p>
             
             <div class="overview-grid">
                 <div class="overview-card" style="grid-column: 1 / -1;">
                     <h3>Google's Commitment to Africa</h3>
                     <p>Earlier this year, <strong>Google announced a major commitment to train 3 million students, teachers, and youth across Africa</strong> in digital and artificial intelligence (AI) skills over the next five years.</p>
-                    <p style="margin-top: 1rem;">Through this initiative, <strong>Tech with Khalid Foundation (TWiK)</strong> and <strong>Electrons</strong> are helping Nigerian universities connect their students to this life-changing opportunity.</p>
+                    <p style="margin-top: 1rem;">Through this initiative, <strong>Tech with Khalid Foundation (TWiK)</strong> and <strong>Electrons</strong> are helping Nigerian universities educate their students about this life-changing opportunity.</p>
                     <p style="margin-top: 1rem;">Students will get <strong>free access to Google's most advanced AI model — Gemini Pro — for 12 months</strong>.</p>
                     <p style="margin-top: 1rem;"><strong>This isn't just about access; it's about empowering students to create real-world solutions, innovate, and lead Africa's digital and creative revolution.</strong></p>
                 </div>
             </div>
         </div>
 
-        <section class="section-header">
+    </section>
+
+     <section class="section-header">
             <h2>Program Goals</h2>
             <p>What this initiative aim to achieve</p>
             
             <div class="overview-grid">
-            <div class="overview-card">
-                <h3>Future-Ready Skills</h3>
-                <p>Equip students with AI and digital skills for the jobs of the future.</p>
-            </div>
+                <div class="overview-card">
+                    <h3>Future-Ready Skills</h3>
+                    <p>Equip students with AI and digital skills for the jobs of the future.</p>
+                </div>
 
-            <div class="overview-card">
-                <h3>Innovation & Research</h3>
-                <p>Help students build, research, and innovate using real-world AI tools.</p>
-            </div>
+                <div class="overview-card">
+                    <h3>Innovation & Research</h3>
+                    <p>Help students build, research, and innovate using real-world AI tools.</p>
+                </div>
 
 
-            <div class="overview-card">
-                <h3>Digital Inclusion</h3>
-                <p>Foster collaboration between students, educators, and institutions through digital inclusion.</p>
+                <div class="overview-card">
+                    <h3>Digital Inclusion</h3>
+                    <p>Foster collaboration between students, educators, and institutions through digital inclusion.</p>
+                </div>
             </div>
-        </div>
         </section>
 
-    </div>
 
     <!-- Benefits Section -->
     <section class="benefits-section">
