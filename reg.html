@@ -23,7 +23,6 @@
             --gradient-text: linear-gradient(135deg, var(--primary-red), var(--primary-black));
             --success-green: #10b981;
             --google-blue: #4285f4;
-            --error-red: #ef4444;
         }
 
         * {
@@ -39,7 +38,7 @@
             background: var(--background-secondary);
         }
 
-        .logo {
+          .logo {
             display: flex;
             align-items: center;
             transition: transform 0.3s ease;
@@ -61,6 +60,7 @@
             padding: 8rem 2rem 3rem;
             text-align: center;
             color: var(--text-light);
+            
         }
 
         .hero h1 {
@@ -254,73 +254,6 @@
             margin: 0.5rem 0;
         }
 
-        /* Form Styles */
-        .registration-form {
-            margin: 2rem 0;
-        }
-
-        .form-group {
-            margin-bottom: 1.5rem;
-        }
-
-        .form-label {
-            display: block;
-            font-weight: 600;
-            color: var(--text-primary);
-            margin-bottom: 0.5rem;
-            font-size: 0.95rem;
-        }
-
-        .form-label .required {
-            color: var(--primary-red);
-            margin-left: 4px;
-        }
-
-        .form-input,
-        .form-select {
-            width: 100%;
-            padding: 0.875rem 1rem;
-            border: 2px solid var(--border-light);
-            border-radius: 12px;
-            font-size: 1rem;
-            font-family: inherit;
-            transition: all 0.3s ease;
-            background: var(--background-primary);
-        }
-
-        .form-input:focus,
-        .form-select:focus {
-            outline: none;
-            border-color: var(--primary-red);
-            box-shadow: 0 0 0 3px rgba(220, 38, 38, 0.1);
-        }
-
-        .form-input::placeholder {
-            color: var(--text-muted);
-        }
-
-        .form-input.error,
-        .form-select.error {
-            border-color: var(--error-red);
-        }
-
-        .error-message {
-            color: var(--error-red);
-            font-size: 0.85rem;
-            margin-top: 0.5rem;
-            display: none;
-        }
-
-        .error-message.show {
-            display: block;
-        }
-
-        .form-row {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 1.5rem;
-        }
-
         /* Button */
         .bttn {
             padding: 1.25rem 3rem;
@@ -338,18 +271,13 @@
             width: 100%;
         }
 
-        .bttn:disabled {
-            opacity: 0.6;
-            cursor: not-allowed;
-        }
-
         .bttn-primary {
             background: var(--gradient-primary);
             color: var(--text-light);
             box-shadow: var(--shadow-primary);
         }
 
-        .bttn-primary:hover:not(:disabled) {
+        .bttn-primary:hover {
             transform: translateY(-3px);
             box-shadow: 0 15px 35px rgba(220, 38, 38, 0.3);
         }
@@ -390,18 +318,23 @@
             font-size: 1.3rem;
         }
 
-        .loading-spinner {
-            display: inline-block;
-            width: 20px;
-            height: 20px;
-            border: 3px solid rgba(255, 255, 255, 0.3);
-            border-radius: 50%;
-            border-top-color: white;
-            animation: spin 0.8s linear infinite;
+        /* Google Form Embed */
+        .form-container {
+            width: 100%;
+            max-width: 100%;
+            overflow: hidden;
+            margin: 2rem 0;
+            border-radius: 15px;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.1);
         }
 
-        @keyframes spin {
-            to { transform: rotate(360deg); }
+        .form-embed {
+            width: 100%;
+            max-width: 100%;
+            height: 800px;
+            border: none;
+            border-radius: 15px;
+            display: block;
         }
 
         /* Success Message */
@@ -447,30 +380,6 @@
             font-size: 1.1rem;
         }
 
-        /* Error Alert */
-        .error-alert {
-            display: none;
-            background: linear-gradient(135deg, rgba(239, 68, 68, 0.1), rgba(220, 38, 38, 0.1));
-            border: 2px solid var(--error-red);
-            border-radius: 15px;
-            padding: 1.5rem;
-            margin-bottom: 2rem;
-        }
-
-        .error-alert.show {
-            display: block;
-            animation: slideIn 0.5s ease-out;
-        }
-
-        .error-alert h4 {
-            color: var(--error-red);
-            margin-bottom: 0.5rem;
-        }
-
-        .error-alert p {
-            color: var(--text-secondary);
-        }
-
         /* Final Completion */
         .completion-card {
             background: var(--gradient-primary);
@@ -501,11 +410,51 @@
             transform: scale(1.05);
         }
 
+        
+
         /* Responsive Breakpoints */
+        
+        /* Large tablets and small desktops (1024px and below) */
+        @media (max-width: 1024px) {
+            .container {
+                max-width: 90%;
+                padding: 0 1.5rem;
+            }
+
+            .step-card {
+                padding: 2.5rem 2rem;
+            }
+
+            .hero h1 {
+                font-size: 2.5rem;
+            }
+
+            .hero p {
+                font-size: 1.1rem;
+            }
+
+            .bttn {
+                font-size: 1rem;
+                padding: 1.1rem 2.5rem;
+            }
+
+            .step-card h2 {
+                font-size: 1.8rem;
+            }
+
+            .step-card .subtitle {
+                font-size: 1rem;
+            }
+        }
+
+        /* Tablets (768px and below) */
         @media (max-width: 768px) {
+
+
             .iconnn {
                 height: 40px;
             }
+
 
             .hero {
                 padding: 7rem 1.5rem 2.5rem;
@@ -533,14 +482,47 @@
                 margin-bottom: 1.5rem;
             }
 
-            .form-row {
-                grid-template-columns: 1fr;
-                gap: 1rem;
+            .step-header {
+                padding-bottom: 1.5rem;
+            }
+
+            .step-number-badge {
+                padding: 0.4rem 1.2rem;
+                font-size: 0.9rem;
+            }
+
+            .step-card h2 {
+                font-size: 1.6rem;
+            }
+
+            .step-card .subtitle {
+                font-size: 0.95rem;
+            }
+
+            .info-box {
+                padding: 1.25rem;
+            }
+
+            .info-box h4 {
+                font-size: 1rem;
+            }
+
+            .info-box p,
+            .info-box ul {
+                font-size: 0.9rem;
             }
 
             .bttn {
                 font-size: 1rem;
                 padding: 1rem 2rem;
+            }
+
+            .bttn-icon {
+                font-size: 1.1rem;
+            }
+
+            .form-embed {
+                height: 900px;
             }
 
             .completion-card {
@@ -554,14 +536,51 @@
             .completion-card p {
                 font-size: 1rem;
             }
+
+            .success-message {
+                padding: 1.5rem;
+            }
+
+            .success-icon {
+                font-size: 3rem;
+            }
+
+            .success-message h3 {
+                font-size: 1.5rem;
+            }
+
+            .success-message p {
+                font-size: 1rem;
+            }
+
+            
         }
 
+        /* Mobile landscape and small tablets (640px and below) */
         @media (max-width: 640px) {
+            .hero {
+                padding: 7rem 1rem 2rem;
+            }
+
+            .hero h1 {
+                font-size: 1.75rem;
+                line-height: 1.2;
+            }
+
+            .hero p {
+                font-size: 0.95rem;
+            }
+
+            .progress-bar {
+                padding: 1.25rem;
+            }
+
             .progress-steps {
                 flex-direction: column;
                 gap: 1.5rem;
                 justify-content: center;
                 align-items: center;
+                
             }
 
             .progress-steps::before,
@@ -569,13 +588,109 @@
                 display: none;
             }
 
+            .progress-step {
+                flex-direction: column;
+                justify-content: flex-start;
+                gap: 1rem;
+            }
+
+            .step-circle {
+                margin-bottom: 0;
+                flex-shrink: 0;
+            }
+
+            .step-label {
+                font-size: 0.85rem;
+                text-align: left;
+                display: flex;
+                align-items: center;
+            }
+
             .step-card {
                 padding: 1.5rem 1rem;
                 border-radius: 15px;
             }
+
+            .step-header {
+                padding-bottom: 1.25rem;
+                margin-bottom: 1.5rem;
+            }
+
+            .step-card h2 {
+                font-size: 1.4rem;
+            }
+
+            .step-card .subtitle {
+                font-size: 0.9rem;
+            }
+
+            .info-box {
+                padding: 1rem;
+                font-size: 0.85rem;
+            }
+
+            .info-box h4 {
+                font-size: 0.95rem;
+            }
+
+            .info-box ul {
+                margin: 0.75rem 0 0 1.25rem;
+                font-size: 0.85rem;
+            }
+
+            .info-box ul li {
+                margin: 0.4rem 0;
+            }
+
+            .bttn {
+                font-size: 0.95rem;
+                padding: 0.9rem 1.5rem;
+                border-radius: 40px;
+            }
+
+            .form-embed {
+                height: 1000px;
+                border-radius: 10px;
+            }
+
+            .completion-card {
+                padding: 2.5rem 1.5rem;
+                border-radius: 15px;
+            }
+
+            .completion-card h2 {
+                font-size: 1.75rem;
+            }
+
+            .completion-card p {
+                font-size: 0.95rem;
+            }
+
+            .completion-card ul li {
+                font-size: 0.9rem;
+            }
+
+            .success-message {
+                padding: 1.25rem;
+                border-radius: 12px;
+            }
+
+            .success-icon {
+                font-size: 2.5rem;
+            }
+
+            .success-message h3 {
+                font-size: 1.3rem;
+            }
+
+            .success-message p {
+                font-size: 0.9rem;
+            }
         }
 
+        /* Small mobile devices (480px and below) */
         @media (max-width: 480px) {
+
             .iconnn {
                 height: 35px;
             }
@@ -596,15 +711,158 @@
                 padding: 0 0.75rem;
             }
 
+            .progress-bar {
+                padding: 1rem;
+                border-radius: 12px;
+            }
+
+            
+            .step-circle {
+                width: 35px;
+                height: 35px;
+                font-size: 0.9rem;
+            }
+
+            .step-label {
+                font-size: 0.8rem;
+            }
+
             .step-card {
                 padding: 1.25rem 0.875rem;
+            }
+
+            .step-number-badge {
+                padding: 0.35rem 1rem;
+                font-size: 0.8rem;
+            }
+
+            .step-card h2 {
+                font-size: 1.25rem;
+            }
+
+            .step-card .subtitle {
+                font-size: 0.85rem;
+            }
+
+            .info-box {
+                padding: 0.875rem;
+            }
+
+            .info-box h4 {
+                font-size: 0.9rem;
+                margin-bottom: 0.5rem;
+            }
+
+            .info-box p {
+                font-size: 0.8rem;
+                line-height: 1.5;
+            }
+
+            .info-box ul {
+                margin: 0.5rem 0 0 1rem;
+                font-size: 0.8rem;
             }
 
             .bttn {
                 font-size: 0.875rem;
                 padding: 0.85rem 1.25rem;
             }
+
+            .bttn-icon {
+                font-size: 1rem;
+            }
+
+            .form-embed {
+                height: 1100px;
+            }
+
+            .completion-card {
+                padding: 2rem 1.25rem;
+            }
+
+            .completion-card h2 {
+                font-size: 1.5rem;
+            }
+
+            .completion-card p {
+                font-size: 0.875rem;
+            }
+
+            .completion-card ul {
+                margin: 1.5rem 0;
+            }
+
+            .completion-card ul li {
+                font-size: 0.85rem;
+                margin: 0.6rem 0;
+            }
+
+            .success-message {
+                padding: 1rem;
+            }
+
+            .success-icon {
+                font-size: 2rem;
+            }
+
+            .success-message h3 {
+                font-size: 1.15rem;
+            }
+
+            .success-message p {
+                font-size: 0.85rem;
+            }
+
+           
         }
+
+        /* Extra small devices (360px and below) */
+        @media (max-width: 360px) {
+             .iconnn {
+                height: 30px;
+            }
+
+            .hero h1 {
+                font-size: 1.35rem;
+            }
+
+            .hero p {
+                font-size: 0.85rem;
+            }
+
+            .progress-step {
+                gap: 0.75rem;
+            }
+
+            .step-circle {
+                width: 32px;
+                height: 32px;
+                font-size: 0.85rem;
+            }
+
+            .step-label {
+                font-size: 0.75rem;
+            }
+
+            .step-card h2 {
+                font-size: 1.15rem;
+            }
+
+            .step-card .subtitle {
+                font-size: 0.8rem;
+            }
+
+            .bttn {
+                font-size: 0.8rem;
+                padding: 0.8rem 1rem;
+            }
+
+            .form-embed {
+                height: 1200px;
+            }
+        }
+
+      
     </style>
 </head>
 
@@ -619,10 +877,10 @@
             </a>
 
              <a href="#home" class="logo">
-                    <img src="image/google.png" class="iconnn" alt="Google Logo">
+                    <img src="image/google.png" class="iconnn" alt="TWiK Logo">
                 </a>
                 <a href="#home" class="nav-logo">
-                    <img src="image/electrons.png" class="iconnn" alt="Electrons Logo">
+                    <img src="image/electrons.png" class="iconnn" alt="TWiK Logo">
                 </a>
 
             <!-- Desktop Navigation Menu -->
@@ -636,7 +894,11 @@
                 <li class="nav-item">
                     <a href="#blog" class="nav-link">Spotlight</a>
                 </li>
+                
             </ul>
+
+            <!-- CTA Button 
+            <a href="join.html" class="nav-cta">Join the Movement</a>-->
 
             <!-- Mobile Toggle -->
             <button class="mobile-toggle" id="mobileToggle">
@@ -662,7 +924,9 @@
     <!-- Hero Section -->
     <section class="hero">
         <h1>Complete Your Registration</h1>
-        <p>Follow these 3 simple steps to secure free access to Google's most advanced AI model — Gemini Pro — for 12 months.</p>
+        <p>Follow these 3 simple steps to secure a free access to Google's most advanced AI model — Gemini Pro — for 12 months.
+
+</p>
     </section>
 
     <!-- Main Container -->
@@ -679,7 +943,7 @@
                 
                 <div class="progress-step" id="progressStep2">
                     <div class="step-circle">2</div>
-                    <div class="step-label">Fill Form</div>
+                    <div class="step-label">Google Form</div>
                 </div>
                 
                 <div class="progress-step" id="progressStep3">
@@ -704,7 +968,8 @@
                     <li><strong>Full Name:</strong> As it appears on your student ID</li>
                     <li><strong>Email Address:</strong> Your active email</li>
                     <li><strong>University/Institution:</strong> Full name of your university</li>
-                    <li><strong>School fee receipt / ID:</strong> Last or recent school fee receipt / student ID</li>
+                    
+                    <li><strong>School fee receipt / ID:</strong> Last or recent school fee receipt /  student ID</li>
                 </ul>
             </div>
 
@@ -724,138 +989,34 @@
             </div>
         </div>
 
-        <!-- Step 2: Registration Form -->
+        <!-- Step 2: Google Form Embed -->
         <div class="step-card" id="step2Card">
             <div class="step-header">
                 <div class="step-number-badge">Step 2 of 3</div>
-                <h2>Complete Your Enrollment Form</h2>
-                <p class="subtitle">Fill out this form to activate your learning account and access Gemini Pro</p>
+                <h2>Fill the Google Enrollment Form</h2>
+                <p class="subtitle">Complete this form to activate your learning account and access Gemini Pro</p>
             </div>
 
             <div class="info-box">
                 <h4>🎯 Important Information</h4>
-                <p>This enrollment form will:</p>
+                <p>This official Google enrollment form will:</p>
                 <ul>
-                    <li>Track your progress throughout the program</li>
-                    <li>Connect you with future opportunities</li>
-                    <li>Enable personalized support and mentorship</li>
+                    <li>Fill the form for  progress tracking </li>
+                    <li>Future opportunities</li>
+                    
+                  
                 </ul>
                 <p style="margin-top: 1rem;"><strong>Note:</strong> Please fill all fields accurately. This information will be used when writing a recommendation report to Google.</p>
             </div>
 
-            <div class="error-alert" id="formErrorAlert">
-                <h4>⚠️ Submission Error</h4>
-                <p id="formErrorMessage">Please check your internet connection and try again.</p>
-            </div>
+            <!-- Embedded Google Form -->
+            <!-- Replace the src URL with your actual Google Form embed URL -->
+           <iframe class="form-embed" src="https://docs.google.com/forms/d/e/1FAIpQLSeCpSUnbnOf2kVpAWCuzitby-vAYjZI97Lpm5SmiYWkQhHI6w/viewform?embedded=true" width="700" height="520" frameborder="0" marginheight="0" marginwidth="0">Loading…</iframe>
 
-            <form class="registration-form" id="registrationForm">
-                <div class="form-group">
-                    <label class="form-label" for="fullName">
-                        Full Name <span class="required">*</span>
-                    </label>
-                    <input 
-                        type="text" 
-                        id="fullName" 
-                        name="fullName" 
-                        class="form-input" 
-                        placeholder="Enter your full name"
-                        required
-                    >
-                    <div class="error-message" id="fullNameError">Please enter your full name</div>
-                </div>
-
-                <div class="form-row">
-                    <div class="form-group">
-                        <label class="form-label" for="email">
-                            Email Address <span class="required">*</span>
-                        </label>
-                        <input 
-                            type="email" 
-                            id="email" 
-                            name="email" 
-                            class="form-input" 
-                            placeholder="your.email@example.com"
-                            required
-                        >
-                        <div class="error-message" id="emailError">Please enter a valid email</div>
-                    </div>
-
-                    <div class="form-group">
-                        <label class="form-label" for="phoneNumber">
-                            Phone Number <span class="required">*</span>
-                        </label>
-                        <input 
-                            type="tel" 
-                            id="phone" 
-                            name="phone" 
-                            class="form-input" 
-                            placeholder="+234 800 000 0000"
-                            required
-                        >
-                        <div class="error-message" id="phoneError">Please enter your phone number</div>
-                    </div>
-                </div>
-
-                <div class="form-group">
-                    <label class="form-label" for="institution">
-                        Name of Institution <span class="required">*</span>
-                    </label>
-                    <input 
-                        type="text" 
-                        id="institution" 
-                        name="institution" 
-                        class="form-input" 
-                        placeholder="Enter your university or institution name"
-                        required
-                    >
-                    <div class="error-message" id="institutionError">Please enter your institution name</div>
-                </div>
-
-                <div class="form-row">
-                    <div class="form-group">
-                        <label class="form-label" for="course">
-                            Course of Study <span class="required">*</span>
-                        </label>
-                        <input 
-                            type="text" 
-                            id="course" 
-                            name="course" 
-                            class="form-input" 
-                            placeholder="e.g., Computer Science"
-                            required
-                        >
-                        <div class="error-message" id="courseError">Please enter your course of study</div>
-                    </div>
-
-                    <div class="form-group">
-                        <label class="form-label" for="level">
-                            Level <span class="required">*</span>
-                        </label>
-                        <select 
-                            id="level" 
-                            name="level" 
-                            class="form-select"
-                            required
-                        >
-                            <option value="">Select your level</option>
-                            <option value="100">100 Level</option>
-                            <option value="200">200 Level</option>
-                            <option value="300">300 Level</option>
-                            <option value="400">400 Level</option>
-                            <option value="500">500 Level</option>
-                            <option value="600">600 Level</option>
-                            <option value="Graduate">Graduate</option>
-                            <option value="Postgraduate">Postgraduate</option>
-                        </select>
-                        <div class="error-message" id="levelError">Please select your level</div>
-                    </div>
-                </div>
-
-                <button type="submit" class="bttn bttn-primary" id="submitBtn">
-                    <span id="submitBtnText">Submit Registration</span>
-                    <span class="bttn-icon" id="submitBtnIcon">→</span>
-                </button>
-            </form>
+            <button class="bttn bttn-google" onclick="completeStep(2)">
+                <span class="bttn-icon">✓</span>
+                <span>I've Submitted the Form</span>
+            </button>
 
             <div class="success-message" id="successMessage2">
                 <div class="success-icon">✅</div>
@@ -868,31 +1029,31 @@
         <div class="step-card" id="step3Card">
             <div class="step-header">
                 <div class="step-number-badge">Step 3 of 3</div>
-                <h2>Join the Progress Tracking Platform</h2>
+                <h2>Join the progress tracking platform</h2>
                 <p class="subtitle">Connect with others learning and using AI</p>
             </div>
 
             <div class="info-box">
-                <h4>💬 Why join the progress tracking platform?</h4>
+                <h4>💬 Why join progress tracking platform?</h4>
                 <p>The platform is essential for your success in this program:</p>
                 <ul>
-                    <li><strong>Exhibition:</strong> Share knowledge and showcase what you are doing with AI</li>
-                    <li><strong>Real-Time Updates:</strong> Get instant notifications about program activities and deadlines</li>
+                    <li><strong>Exhibition:</strong> Share knowledge and showcase your what you are doing with AI</li>
+                    <li><strong>Real-Time Updates:</strong> Get instant notifications about program activities, deadlines, and opportunities</li>
                     <li><strong>Peer Learning:</strong> Share knowledge, ask questions, and learn from fellow students</li>
                     <li><strong>Mentorship Access:</strong> Direct communication with program coordinators and mentors</li>
                     <li><strong>Progress Tracking:</strong> Share your projects and get feedback from the community</li>
                     <li><strong>Networking:</strong> Build lasting connections with AI enthusiasts across Africa</li>
-                    <li><strong>Recognition:</strong> Outstanding contributors will be highlighted to Google</li>
+                    <li><strong>Recognition:</strong> Outstanding contributors will be highlighted to Google at the end of the program</li>
                 </ul>
             </div>
 
             <button class="bttn bttn-whatsapp" onclick="joinWhatsAppGroup()">
                 <span class="bttn-icon">💬</span>
-                <span>Join the Progress Tracking Platform</span>
+                <span>Join the progress tracking platform</span>
             </button>
 
             <button class="bttn bttn-secondary" onclick="completeStep(3)">
-                I've Joined the Progress Tracking Platform
+                I've Joined the progress tracking platform
             </button>
 
             <div class="success-message" id="successMessage3">
@@ -906,7 +1067,7 @@
         <div class="completion-card" id="completionCard" style="display: none;">
             <div class="success-icon">🎊</div>
             <h2>Congratulations!</h2>
-            <p>You've successfully completed your registration for the Google AI Program. Login to your Google Gemini to start enjoying the pro access.</p>
+            <p>You've successfully completed your registration for the Google AI Program.login to your Google Gemini to start enjoying the pro access.</p>
             <p style="margin-top: 2rem;"><strong>What's Next?</strong></p>
             <p>Write your first AI prompt and share the response on the progress tracking platform. Start making everyday count with AI.</p>
             
@@ -916,18 +1077,126 @@
         </div>
     </div>
 
-   
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="footer-container">
+            <!-- Footer Top -->
+            <div class="footer-top">
 
-     <script>
+
+                <!-- Footer Content Grid -->
+                <div class="footer-content">
+                    <!-- Brand Section -->
+                    <div class="footer-brand">
+                        <a href="#home" class="footer-logo">
+                            <img src="image/IMG_8359.JPG" class="footer-logo-icon" alt="TWiK Logo">
+                            TWiK
+                        </a>
+                        <p class="footer-description">
+                            Empowering young minds to turn ideas into impact and challenges into opportunities. Because potential isn’t defined by background, it’s defined by what you build.
+                        </p>
+                        <div class="footer-social">
+                            <a href="https://youtube.com/@techwithkhalid247?si=sD7lI2eQkT00gK96" class="social-link" aria-label="YouTube">
+                                <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor">
+                                    <path d="M23.498 6.186a2.999 2.999 0 0 0-2.114-2.114C19.505 3.546 12 3.546 12 3.546s-7.505 0-9.384.526A2.999 2.999 0 0 0 .502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a2.999 2.999 0 0 0 2.114 2.114C4.495 20.454 12 20.454 12 20.454s7.505 0 9.384-.526a2.999 2.999 0 0 0 2.114-2.114C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.546 15.569V8.431L15.818 12l-6.272 3.569z"/>
+                                </svg>
+                            </a>
+                            <a href="https://www.instagram.com/techwithkhalid_?igsh=MWtqcmJwa3U3Zm1wcw%3D%3D&utm_source=qr" class="social-link" aria-label="Instagram">
+                                <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor">
+                                    <path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/>
+                                </svg>
+                            </a>
+                            <a href="https://x.com/techwithkhalid_?s=21" class="social-link" aria-label="Twitter">
+                                <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor">
+                                    <path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/>
+                                </svg>
+                            </a>
+                            <a href="https://www.linkedin.com/company/tech-with-khalid-twik/" class="social-link" aria-label="LinkedIn">
+                                <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor">
+                                    <path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433c-1.144 0-2.063-.926-2.063-2.065 0-1.138.92-2.063 2.063-2.063 1.14 0 2.064.925 2.064 2.063 0 1.139-.925 2.065-2.064 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/>
+                                </svg>
+                            </a>
+                        </div>
+                    </div>
+
+                    <!-- Quick Links -->
+                    <div class="footer-section">
+                        <h4>Explore</h4>
+                        <ul class="footer-links">
+                            <li><a href="#spark">The Spark</a></li>
+                            <li><a href="#students">Projects</a></li>
+                            <li><a href="#impact">Donations</a></li>
+                            <li><a href="#volunteers">Volunteers</a></li>
+                            <li><a href="#success-stories">Success Stories</a></li>
+                        </ul>
+                    </div>
+
+                    <!-- Programs -->
+                    <div class="footer-section">
+                        <h4>Programs</h4>
+                        <ul class="footer-links">
+                            <li><a href="#mentorship">Mentorship</a></li>
+                            <li><a href="#workshops">Workshops</a></li>
+                            <li><a href="#resources">Resources</a></li>
+                            <li><a href="#community">Community</a></li>
+                            <li><a href="#events">Events</a></li>
+                        </ul>
+                    </div>
+
+                    <!-- Contact -->
+                    <div class="footer-section">
+                        <h4>Get in Touch</h4>
+                        <div class="contact-item">
+                            <svg class="contact-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/>
+                                <circle cx="12" cy="10" r="3"/>
+                            </svg>
+                            <span>Lagos, Nigeria</span>
+                        </div>
+                        <div class="contact-item">
+                            <svg class="contact-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/>
+                                <polyline points="22,6 12,13 2,6"/>
+                            </svg>
+                            <span>techwithkhalidfoundation@gmail.com</span>
+                        </div>
+                        
+                        <!-- Newsletter -->
+                        <div class="newsletter">
+                            <h4>Stay Updated</h4>
+                            <p>Get the latest stories and opportunities delivered to your inbox.</p>
+                            <div class="newsletter-form">
+                                <input type="email" class="newsletter-input" placeholder="Enter your email">
+                                <button class="newsletter-bttn">Subscribe</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Footer Bottom -->
+            <div class="footer-bottom">
+                <div class="footer-bottom-content">
+                    <div class="footer-copyright">
+                        <p>&copy; 2025 TWiK. All rights reserved. Empowering young changemakers worldwide.</p>
+                    </div>
+                    <ul class="footer-links-bottom">
+                        <li><a href="#privacy">Privacy Policy</a></li>
+                        <li><a href="#terms">Terms of Service</a></li>
+                        <li><a href="#cookies">Cookie Policy</a></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <script>
         let currentStep = 1;
-
-        // API Configuration
-        const API_ENDPOINT = 'https://twikform-api.vercel.app/api/submit-form';
 
         function updateProgress() {
             // Update progress line
             const progressLine = document.getElementById('progressLine');
-            const width = ((currentStep - 1) / 2) * 80;
+            const width = ((currentStep - 1) / 2) * 80; // 80% is the width between start and end
             progressLine.style.width = width + '%';
 
             // Update step indicators
@@ -960,6 +1229,7 @@
         }
 
         function openRegistrationLink() {
+            // Replace this URL with your actual Google registration link
             window.open('https://gemini.google/students/?utm_source=Uber&utm_medium=paid_media&utm_campaign=students_shortlink_social-uk', '_blank');
         }
 
@@ -975,158 +1245,9 @@
         }
 
         function joinWhatsAppGroup() {
+            // Replace this URL with your actual WhatsApp group link
             window.open('https://chat.whatsapp.com/ED5LYFjaipGIhi0eSjNotP?mode=ems_copy_t', '_blank');
         }
-
-        // Form Validation and Submission
-        const form = document.getElementById('registrationForm');
-        const submitBtn = document.getElementById('submitBtn');
-        const submitBtnText = document.getElementById('submitBtnText');
-        const submitBtnIcon = document.getElementById('submitBtnIcon');
-        const errorAlert = document.getElementById('formErrorAlert');
-        const errorMessage = document.getElementById('formErrorMessage');
-
-        // Real-time validation
-        const fields = ['fullName', 'email', 'phone', 'institution', 'course', 'level'];
-        
-        fields.forEach(fieldName => {
-            const field = document.getElementById(fieldName);
-            const errorDiv = document.getElementById(`${fieldName}Error`);
-            
-            if (field && errorDiv) {
-                field.addEventListener('blur', () => {
-                    validateField(field, errorDiv);
-                });
-
-                field.addEventListener('input', () => {
-                    if (field.classList.contains('error')) {
-                        field.classList.remove('error');
-                        errorDiv.classList.remove('show');
-                    }
-                });
-            }
-        });
-
-        function validateField(field, errorDiv) {
-            if (!field.value.trim()) {
-                field.classList.add('error');
-                errorDiv.classList.add('show');
-                return false;
-            }
-
-            // Email validation
-            if (field.type === 'email') {
-                const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-                if (!emailRegex.test(field.value)) {
-                    field.classList.add('error');
-                    errorDiv.textContent = 'Please enter a valid email address';
-                    errorDiv.classList.add('show');
-                    return false;
-                }
-            }
-
-            // Phone validation
-            if (field.name === 'phone') {
-                const phoneRegex = /^[\d\s+()-]+$/;
-                if (!phoneRegex.test(field.value) || field.value.replace(/\D/g, '').length < 10) {
-                    field.classList.add('error');
-                    errorDiv.textContent = 'Please enter a valid phone number';
-                    errorDiv.classList.add('show');
-                    return false;
-                }
-            }
-
-            field.classList.remove('error');
-            errorDiv.classList.remove('show');
-            return true;
-        }
-
-        function validateForm() {
-            let isValid = true;
-            
-            fields.forEach(fieldName => {
-                const field = document.getElementById(fieldName);
-                const errorDiv = document.getElementById(`${fieldName}Error`);
-                
-                if (field && errorDiv) {
-                    if (!validateField(field, errorDiv)) {
-                        isValid = false;
-                    }
-                }
-            });
-
-            return isValid;
-        }
-
-        // Form submission
-        form.addEventListener('submit', async (e) => {
-            e.preventDefault();
-            
-            // Hide any previous error alerts
-            errorAlert.classList.remove('show');
-            
-            // Validate form
-            if (!validateForm()) {
-                window.scrollTo({ 
-                    top: form.offsetTop - 100, 
-                    behavior: 'smooth' 
-                });
-                return;
-            }
-
-            // Prepare form data
-            const formData = {
-                fullName: document.getElementById('fullName').value.trim(),
-                email: document.getElementById('email').value.trim(),
-                institution: document.getElementById('institution').value.trim(),
-                phone: document.getElementById('phone').value.trim(),
-                course: document.getElementById('course').value.trim(),
-                level: document.getElementById('level').value
-            };
-
-            // Disable submit button and show loading
-            submitBtn.disabled = true;
-            submitBtnText.textContent = 'Submitting...';
-            submitBtnIcon.innerHTML = '<span class="loading-spinner"></span>';
-
-            try {
-                const response = await fetch(API_ENDPOINT, {
-                    method: 'POST',
-                    headers: {
-                        'Content-Type': 'application/json',
-                    },
-                    body: JSON.stringify(formData)
-                });
-
-                const data = await response.json();
-
-                if (response.ok || response.status === 201) {
-                    // Success - show success message and move to next step
-                    form.reset();
-                    completeStep(2);
-                } else {
-                    // Error from server
-                    throw new Error(data.message || 'Failed to submit form');
-                }
-            } catch (error) {
-                console.error('Submission error:', error);
-                
-                // Show error alert
-                errorMessage.textContent = error.message || 'Something went wrong. Please check your connection and try again.';
-                errorAlert.classList.add('show');
-                
-                // Scroll to error
-                window.scrollTo({ 
-                    top: errorAlert.offsetTop - 100, 
-                    behavior: 'smooth' 
-                });
-            } finally {
-                // Re-enable submit button
-                submitBtn.disabled = false;
-                submitBtnText.textContent = 'Submit Registration';
-                submitBtnIcon.textContent = '→';
-            }
-        });
 
         // Initialize
         updateProgress();
