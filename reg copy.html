@@ -674,60 +674,25 @@
                 
                 <div class="progress-step active" id="progressStep1">
                     <div class="step-circle">1</div>
-                    <div class="step-label">Enter Link</div>
+                    <div class="step-label">Fill Form</div>
                 </div>
                 
                 <div class="progress-step" id="progressStep2">
                     <div class="step-circle">2</div>
-                    <div class="step-label">Fill Form</div>
+                    <div class="step-label">WhatsApp Group</div>
                 </div>
                 
                 <div class="progress-step" id="progressStep3">
                     <div class="step-circle">3</div>
-                    <div class="step-label">WhatsApp Group</div>
+                    <div class="step-label">Google Link</div>
                 </div>
             </div>
         </div>
 
-        <!-- Step 1: Enter Registration Link -->
+        <!-- Step 1: Registration Form -->
         <div class="step-card active" id="step1Card">
             <div class="step-header">
                 <div class="step-number-badge">Step 1 of 3</div>
-                <h2>Access Google Registration</h2>
-                <p class="subtitle">Click the button below to register for Google's Gemini Pro access</p>
-            </div>
-
-            <div class="info-box">
-                <h4>📝 What You'll Need</h4>
-                <p>Before proceeding, please have the following information ready:</p>
-                <ul>
-                    <li><strong>Full Name:</strong> As it appears on your student ID</li>
-                    <li><strong>Email Address:</strong> Your active email</li>
-                    <li><strong>University/Institution:</strong> Full name of your university</li>
-                    <li><strong>School fee receipt / ID:</strong> Last or recent school fee receipt / student ID</li>
-                </ul>
-            </div>
-
-            <button class="bttn bttn-primary" onclick="openRegistrationLink()">
-                <span>Click to register for Google's Gemini Pro access</span>
-                <span class="bttn-icon">→</span>
-            </button>
-
-            <button class="bttn bttn-secondary" onclick="completeStep(1)">
-                I've Completed the Registration
-            </button>
-
-            <div class="success-message" id="successMessage1">
-                <div class="success-icon">✅</div>
-                <h3>Great Start!</h3>
-                <p>Now proceed to Step 2 to fill the progress tracking form</p>
-            </div>
-        </div>
-
-        <!-- Step 2: Registration Form -->
-        <div class="step-card" id="step2Card">
-            <div class="step-header">
-                <div class="step-number-badge">Step 2 of 3</div>
                 <h2>Complete Your Enrollment Form</h2>
                 <p class="subtitle">Fill out this form to activate your learning account and access Gemini Pro</p>
             </div>
@@ -857,17 +822,17 @@
                 </button>
             </form>
 
-            <div class="success-message" id="successMessage2">
+            <div class="success-message" id="successMessage1">
                 <div class="success-icon">✅</div>
                 <h3>Form Submitted Successfully!</h3>
-                <p>One more step! Join the progress tracking platform to complete your registration</p>
+                <p>Great! Now proceed to Step 2 to join the progress tracking platform</p>
             </div>
         </div>
 
-        <!-- Step 3: WhatsApp Group -->
-        <div class="step-card" id="step3Card">
+        <!-- Step 2: WhatsApp Group -->
+        <div class="step-card" id="step2Card">
             <div class="step-header">
-                <div class="step-number-badge">Step 3 of 3</div>
+                <div class="step-number-badge">Step 2 of 3</div>
                 <h2>Join the Progress Tracking Platform</h2>
                 <p class="subtitle">Connect with others learning and using AI</p>
             </div>
@@ -891,14 +856,49 @@
                 <span>Join the Progress Tracking Platform</span>
             </button>
 
-            <button class="bttn bttn-secondary" onclick="completeStep(3)">
+            <button class="bttn bttn-secondary" onclick="completeStep(2)">
                 I've Joined the Progress Tracking Platform
+            </button>
+
+            <div class="success-message" id="successMessage2">
+                <div class="success-icon">✅</div>
+                <h3>Welcome to the Community!</h3>
+                <p>One final step - register for Google's Gemini Pro access</p>
+            </div>
+        </div>
+
+        <!-- Step 3: Google Registration Link -->
+        <div class="step-card" id="step3Card">
+            <div class="step-header">
+                <div class="step-number-badge">Step 3 of 3</div>
+                <h2>Access Google Registration</h2>
+                <p class="subtitle">Click the button below to register for Google's Gemini Pro access</p>
+            </div>
+
+            <div class="info-box">
+                <h4>📝 What You'll Need</h4>
+                <p>Before proceeding, please have the following information ready:</p>
+                <ul>
+                    <li><strong>Full Name:</strong> As it appears on your student ID</li>
+                    <li><strong>Email Address:</strong> Your active email</li>
+                    <li><strong>University/Institution:</strong> Full name of your university</li>
+                    <li><strong>School fee receipt / ID:</strong> Last or recent school fee receipt / student ID</li>
+                </ul>
+            </div>
+
+            <button class="bttn bttn-primary" onclick="openRegistrationLink()">
+                <span>Click to register for Google's Gemini Pro access</span>
+                <span class="bttn-icon">→</span>
+            </button>
+
+            <button class="bttn bttn-secondary" onclick="completeStep(3)">
+                I've Completed the Registration
             </button>
 
             <div class="success-message" id="successMessage3">
                 <div class="success-icon">🎉</div>
                 <h3>Registration Complete!</h3>
-                <p>Welcome to the Google AI Program family!</p>
+                <p>Congratulations! You're all set up for the Google AI Program</p>
             </div>
         </div>
 
@@ -1120,7 +1120,7 @@
                     // Success - show success message and move to next step
                     console.log('Submission successful!');
                     form.reset();
-                    completeStep(2);
+                    completeStep(1);
                 } else {
                     // Error from server
                     console.error('Server error:', data);
