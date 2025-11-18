@@ -1,0 +1,481 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Register - Google AI Program | TWiK Foundation</title>
+    <link rel="stylesheet" href="style/nav.css">
+    <link rel="stylesheet" href="style/register.css">
+    <script src="script/home.js" defer></script>
+    <style>
+        /* ... (keep all existing styles) ... */
+
+        /* Searchable Dropdown Styles */
+        .custom-dropdown {
+            position: relative;
+            width: 100%;
+        }
+
+        .dropdown-header {
+            width: 100%;
+            padding: 0.875rem 1rem;
+            border: 2px solid var(--border-light);
+            border-radius: 12px;
+            font-size: 1rem;
+            font-family: inherit;
+            background: var(--background-primary);
+            cursor: pointer;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            transition: all 0.3s ease;
+        }
+
+        .dropdown-header:focus {
+            outline: none;
+            border-color: var(--primary-red);
+            box-shadow: 0 0 0 3px rgba(220, 38, 38, 0.1);
+        }
+
+        .dropdown-header.error {
+            border-color: var(--error-red);
+        }
+
+        .dropdown-placeholder {
+            color: var(--text-muted);
+        }
+
+        .dropdown-arrow {
+            transition: transform 0.3s ease;
+        }
+
+        .dropdown-arrow.open {
+            transform: rotate(180deg);
+        }
+
+        .dropdown-options {
+            position: absolute;
+            top: 100%;
+            left: 0;
+            right: 0;
+            background: white;
+            border: 2px solid var(--border-light);
+            border-radius: 12px;
+            margin-top: 4px;
+            max-height: 300px;
+            overflow-y: auto;
+            z-index: 1000;
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+            display: none;
+        }
+
+        .dropdown-options.open {
+            display: block;
+            animation: fadeIn 0.3s ease;
+        }
+
+        .search-input-container {
+            padding: 0.75rem;
+            border-bottom: 1px solid var(--border-light);
+            position: sticky;
+            top: 0;
+            background: white;
+            z-index: 1001;
+        }
+
+        .search-input {
+            width: 100%;
+            padding: 0.5rem 0.75rem;
+            border: 1px solid var(--border-light);
+            border-radius: 8px;
+            font-size: 0.9rem;
+            font-family: inherit;
+        }
+
+        .search-input:focus {
+            outline: none;
+            border-color: var(--primary-red);
+        }
+
+        .dropdown-option {
+            padding: 0.75rem 1rem;
+            cursor: pointer;
+            border-bottom: 1px solid var(--border-light);
+            transition: background-color 0.2s ease;
+        }
+
+        .dropdown-option:hover {
+            background-color: #f8f9fa;
+        }
+
+        .dropdown-option:last-child {
+            border-bottom: none;
+        }
+
+        .dropdown-option.selected {
+            background-color: var(--primary-red);
+            color: white;
+        }
+
+        .no-results {
+            padding: 1rem;
+            text-align: center;
+            color: var(--text-muted);
+            font-style: italic;
+        }
+
+        .loading-options {
+            padding: 1rem;
+            text-align: center;
+            color: var(--text-muted);
+        }
+
+        .dropdown-backdrop {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            z-index: 999;
+            display: none;
+        }
+
+        .dropdown-backdrop.open {
+            display: block;
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(-10px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* Loading spinner for dropdown */
+        .loading-spinner-small {
+            display: inline-block;
+            width: 16px;
+            height: 16px;
+            border: 2px solid rgba(156, 163, 175, 0.3);
+            border-radius: 50%;
+            border-top-color: var(--text-muted);
+            animation: spin 0.8s linear infinite;
+        }
+    </style>
+</head>
+
+<body>
+    <!-- Navigation -->
+    <nav class="navbar" id="navbar">
+        <div class="nav-container">
+            <!-- Logo -->
+            <a href="#home" class="nav-logo">
+                <img src="image/twik.png" class="logo-icon" alt="TWiK Logo">
+            </a>
+
+            <a href="#home" class="logo">
+                <img src="image/google.png" class="iconnn" alt="Google Logo">
+            </a>
+            <a href="#home" class="nav-logo">
+                <img src="image/electrons.png" class="iconnn" alt="Electrons Logo">
+            </a>
+
+            <!-- Desktop Navigation Menu -->
+            <ul class="nav-menu">
+                <li class="nav-item">
+                    <a href="index.html" class="nav-link active">Home</a>
+                </li>
+                <li class="nav-item">
+                    <a href="#about" class="nav-link">About Us</a>
+                </li>
+                <li class="nav-item">
+                    <a href="#blog" class="nav-link">Spotlight</a>
+                </li>
+            </ul>
+
+            <!-- Mobile Toggle -->
+            <button class="mobile-toggle" id="mobileToggle">
+                <span class="hamburger-line"></span>
+                <span class="hamburger-line"></span>
+                <span class="hamburger-line"></span>
+            </button>
+        </div>
+
+        <!-- Mobile Menu -->
+        <div class="mobile-menu" id="mobileMenu">
+            <ul class="mobile-nav-menu">
+                <li><a href="index.html" class="mobile-nav-link active">Home</a></li>
+                <li><a href="index.html#about" class="mobile-nav-link">About Us</a></li>
+                <li><a href="index.html#blog" class="mobile-nav-link">Spotlight</a></li>
+                <li class="mobile-cta">
+                    <a href="index.html#join" class="nav-cta">Join the Movement</a>
+                </li>
+            </ul>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="hero">
+        <h1>Complete Your Registration</h1>
+        <p>Follow these 3 simple steps to secure free access to Google's most advanced AI model — Gemini Pro — for 12
+            months.</p>
+    </section>
+
+    <!-- Main Container -->
+    <div class="container">
+        <!-- Progress Bar -->
+        <div class="progress-bar">
+            <div class="progress-steps">
+                <div class="progress-line" id="progressLine"></div>
+
+                <div class="progress-step active" id="progressStep1">
+                    <div class="step-circle">1</div>
+                    <div class="step-label">Fill Form</div>
+                </div>
+
+                <div class="progress-step" id="progressStep2">
+                    <div class="step-circle">2</div>
+                    <div class="step-label">WhatsApp Group</div>
+                </div>
+
+                <div class="progress-step" id="progressStep3">
+                    <div class="step-circle">3</div>
+                    <div class="step-label">Google Link</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Step 1: Registration Form -->
+        <div class="step-card active" id="step1Card">
+            <div class="step-header">
+                <div class="step-number-badge">Step 1 of 3</div>
+                <h2>Complete Your Enrollment Form</h2>
+                <p class="subtitle">Fill out this form to activate your learning account and access Gemini Pro</p>
+            </div>
+
+            <div class="info-box">
+                <h4>🎯 Important Information</h4>
+                <p>This enrollment form will:</p>
+                <ul>
+                    <li>Track your progress throughout the program</li>
+                    <li>Connect you with future opportunities</li>
+                    <li>Enable personalized support and mentorship</li>
+                </ul>
+                <p style="margin-top: 1rem;"><strong>Note:</strong> Please fill all fields accurately. This information
+                    will be used when writing a recommendation report to Google.</p>
+            </div>
+
+            <div class="error-alert" id="formErrorAlert">
+                <h4>⚠️ Submission Error</h4>
+                <p id="formErrorMessage">Please check your internet connection and try again.</p>
+            </div>
+
+            <form class="registration-form" id="registrationForm">
+                <div class="form-group">
+                    <label class="form-label" for="fullName">
+                        Full Name <span class="required">*</span>
+                    </label>
+                    <input type="text" id="fullName" name="fullName" class="form-input"
+                        placeholder="Enter your full name" required>
+                    <div class="error-message" id="fullNameError">Please enter your full name</div>
+                </div>
+
+                <div class="form-row">
+                    <div class="form-group">
+                        <label class="form-label" for="email">
+                            Email Address <span class="required">*</span>
+                        </label>
+                        <input type="email" id="email" name="email" class="form-input"
+                            placeholder="your.email@example.com" required>
+                        <div class="error-message" id="emailError">Please enter a valid email</div>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="form-label" for="phoneNumber">
+                            Phone Number <span class="required">*</span>
+                        </label>
+                        <input type="tel" id="phone" name="phone" class="form-input" placeholder="+234 800 000 0000"
+                            required>
+                        <div class="error-message" id="phoneError">Please enter your phone number</div>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label class="form-label" for="institution">
+                        Name of Institution <span class="required">*</span>
+                    </label>
+                    <div class="custom-dropdown" id="institutionDropdown">
+                        <input type="hidden" id="institution" name="institution" value="">
+                        <div class="dropdown-header" id="dropdownHeader">
+                            <span class="dropdown-placeholder" id="dropdownPlaceholder">Select your institution</span>
+                            <span class="dropdown-arrow">▼</span>
+                        </div>
+                        <div class="dropdown-options" id="dropdownOptions">
+                            <div class="search-input-container">
+                                <div style="position: relative;">
+                                    <input type="text" class="search-input" id="institutionSearch"
+                                        placeholder="Search institutions...">
+                                    <button class="clear-search" id="clearSearch" style="display: none;">✕</button>
+                                </div>
+                            </div>
+                            <div class="dropdown-options-list" id="dropdownOptionsList">
+                                <div class="loading-options">
+                                    <span class="loading-spinner-small"></span>
+                                    Loading institutions...
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="error-message" id="institutionError">Please select your institution</div>
+                    <div style="margin-top: 0.5rem;">
+                        <small class="text-muted" id="institutionCount">Type to search local and online
+                            institutions</small>
+                    </div>
+                </div>
+                <div class="dropdown-backdrop" id="dropdownBackdrop"></div>
+
+                <div class="form-row">
+                    <div class="form-group">
+                        <label class="form-label" for="course">
+                            Course of Study <span class="required">*</span>
+                        </label>
+                        <input type="text" id="course" name="course" class="form-input"
+                            placeholder="e.g., Computer Science" required>
+                        <div class="error-message" id="courseError">Please enter your course of study</div>
+                    </div>
+
+                    <div class="form-group">
+                        <label class="form-label" for="level">
+                            Level <span class="required">*</span>
+                        </label>
+                        <select id="level" name="level" class="form-select" required>
+                            <option value="">Select your level</option>
+                            <option value="100">100 Level</option>
+                            <option value="200">200 Level</option>
+                            <option value="300">300 Level</option>
+                            <option value="400">400 Level</option>
+                            <option value="500">500 Level</option>
+                            <option value="600">600 Level</option>
+                            <option value="Graduate">Graduate</option>
+                            <option value="Postgraduate">Postgraduate</option>
+                        </select>
+                        <div class="error-message" id="levelError">Please select your level</div>
+                    </div>
+                </div>
+
+                <button type="submit" class="bttn bttn-primary" id="submitBtn">
+                    <span id="submitBtnText">Submit Registration</span>
+                    <span class="bttn-icon" id="submitBtnIcon">→</span>
+                </button>
+            </form>
+
+            <div class="success-message" id="successMessage1">
+                <div class="success-icon">✅</div>
+                <h3>Form Submitted Successfully!</h3>
+                <p>Great! Now proceed to Step 2 to join the progress tracking platform</p>
+            </div>
+        </div>
+
+        <!-- Step 2: WhatsApp Group -->
+        <div class="step-card" id="step2Card">
+            <div class="step-header">
+                <div class="step-number-badge">Step 2 of 3</div>
+                <h2>Join the Progress Tracking Platform</h2>
+                <p class="subtitle">Connect with others learning and using AI</p>
+            </div>
+
+            <div class="info-box">
+                <h4>💬 Why join the progress tracking platform?</h4>
+                <p>The platform is essential for your success in this program:</p>
+                <ul>
+                    <li><strong>Exhibition:</strong> Share knowledge and showcase what you are doing with AI</li>
+                    <li><strong>Real-Time Updates:</strong> Get instant notifications about program activities and
+                        deadlines</li>
+                    <li><strong>Peer Learning:</strong> Share knowledge, ask questions, and learn from fellow students
+                    </li>
+                    <li><strong>Mentorship Access:</strong> Direct communication with program coordinators and mentors
+                    </li>
+                    <li><strong>Progress Tracking:</strong> Share your projects and get feedback from the community</li>
+                    <li><strong>Networking:</strong> Build lasting connections with AI enthusiasts across Africa</li>
+                    <li><strong>Recognition:</strong> Outstanding contributors will be highlighted to Google</li>
+                </ul>
+            </div>
+
+            <button class="bttn bttn-whatsapp" onclick="joinWhatsAppGroup()">
+                <span class="bttn-icon">💬</span>
+                <span>Join the Progress Tracking Platform</span>
+            </button>
+
+            <button class="bttn bttn-secondary" onclick="completeStep(2)">
+                I've Joined the Progress Tracking Platform
+            </button>
+
+            <div class="success-message" id="successMessage2">
+                <div class="success-icon">✅</div>
+                <h3>Welcome to the Community!</h3>
+                <p>One final step - register for Google's Gemini Pro access</p>
+            </div>
+        </div>
+
+        <!-- Step 3: Google Registration Link -->
+        <div class="step-card" id="step3Card">
+            <div class="step-header">
+                <div class="step-number-badge">Step 3 of 3</div>
+                <h2>Access Google Registration</h2>
+                <p class="subtitle">Click the button below to register for Google's Gemini Pro access</p>
+            </div>
+
+            <div class="info-box">
+                <h4>📝 What You'll Need</h4>
+                <p>Before proceeding, please have the following information ready:</p>
+                <ul>
+                    <li><strong>Full Name:</strong> As it appears on your student ID</li>
+                    <li><strong>Email Address:</strong> Your active email</li>
+                    <li><strong>University/Institution:</strong> Full name of your university</li>
+                    <li><strong>School fee receipt / ID:</strong> Last or recent school fee receipt / student ID</li>
+                </ul>
+            </div>
+
+            <button class="bttn bttn-primary" onclick="openRegistrationLink()">
+                <span>Click to register for Google's Gemini Pro access</span>
+                <span class="bttn-icon">→</span>
+            </button>
+
+            <button class="bttn bttn-secondary" onclick="completeStep(3)">
+                I've Completed the Registration
+            </button>
+
+            <div class="success-message" id="successMessage3">
+                <div class="success-icon">🎉</div>
+                <h3>Registration Complete!</h3>
+                <p>Congratulations! You're all set up for the Google AI Program</p>
+            </div>
+        </div>
+
+        <!-- Completion Card -->
+        <div class="completion-card" id="completionCard" style="display: none;">
+            <div class="success-icon">🎊</div>
+            <h2>Congratulations!</h2>
+            <p>You've successfully completed your registration for the Google AI Program. Login to your Google Gemini to
+                start enjoying the pro access.</p>
+            <p style="margin-top: 2rem;"><strong>What's Next?</strong></p>
+            <p>Write your first AI prompt and share the response on the progress tracking platform. Start making
+                everyday count with AI.</p>
+
+            <a href="teai.html" class="bttn" style="margin-top: 2rem;">
+                <span>Back to Program Info</span>
+            </a>
+        </div>
+
+    </div>
+
+    <script src="./script/register.js"></script>
+</body>
+
+</html>
