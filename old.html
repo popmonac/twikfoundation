@@ -242,7 +242,6 @@ nav{
   max-width:1200px;margin:0 auto;
 }
 .flip-card{aspect-ratio:2/3;perspective:1200px;}
-
 .flip-inner{
   position:relative;width:100%;height:100%;
   -webkit-transform-style:preserve-3d;
@@ -253,15 +252,16 @@ nav{
   -webkit-transform:translateZ(0);
   transform:translateZ(0);
 }
-
-/* Desktop: CSS :hover only */
 @media(hover:hover) and (pointer:fine){
   .flip-card:hover .flip-inner{
     -webkit-transform:rotateY(180deg);
     transform:rotateY(180deg);
   }
 }
-
+.flip-card.flipped .flip-inner{
+  -webkit-transform:rotateY(180deg);
+  transform:rotateY(180deg);
+}
 .flip-front,.flip-back{
   position:absolute;inset:0;overflow:hidden;
   -webkit-backface-visibility:hidden;
@@ -273,10 +273,8 @@ nav{
   -webkit-transform:rotateY(180deg) translateZ(0);
   transform:rotateY(180deg) translateZ(0);
 }
-
 .flip-front{background:var(--bg3);}
 .flip-front img{width:100%;height:100%;object-fit:cover;display:block;}
-
 .flip-front-ov{
   position:absolute;inset:0;
   background:linear-gradient(to top,rgba(8,8,7,.88) 0%,rgba(8,8,7,.12) 55%,transparent 100%);
@@ -289,29 +287,28 @@ nav{
 .flip-name{font-family:'Bebas Neue',sans-serif;font-size:28px;letter-spacing:1px;color:#fff;margin-bottom:3px;}
 .flip-role{font-family:'Instrument Serif',serif;font-style:italic;font-size:13px;color:rgba(255,255,255,.6);}
 
+/* BACK FACE — desktop */
 .flip-back{
   display:flex;flex-direction:column;justify-content:flex-start;
-  padding:24px 20px 20px;
+  padding:22px 18px 18px;
   background:var(--card);
   border-left:1px solid var(--border);border-right:1px solid var(--border);
   transition:background .45s,border-color .45s;
-  overflow-y:auto;scrollbar-width:thin;scrollbar-color:rgba(255,75,43,.3) transparent;
+  overflow:hidden; /* no scroll on desktop — content fits in 2:3 ratio */
 }
-.flip-back::-webkit-scrollbar{width:2px;}
-.flip-back::-webkit-scrollbar-thumb{background:rgba(255,75,43,.3);}
-.flip-back::before{content:'';display:block;height:3px;background:var(--red);margin:-24px -20px 18px;flex-shrink:0;}
-.flip-back-n{font-family:'Bebas Neue',sans-serif;font-size:100px;color:rgba(255,75,43,.06);position:absolute;top:-14px;right:10px;line-height:1;pointer-events:none;user-select:none;transition:color .45s;}
+.flip-back::before{content:'';display:block;height:3px;background:var(--red);margin:-22px -18px 14px;flex-shrink:0;}
+.flip-back-n{font-family:'Bebas Neue',sans-serif;font-size:90px;color:rgba(255,75,43,.06);position:absolute;top:-12px;right:8px;line-height:1;pointer-events:none;user-select:none;}
 [data-theme="dark"] .flip-back-n{color:rgba(255,75,43,.08);}
-.bk-tag{font-size:10px;letter-spacing:2.5px;text-transform:uppercase;color:var(--red);font-weight:600;margin-bottom:6px;}
-.bk-name{font-family:'Bebas Neue',sans-serif;font-size:28px;letter-spacing:1px;margin-bottom:2px;color:var(--text);transition:color .45s;}
-.bk-role{font-family:'Instrument Serif',serif;font-style:italic;font-size:12px;color:var(--warm);margin-bottom:12px;transition:color .45s;}
-.bk-q{font-family:'Instrument Serif',serif;font-style:italic;font-size:12px;color:var(--muted);line-height:1.65;border-left:2px solid var(--red);padding-left:10px;margin-bottom:14px;transition:color .45s;}
-.bk-pain{display:flex;flex-direction:column;gap:5px;margin-bottom:12px;}
-.bk-pi{display:flex;align-items:flex-start;gap:8px;font-size:12px;color:var(--muted);transition:color .45s;}
+.bk-tag{font-size:9px;letter-spacing:2.5px;text-transform:uppercase;color:var(--red);font-weight:600;margin-bottom:4px;}
+.bk-name{font-family:'Bebas Neue',sans-serif;font-size:26px;letter-spacing:1px;margin-bottom:1px;color:var(--text);transition:color .45s;}
+.bk-role{font-family:'Instrument Serif',serif;font-style:italic;font-size:11px;color:var(--warm);margin-bottom:10px;transition:color .45s;}
+.bk-q{font-family:'Instrument Serif',serif;font-style:italic;font-size:11px;color:var(--muted);line-height:1.55;border-left:2px solid var(--red);padding-left:8px;margin-bottom:10px;transition:color .45s;}
+.bk-pain{display:flex;flex-direction:column;gap:4px;margin-bottom:10px;}
+.bk-pi{display:flex;align-items:flex-start;gap:6px;font-size:11px;color:var(--muted);transition:color .45s;}
 .bk-pi::before{content:'—';color:rgba(255,75,43,.5);flex-shrink:0;}
-.bk-fix{background:rgba(255,75,43,.07);border-left:2px solid var(--red);padding:9px 12px;margin-top:auto;}
-.bk-fix-l{font-size:9px;letter-spacing:2px;text-transform:uppercase;color:var(--red);font-weight:700;margin-bottom:3px;}
-.bk-fix-t{font-size:12px;color:var(--text);line-height:1.55;transition:color .45s;}
+.bk-fix{background:rgba(255,75,43,.07);border-left:2px solid var(--red);padding:8px 10px;margin-top:auto;flex-shrink:0;}
+.bk-fix-l{font-size:8px;letter-spacing:2px;text-transform:uppercase;color:var(--red);font-weight:700;margin-bottom:2px;}
+.bk-fix-t{font-size:11px;color:var(--text);line-height:1.45;transition:color .45s;}
 
 /* SPLIT */
 .split-story{overflow:hidden;transition:background .45s;}
@@ -445,69 +442,75 @@ footer p{font-size:12px;color:var(--muted);transition:color .45s;}
 
 @keyframes up{from{opacity:0;transform:translateY(24px)}to{opacity:1;transform:translateY(0)}}
 
-/* MODAL — glassmorphism, always centered on all screens, light + dark */
+/* ═══════════════════════════════
+   MODAL — glassmorphism
+═══════════════════════════════ */
 .modal-backdrop{
   position:fixed;inset:0;z-index:1000;
-  backdrop-filter:blur(22px) saturate(1.6) brightness(0.72);
-  -webkit-backdrop-filter:blur(22px) saturate(1.6) brightness(0.72);
-  background:rgba(0,0,0,.40);
+  backdrop-filter:blur(20px) saturate(1.4);
+  -webkit-backdrop-filter:blur(20px) saturate(1.4);
+  background:rgba(0,0,0,.45);
   display:flex;align-items:center;justify-content:center;
-  padding:16px;
+  padding:20px;
   opacity:0;pointer-events:none;
   transition:opacity .35s ease;
 }
-[data-theme="light"] .modal-backdrop{
-  background:rgba(140,100,60,.18);
-  backdrop-filter:blur(22px) saturate(1.8) brightness(0.78);
-  -webkit-backdrop-filter:blur(22px) saturate(1.8) brightness(0.78);
-}
 .modal-backdrop.open{opacity:1;pointer-events:all;}
 
+/* Dark mode glass — semi-transparent dark frosted panel */
 .modal{
-  width:100%;max-width:440px;
-  max-height:92svh;overflow-y:auto;scrollbar-width:none;
+  width:100%;max-width:420px;
   position:relative;
+  background:rgba(15,14,13,.55);
+  backdrop-filter:blur(28px) saturate(1.6);
+  -webkit-backdrop-filter:blur(28px) saturate(1.6);
   border-radius:24px;
-  backdrop-filter:blur(48px) saturate(2);
-  -webkit-backdrop-filter:blur(48px) saturate(2);
-  /* DARK MODE glass: rich dark warm tint */
-  background:rgba(16,11,7,0.80);
-  border:1px solid rgba(255,255,255,0.10);
+  border:1px solid rgba(255,255,255,.10);
   box-shadow:
-    0 48px 100px rgba(0,0,0,.55),
-    0 0 0 1px rgba(255,75,43,.14),
-    inset 0 1px 0 rgba(255,255,255,.07);
-  transform:translateY(28px) scale(.96);
-  transition:transform .45s cubic-bezier(.22,1,.36,1);
+    0 8px 48px rgba(0,0,0,.55),
+    0 1px 0 rgba(255,255,255,.08) inset,
+    0 0 0 1px rgba(255,75,43,.10);
+  transform:translateY(36px) scale(.95);
+  transition:transform .45s cubic-bezier(.22,1,.36,1),opacity .35s ease;
+  overflow:hidden;
 }
-.modal::-webkit-scrollbar{display:none;}
-/* LIGHT MODE glass: bright warm frosted pane */
+
+/* Light mode glass — opaque white so text is always readable */
 [data-theme="light"] .modal{
-  background:rgba(255,250,244,0.70);
-  border:1px solid rgba(255,255,255,0.60);
+  background:rgba(255,255,255,.82);
+  border:1px solid rgba(28,26,23,.10);
   box-shadow:
-    0 40px 90px rgba(120,70,20,.18),
-    0 0 0 1px rgba(255,75,43,.10),
-    inset 0 1px 0 rgba(255,255,255,.85);
+    0 8px 48px rgba(0,0,0,.16),
+    0 1px 0 rgba(255,255,255,.9) inset,
+    0 0 0 1px rgba(255,75,43,.06);
 }
+
 .modal-backdrop.open .modal{transform:translateY(0) scale(1);}
 
-.modal-topbar{height:3px;background:linear-gradient(90deg,#ff4b2b,#ff8c5a,#ff4b2b);background-size:200% 100%;animation:shimmer 2.5s linear infinite;}
-@keyframes shimmer{0%{background-position:200% 0}100%{background-position:-200% 0}}
-
-.modal-close{
-  position:absolute;top:14px;right:14px;
-  width:30px;height:30px;border-radius:50%;
-  background:rgba(255,255,255,0.09);
-  border:1px solid rgba(255,255,255,0.16);
-  display:flex;align-items:center;justify-content:center;
-  font-size:12px;color:rgba(255,255,255,0.70);
-  transition:background .2s,color .2s,border-color .2s;z-index:10;
+/* Red top accent stripe */
+.modal-topbar{
+  height:3px;
+  background:linear-gradient(90deg,var(--red),rgba(255,75,43,.5),transparent);
 }
+
+/* Close button */
+.modal-close{
+  position:absolute;top:16px;right:16px;
+  width:30px;height:30px;border-radius:50%;
+  background:rgba(255,255,255,.12);
+  border:1px solid rgba(255,255,255,.18);
+  backdrop-filter:blur(8px);
+  display:flex;align-items:center;justify-content:center;
+  font-size:12px;
+  color:rgba(255,255,255,.75); /* dark mode default */
+  transition:background .2s,color .2s,border-color .2s;
+  z-index:10;
+}
+/* Light mode close — dark icon on white glass */
 [data-theme="light"] .modal-close{
-  background:rgba(28,26,23,0.07);
-  border-color:rgba(28,26,23,0.15);
-  color:rgba(28,26,23,0.50);
+  background:rgba(28,26,23,.07);
+  border-color:rgba(28,26,23,.12);
+  color:rgba(28,26,23,.55);
 }
 .modal-close:hover{background:var(--red);border-color:var(--red);color:#fff;}
 
@@ -515,103 +518,118 @@ footer p{font-size:12px;color:var(--muted);transition:color .45s;}
 
 .modal-eyebrow{
   font-size:10px;letter-spacing:3px;text-transform:uppercase;
-  color:#ff8c5a;font-weight:700;margin-bottom:6px;
+  color:var(--red);font-weight:700;margin-bottom:6px;
   display:flex;align-items:center;gap:8px;
 }
-[data-theme="light"] .modal-eyebrow{color:var(--red);}
-.modal-eyebrow::before{content:'';width:18px;height:2px;background:#ff8c5a;flex-shrink:0;border-radius:2px;}
-[data-theme="light"] .modal-eyebrow::before{background:var(--red);}
+.modal-eyebrow::before{content:'';width:18px;height:2px;background:var(--red);flex-shrink:0;border-radius:2px;}
 
-.modal-tagline{font-size:13px;line-height:1.55;margin-bottom:20px;
-  color:rgba(242,237,228,.60);}
-[data-theme="light"] .modal-tagline{color:rgba(28,26,23,.58);}
+/* Tagline — dark mode: soft white. Light mode: dark text */
+.modal-tagline{font-size:13px;line-height:1.55;margin-bottom:20px;color:rgba(255,255,255,.6);}
+[data-theme="light"] .modal-tagline{color:rgba(28,26,23,.60);}
 
-/* Form elements inside glass */
-.modal .mf-label{color:rgba(242,237,228,.40);}
-[data-theme="light"] .modal .mf-label{color:rgba(28,26,23,.48);}
-
-.modal .mf-inp{
-  background:rgba(255,255,255,0.07);
-  border:1.5px solid rgba(255,255,255,0.12);
-  color:#f2ede4;border-radius:10px;
-}
-[data-theme="light"] .modal .mf-inp{
-  background:rgba(255,255,255,0.60);
-  border-color:rgba(28,26,23,0.15);
-  color:#1c1a17;
-}
-.modal .mf-inp::placeholder{color:rgba(242,237,228,.26);}
-[data-theme="light"] .modal .mf-inp::placeholder{color:rgba(28,26,23,.32);}
-.modal .mf-inp:focus{
-  border-color:rgba(255,100,60,.70);
-  background:rgba(255,255,255,0.13);
-  box-shadow:0 0 0 3px rgba(255,75,43,.18);
-  color:#f2ede4;
-}
-[data-theme="light"] .modal .mf-inp:focus{
-  background:rgba(255,255,255,0.85);
-  color:#1c1a17;
-}
-.modal .mf-inp.sel option{background:#1a1410;color:#f2ede4;}
-[data-theme="light"] .modal .mf-inp.sel option{background:#fdf8f2;color:#1c1a17;}
-.modal .mf-privacy{color:rgba(242,237,228,.28);}
-[data-theme="light"] .modal .mf-privacy{color:rgba(28,26,23,.36);}
-
-/* Success state */
-.modal .modal-success h3{color:#f2ede4;}
-[data-theme="light"] .modal .modal-success h3{color:#1c1a17;}
-.modal .modal-success p{color:rgba(242,237,228,.62);}
-[data-theme="light"] .modal .modal-success p{color:rgba(28,26,23,.60);}
-.modal .modal-success .success-share{color:#ff8c5a;}
+/* Form */
 .mf{display:flex;flex-direction:column;gap:12px;}
 .mf-field{display:flex;flex-direction:column;gap:4px;}
-.mf-label{font-size:10px;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:var(--muted);transition:color .45s;}
+
+/* Labels — dark mode: soft white. Light mode: readable dark */
+.mf-label{font-size:10px;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:rgba(255,255,255,.50);}
+[data-theme="light"] .mf-label{color:rgba(28,26,23,.55);}
+
+/* Inputs — dark mode: white-tinted glass. Light mode: white opaque with dark text */
 .mf-inp{
-  background:var(--bg2);border:1.5px solid var(--border);border-radius:10px;
-  padding:11px 14px;font-size:14px;color:var(--text);font-family:'DM Sans',sans-serif;
+  background:rgba(255,255,255,.10);
+  border:1.5px solid rgba(255,255,255,.16);
+  border-radius:10px;
+  padding:11px 14px;
+  font-size:14px;color:#fff;
+  font-family:'DM Sans',sans-serif;
   outline:none;width:100%;
-  transition:border-color .2s,background .45s,color .45s,box-shadow .2s;
+  transition:border-color .2s,background .2s,box-shadow .2s;
 }
-.mf-inp:focus{border-color:var(--red);background:var(--card);box-shadow:0 0 0 3px rgba(255,75,43,.1);}
-.mf-inp::placeholder{color:var(--muted);}
+[data-theme="light"] .mf-inp{
+  background:rgba(255,255,255,.75);
+  border-color:rgba(28,26,23,.16);
+  color:#1C1A17; /* fully opaque dark text */
+}
+.mf-inp::placeholder{color:rgba(255,255,255,.32);}
+[data-theme="light"] .mf-inp::placeholder{color:rgba(28,26,23,.38);}
+.mf-inp:focus{
+  border-color:var(--red);
+  background:rgba(255,255,255,.18);
+  box-shadow:0 0 0 3px rgba(255,75,43,.18);
+}
+[data-theme="light"] .mf-inp:focus{
+  background:#fff;
+  box-shadow:0 0 0 3px rgba(255,75,43,.12);
+}
 .mf-inp.sel{
   appearance:none;-webkit-appearance:none;
   background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='10' height='7' viewBox='0 0 10 7'%3E%3Cpath d='M1 1l4 4 4-4' stroke='%23FF4B2B' stroke-width='1.5' fill='none' stroke-linecap='round'/%3E%3C/svg%3E");
   background-repeat:no-repeat;background-position:right 14px center;padding-right:36px;
 }
 .mf-inp.sel option{background:var(--bg);color:var(--text);}
+
+/* Submit */
 .mf-submit{
-  margin-top:4px;width:100%;background:var(--red);border:none;border-radius:10px;
-  padding:14px;color:#fff;font-family:'Bebas Neue',sans-serif;font-size:17px;letter-spacing:3px;
+  margin-top:4px;width:100%;
+  background:var(--red);border:none;border-radius:10px;
+  padding:14px;color:#fff;
+  font-family:'Bebas Neue',sans-serif;font-size:17px;letter-spacing:3px;
   transition:background .2s,transform .15s,box-shadow .2s;
-  box-shadow:0 6px 24px rgba(255,75,43,.3);
+  box-shadow:0 6px 24px rgba(255,75,43,.4);
 }
-.mf-submit:hover{background:var(--red2);transform:translateY(-1px);box-shadow:0 10px 32px rgba(255,75,43,.42);}
+.mf-submit:hover{background:var(--red2);transform:translateY(-1px);box-shadow:0 10px 32px rgba(255,75,43,.55);}
 .mf-submit:active{transform:translateY(0);}
 .mf-submit:disabled{opacity:.6;pointer-events:none;}
 .mf-submit .spin{display:none;width:16px;height:16px;border:2px solid rgba(255,255,255,.35);border-top-color:#fff;border-radius:50%;animation:spin .7s linear infinite;margin:0 auto;}
 .mf-submit.loading .spin{display:block;}
 .mf-submit.loading .btn-label{display:none;}
 @keyframes spin{to{transform:rotate(360deg);}}
-.mf-privacy{font-size:11px;color:var(--muted);text-align:center;margin-top:10px;transition:color .45s;display:flex;align-items:center;justify-content:center;gap:5px;}
+
+.mf-privacy{font-size:11px;color:rgba(255,255,255,.35);text-align:center;margin-top:10px;display:flex;align-items:center;justify-content:center;gap:5px;}
+[data-theme="light"] .mf-privacy{color:rgba(28,26,23,.42);}
+
+/* Success state */
 .modal-success{display:none;flex-direction:column;align-items:center;justify-content:center;text-align:center;padding:52px 32px;gap:12px;}
 .modal-success.show{display:flex;}
-.success-icon{width:64px;height:64px;background:var(--red);border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:28px;margin-bottom:4px;box-shadow:0 8px 32px rgba(255,75,43,.3);}
-.modal-success h3{font-family:'Bebas Neue',sans-serif;font-size:34px;letter-spacing:1px;color:var(--text);transition:color .45s;}
-.modal-success p{font-size:13px;color:var(--muted);line-height:1.65;max-width:260px;transition:color .45s;}
+.success-icon{width:64px;height:64px;background:var(--red);border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:28px;margin-bottom:4px;box-shadow:0 8px 32px rgba(255,75,43,.4);}
+.modal-success h3{font-family:'Bebas Neue',sans-serif;font-size:34px;letter-spacing:1px;color:#fff;}
+[data-theme="light"] .modal-success h3{color:#1C1A17;}
+.modal-success p{font-size:13px;color:rgba(255,255,255,.6);line-height:1.65;max-width:260px;}
+[data-theme="light"] .modal-success p{color:rgba(28,26,23,.55);}
 .modal-success .success-share{font-size:12px;color:var(--red);font-weight:600;margin-top:2px;}
 
 /* ═══════════════════════════════
-   MOBILE
+   RESPONSIVE — tablet (1100px)
+═══════════════════════════════ */
+@media(max-width:1100px){
+  nav{padding:18px 32px;}
+  .hero-left{padding:120px 40px 80px 32px;}
+  .sec{padding:90px 32px;}
+  .whatif{padding:100px 32px;}
+  .gallery{padding:0 32px 90px;}
+  .manifesto{padding:100px 32px;}
+  .final{padding:0 32px 90px;}
+  .students-hdr{padding:90px 32px 0;}
+  .flip-grid{padding:40px 32px 90px;}
+  .hiw-grid{gap:2px;}
+  .isolation .inner{gap:52px;}
+  .moment .inner{gap:48px;}
+}
+
+/* ═══════════════════════════════
+   RESPONSIVE — mid (900px)
 ═══════════════════════════════ */
 @media(max-width:900px){
-  nav{padding:16px 20px;}
-  .nav-btn{padding:9px 16px;font-size:12px;}
+  nav{padding:14px 20px;}
+  .nav-btn{padding:9px 18px;font-size:12px;}
+
+  /* Hero stacks: right panel becomes full-bleed bg */
   .hero{display:block;min-height:100svh;position:relative;}
   .hero-right{position:absolute;inset:0;z-index:0;}
   .hero-left{
     position:relative;z-index:2;background:transparent;
-    padding:110px 24px 80px;min-height:100svh;
+    padding:100px 24px 72px;min-height:100svh;
     display:flex;flex-direction:column;justify-content:center;
   }
   .hero-left::before{display:none;}
@@ -620,127 +638,134 @@ footer p{font-size:12px;color:var(--muted);transition:color .45s;}
   .win.lit{background:rgba(255,200,100,.48) !important;}
   .win.lit-red{background:rgba(255,75,43,.52) !important;}
   [data-theme="light"] .hero-mesh{
-    background:radial-gradient(ellipse 100% 100% at 50% 50%,rgba(249,245,239,.82) 0%,transparent 100%),linear-gradient(to bottom,rgba(249,245,239,.72) 0%,rgba(249,245,239,.42) 100%) !important;
+    background:radial-gradient(ellipse 100% 100% at 50% 50%,rgba(249,245,239,.85) 0%,transparent 100%),
+    linear-gradient(to bottom,rgba(249,245,239,.75) 0%,rgba(249,245,239,.45) 100%) !important;
   }
-  [data-theme="dark"] .hero-mesh{background:linear-gradient(to bottom,rgba(8,8,7,.78) 0%,rgba(8,8,7,.58) 100%) !important;}
+  [data-theme="dark"] .hero-mesh{
+    background:linear-gradient(to bottom,rgba(8,8,7,.82) 0%,rgba(8,8,7,.62) 100%) !important;
+  }
   .hero-vignette,.hero-watermark{display:none;}
-  .sec{padding:70px 20px;}
-  .gallery{padding:0 20px 70px;}
-  .manifesto{padding:80px 20px;}
-  .whatif{padding:90px 20px;}
-  .isolation .inner{grid-template-columns:1fr;gap:36px;}
+
+  /* Sections */
+  .sec{padding:64px 20px;}
+  .gallery{padding:0 20px 64px;}
+  .manifesto{padding:72px 20px;}
+  .whatif{padding:80px 20px;}
+  .students-hdr{padding:64px 20px 0;}
+
+  /* Isolation: single col */
+  .isolation .inner{grid-template-columns:1fr;gap:32px;}
   .iso-photo{aspect-ratio:16/9;}
 
-  /* ── FLIP CARDS: MOBILE FIX ──
-     On touch devices we swap visibility instead of 3-D rotating,
-     so the back face can be as tall as its content needs to be.
-  ── */
-  .students-hdr{padding:70px 20px 0;}
-  .flip-grid{grid-template-columns:1fr 1fr;gap:4px;padding:36px 16px 72px;}
-
-  /* Card container: no fixed height, grows with content */
-  .flip-card{aspect-ratio:unset;height:auto;}
-
-  /* Kill 3-D context on mobile entirely */
-  .flip-inner{
-    position:static;
-    width:100%;height:auto;
-    -webkit-transform-style:flat;
-    transform-style:flat;
-    -webkit-transform:none !important;
-    transform:none !important;
-    transition:none !important;
-    will-change:auto;
-  }
-
-  /* Front: normal block, fills space like a regular div */
-  .flip-front{
-    position:relative;
-    inset:auto;
-    width:100%;
-    min-height:220px;
-    overflow:hidden;
-    -webkit-backface-visibility:visible;
-    backface-visibility:visible;
-    -webkit-transform:none !important;
-    transform:none !important;
-  }
-
-  /* Back: hidden by default, shown when .flipped added to .flip-card */
-  .flip-back{
-    position:relative;
-    inset:auto;
-    width:100%;
-    height:auto;
-    overflow:visible;
-    display:none; /* hidden until flipped */
-    flex-direction:column;
-    justify-content:flex-start;
-    -webkit-backface-visibility:visible;
-    backface-visibility:visible;
-    -webkit-transform:none !important;
-    transform:none !important;
-    padding:20px 14px 16px;
-    /* scrollbar not needed since height is auto */
-    overflow-y:visible;
-    scrollbar-width:none;
-  }
-  .flip-back::before{margin:-20px -14px 14px;}
-
-  /* Tap hint on front face */
-  .flip-front::after{
-    content:'TAP TO REVEAL';
-    position:absolute;bottom:10px;right:10px;z-index:4;
-    font-family:'Bebas Neue',sans-serif;font-size:8px;letter-spacing:1.5px;
-    color:rgba(255,255,255,.4);
-    border:1px solid rgba(255,255,255,.18);
-    padding:3px 7px;border-radius:4px;
-    pointer-events:none;
-  }
-  /* Flipped state: hide front, show back */
-  .flip-card.flipped .flip-front{display:none;}
-  .flip-card.flipped .flip-back{display:flex;}
-
-  /* Compact typography so everything fits at a glance */
-  .flip-back-n{font-size:56px;top:-8px;right:6px;}
-  .bk-tag{font-size:9px;letter-spacing:2px;margin-bottom:4px;}
-  .bk-name{font-size:18px;margin-bottom:1px;letter-spacing:.5px;}
+  /* Flip cards: single col, 440px tall */
+  .flip-grid{grid-template-columns:1fr;gap:4px;padding:24px 20px 64px;}
+  .flip-card{aspect-ratio:unset;height:440px;}
+  .flip-front-body{padding:18px 16px;}
+  .flip-school{font-size:9px;margin-bottom:3px;}
+  .flip-name{font-size:24px;margin-bottom:2px;}
+  .flip-role{font-size:12px;}
+  .flip-back{padding:14px 16px;overflow:hidden;justify-content:space-between;}
+  .flip-back::before{margin:-14px -16px 12px;}
+  .flip-back-n{font-size:60px;top:-8px;right:6px;}
+  .bk-tag{font-size:8px;letter-spacing:2px;margin-bottom:3px;}
+  .bk-name{font-size:22px;margin-bottom:1px;}
   .bk-role{font-size:10px;margin-bottom:8px;}
-  .bk-q{font-size:10px;line-height:1.5;margin-bottom:9px;padding-left:8px;}
-  .bk-pain{gap:4px;margin-bottom:9px;}
-  .bk-pi{font-size:10px;}
-  .bk-fix{padding:8px 10px;margin-top:0;}
-  .bk-fix-l{font-size:8px;letter-spacing:1.5px;margin-bottom:2px;}
-  .bk-fix-t{font-size:10px;line-height:1.45;}
+  .bk-q{font-size:10px;line-height:1.45;margin-bottom:8px;padding-left:7px;}
+  .bk-pain{gap:3px;margin-bottom:8px;}
+  .bk-pi{font-size:10px;gap:5px;}
+  .bk-fix{padding:7px 9px;}
+  .bk-fix-l{font-size:7px;margin-bottom:2px;}
+  .bk-fix-t{font-size:10px;line-height:1.4;}
 
+  /* Split */
   .split-grid{grid-template-columns:1fr;}
-  .split-side{min-height:300px;}
-  .moment .inner{grid-template-columns:1fr;gap:36px;}
+  .split-side{min-height:280px;}
+
+  /* Moment */
+  .moment .inner{grid-template-columns:1fr;gap:32px;}
   .moment-photo{aspect-ratio:16/9;}
+
+  /* Gallery: 2-col */
   .gallery-grid{grid-template-columns:1fr 1fr;grid-template-rows:auto;}
-  .gallery-grid .gi:first-child{grid-row:auto;grid-column:1/3;height:220px;}
-  .gi{height:170px;}
-  .hiw-grid{grid-template-columns:1fr 1fr;}
-  .final{padding:0 0 72px;}
+  .gallery-grid .gi:first-child{grid-row:auto;grid-column:1/3;height:200px;}
+  .gi{height:160px;}
+
+  /* How it works: 2-col */
+  .hiw-grid{grid-template-columns:1fr 1fr;gap:2px;}
+
+  /* Final CTA */
+  .final{padding:0 0 64px;}
   .final-inner{grid-template-columns:1fr;}
-  .final-photo{min-height:300px;}
-  .final-copy{padding:28px 24px 32px;}
-  .final-copy h2{font-size:clamp(38px,11vw,52px);}
+  .final-photo{min-height:280px;}
+  .final-copy{padding:24px 20px 28px;}
+  .final-copy h2{font-size:clamp(36px,11vw,52px);}
   .final-copy p{font-size:13px;max-width:100%;}
-  .final-form{padding:32px 24px 40px;}
-  .final-form h3{font-size:clamp(26px,8vw,36px);margin-bottom:12px;}
+  .final-form{padding:28px 20px 36px;}
+  .final-form h3{font-size:clamp(24px,8vw,36px);margin-bottom:10px;}
   .avatars p{font-size:11px;}
+
+  /* Misc */
   footer{flex-direction:column;gap:12px;text-align:center;padding:20px;}
   .flinks{flex-wrap:wrap;justify-content:center;gap:16px;}
-  .ticker{flex-wrap:wrap;justify-content:center;gap:8px;padding:12px 20px;}
-  .wi-stats{gap:32px;}
-  /* MODAL on mobile — stays centered, compact padding */
-  .modal{max-width:calc(100vw - 32px);}
+  .ticker{flex-wrap:wrap;justify-content:center;gap:8px;padding:10px 16px;}
+  .wi-stats{gap:28px;}
+
+  /* Modal — bottom sheet on mobile */
+  .modal-backdrop{padding:0;align-items:flex-end;backdrop-filter:blur(16px) saturate(1.4);-webkit-backdrop-filter:blur(16px) saturate(1.4);}
+  .modal{max-width:100%;border-radius:24px 24px 0 0;transform:translateY(100%);}
   .modal-backdrop.open .modal{transform:translateY(0) scale(1);}
-  .modal-body{padding:22px 20px 28px;}
-  .modal-eyebrow{margin-bottom:6px;}
+  .modal-body{padding:22px 22px 40px;}
+  .modal-eyebrow{margin-bottom:5px;}
   .mf{gap:10px;}
   .mf-inp{padding:10px 12px;font-size:14px;}
+}
+
+/* ═══════════════════════════════
+   RESPONSIVE — small (480px)
+═══════════════════════════════ */
+@media(max-width:480px){
+  .hero-left{padding:88px 16px 60px;}
+  .hero-sub{font-size:14px;margin-bottom:32px;}
+  .cta-btn{padding:14px 28px;font-size:16px;letter-spacing:2px;}
+  .eyebrow span{font-size:10px;letter-spacing:2px;}
+
+  .sec{padding:52px 16px;}
+  .gallery{padding:0 16px 52px;}
+  .whatif{padding:64px 16px;}
+  .manifesto{padding:60px 16px;}
+  .students-hdr{padding:52px 16px 0;}
+  .flip-grid{padding:20px 16px 52px;}
+
+  /* Stats wrap to 2×2 on small */
+  .wi-stats{gap:20px;}
+  .ws-n{font-size:clamp(42px,14vw,72px);}
+
+  /* Flip card slightly shorter on small phones */
+  .flip-card{height:400px;}
+
+  .hiw-grid{grid-template-columns:1fr;}
+  .hiw-step{padding:28px 20px;}
+
+  .split-copy{padding:28px 20px;}
+  .split-h{font-size:clamp(28px,9vw,44px);}
+
+  .gallery-grid .gi:first-child{height:180px;}
+  .gi{height:140px;}
+
+  footer{padding:16px;}
+  .ticker span{font-size:12px;}
+  .ticker-num{font-size:16px;}
+
+  .final-form{padding:24px 16px 32px;}
+  .final-copy{padding:20px 16px 24px;}
+
+  /* Modal full-height feel on tiny phones */
+  .modal-body{padding:20px 18px 36px;}
+  .mf{gap:9px;}
+  .mf-inp{padding:9px 12px;font-size:13px;border-radius:8px;}
+  .mf-submit{padding:13px;font-size:15px;}
+  .modal-eyebrow{font-size:9px;}
+  .modal-tagline{font-size:12px;margin-bottom:16px;}
 }
 </style>
 </head>
@@ -751,7 +776,7 @@ footer p{font-size:12px;color:var(--muted);transition:color .45s;}
   <div class="logo">BOU<b>W</b>NCE</div>
   <div class="nav-r">
     <button class="nav-btn filled" onclick="openModal()">Join Waitlist</button>
-     <button class="theme-btn" onclick="toggleTheme()" title="Toggle theme" aria-label="Toggle dark mode">
+    <button class="theme-btn" onclick="toggleTheme()" title="Toggle theme" aria-label="Toggle dark mode">
       <span class="t-sun">☀️</span>
       <span class="t-moon">🌙</span>
     </button>
@@ -761,16 +786,18 @@ footer p{font-size:12px;color:var(--muted);transition:color .45s;}
 <!-- HERO -->
 <section class="hero">
   <div class="hero-left">
-    <div class="eyebrow"><div class="pdot"></div><span>Different Schools. One Platform</span></div>
-    <div class="hero-h1">ACCESS IS NO<br>LONGER A <span class="hero-it">Privilege.</span></div>
+    <div class="eyebrow"><div class="pdot"></div><span>Campus Social. Campus Market. One App.</span></div>
+    <h1 class="hero-h1">REDEFINING THE CAMPUS </h1>
+    <div class="hero-it">EXPERIENCE.</div>
     <p class="hero-sub">
-      Two students. Two different schools.<br>
-      Same vibe. Same ambition.<br>
-      <strong>No way to find each other — until now.</strong>
+      Share moments students in your school can relate with.
+      Buy from the students in your school.
+      Follow. Connect.<br>
+      <strong>And if you sell — your storefront lives right here too.</strong>
     </p>
     <div class="form-w">
       <button class="cta-btn" onclick="openModal()">CLAIM MY SPOT</button>
-      <p class="proof" id="heroProof">2,000+ students already waiting. Don't be last.</p>
+      <p class="proof" id="heroProof">2,847 students already waiting. Don't be last.</p>
     </div>
   </div>
   <div class="hero-right">
@@ -793,20 +820,35 @@ footer p{font-size:12px;color:var(--muted);transition:color .45s;}
 <!-- MARQUEE -->
 <div class="mq">
   <div class="mq-inner">
-    <div class="mq-item">Discover Talent <span class="star">✦</span></div>
-    <div class="mq-item">Earn On Campus <span class="star">✦</span></div>
-    <div class="mq-item">Discover Like Minds<span class="star">✦</span></div>
-    <div class="mq-item">Cross-Campus Network <span class="star">✦</span></div>
-    <div class="mq-item">Be Seen · Be Paid · Belong <span class="star">✦</span></div>
-    <div class="mq-item">Isolation → Access <span class="star">✦</span></div>
-    <div class="mq-item">Connect Across Schools <span class="star">✦</span></div>
-    <div class="mq-item">Discover your person <span class="star">✦</span></div>
-    <div class="mq-item">No More Boring School Environment <span class="star">✦</span></div>
-    <div class="mq-item">Yes To Social life <span class="star">✦</span></div>
-    <div class="mq-item">Access is no longer by location<span class="star">✦</span></div>
-    <div class="mq-item">Marketplace with visibility <span class="star">✦</span></div>
-    <div class="mq-item">Amplify Your Influence <span class="star">✦</span></div>
-    <div class="mq-item">Explore<span class="star">✦</span></div>
+    <div class="mq-item">Order Jollof from the next hostel <span class="star">✦</span></div>
+    <div class="mq-item">Open your campus store <span class="star">✦</span></div>
+    <div class="mq-item">Campus feed. Campus market. <span class="star">✦</span></div>
+    <div class="mq-item">Thrift drops every week <span class="star">✦</span></div>
+    <div class="mq-item">Your storefront. Your campus. <span class="star">✦</span></div>
+    <div class="mq-item">Sell Food · Clothes · Services <span class="star">✦</span></div>
+    <div class="mq-item">Scroll the feed. Tap the store. <span class="star">✦</span></div>
+    <div class="mq-item">Swap textbooks on The Quad <span class="star">✦</span></div>
+    <div class="mq-item">KYC-verified campus vendors <span class="star">✦</span></div>
+    <div class="mq-item">Post content. Get customers. <span class="star">✦</span></div>
+    <div class="mq-item">The campus social marketplace <span class="star">✦</span></div>
+    <div class="mq-item">Find the vendor everyone is talking about <span class="star">✦</span></div>
+    <div class="mq-item">Access is no longer a privilege <span class="star">✦</span></div>
+    <div class="mq-item">Get Access <span class="star">✦</span></div>
+    <!-- duplicate for seamless loop -->
+    <div class="mq-item">Order Jollof from the next hostel <span class="star">✦</span></div>
+    <div class="mq-item">Open your campus store <span class="star">✦</span></div>
+    <div class="mq-item">Campus feed. Campus market. <span class="star">✦</span></div>
+    <div class="mq-item">Thrift drops every week <span class="star">✦</span></div>
+    <div class="mq-item">Your storefront. Your campus. <span class="star">✦</span></div>
+    <div class="mq-item">Sell Food · Clothes · Services <span class="star">✦</span></div>
+    <div class="mq-item">Scroll the feed. Tap the store. <span class="star">✦</span></div>
+    <div class="mq-item">Swap textbooks on The Quad <span class="star">✦</span></div>
+    <div class="mq-item">KYC-verified campus vendors <span class="star">✦</span></div>
+    <div class="mq-item">Post content. Get customers. <span class="star">✦</span></div>
+    <div class="mq-item">The campus social marketplace <span class="star">✦</span></div>
+    <div class="mq-item">Find the vendor everyone is talking about <span class="star">✦</span></div>
+    <div class="mq-item">Access is no longer a privilege <span class="star">✦</span></div>
+    <div class="mq-item">Get Access <span class="star">✦</span></div>
   </div>
 </div>
 
@@ -814,21 +856,21 @@ footer p{font-size:12px;color:var(--muted);transition:color .45s;}
 <section class="whatif">
   <div class="wi-vline"></div>
   <p class="wi-text reveal">
-    What if your kind of people<br>
-    are three campuses away —<br>
-    and there is <span class="r">no way to discover them?</span>
+    What if your campus had its own social feed —<br>
+    where you catch up<br>
+    with <span class="r">every moments, every story, every gist?</span>
   </p>
   <p class="wi-text reveal d1" style="font-size:clamp(20px,2.6vw,34px);margin-top:-10px;margin-bottom:52px;">
-    What if the event you'd love is happening <em>right now</em><br>
-    at a school <span class="r">you've never heard of?</span><br>
-    What if your next collaborator, client, or partner<br>
-    is already out there — <span class="r">just invisible to you?</span>
+    What if the girl selling the <em>best jollof on campus</em><br>
+    had a storefront everyone could find?<br>
+    What if the thrift vendor, the hair stylist, the food vendor<br>
+    could reach more people <span class="r">than her contact list?</span>
   </p>
   <div class="wi-vline-b"></div>
   <div class="wi-stats reveal">
-    <div class="ws"><span class="ws-n">4M+</span><p class="ws-l">Students earning nothing<br>from their skills</p></div>
-    <div class="ws"><span class="ws-n">73%</span><p class="ws-l">Want to monetize<br>their talent right now</p></div>
-    <div class="ws"><span class="ws-n">0</span><p class="ws-l">Platforms built<br>for campus-to-campus</p></div>
+    <div class="ws"><span class="ws-n">8 in 10</span><p class="ws-l">Campus vendors selling<br>only via WhatsApp</p></div>
+    <div class="ws"><span class="ws-n">73%</span><p class="ws-l">Students want to buy<br>from campus vendors</p></div>
+    <div class="ws"><span class="ws-n">0</span><p class="ws-l">Social apps built<br>for campus commerce</p></div>
     <div class="ws"><span class="ws-n">1</span><p class="ws-l">Platform about<br>to change all of it</p></div>
   </div>
 </section>
@@ -841,23 +883,25 @@ footer p{font-size:12px;color:var(--muted);transition:color .45s;}
       <img src="https://images.unsplash.com/photo-1529390079861-591de354faf5?w=800&q=85&fit=crop&crop=center" alt="Student alone" loading="lazy"/>
       <div class="iso-ov"></div>
       <div class="iso-txt">
-        <h3>Talented. Isolated. Invisible.</h3>
-        <p>"The right people just weren't around me."</p>
+        <h3>Campus life is Interesting. It's just invisible.</h3>
+        <p>"So much happening — and no way to see it."</p>
       </div>
     </div>
     <div class="reveal d1">
       <p class="tag">The Gap</p>
-      <h2 class="sh">THE CAMPUS GATE<br>IS THE CAGE.</h2>
-      <p class="sub">"Same talent. Different opportunities — based on nothing but location."</p>
-      <div class="body">
-        <p>Right now, across campuses you've never visited, students are doing extraordinary things. They have no way to reach you. No stage beyond their own gate.</p><br>
-        <p>The campus you attend shouldn't decide the ceiling of your opportunity. But right now — <strong>for most students, it does.</strong></p>
+      <h2 class="sh">CAMPUS LIFE<br>HAS NO FEED.<br>CAMPUS COMMERCE.
+      <br>HAS NO STRUCTURE.</h2>
+      <p class="sub">"The best jollof on campus. The most fire thrift fits. Zero online presence."</p>
+     <div class="body">
+        <p>Every campus has a pulse — events, culture, conversations, communities. But there is no social feed that shows only your campus. Students scroll Instagram and see the world. They want to see <strong>their school.</strong></p><br>
+        <p>And every campus has an economy — food vendors, thrift sellers, hair stylists, service providers. Their entire business runs through DMs and word of mouth. No storefront. No discovery. No trust layer. <strong>Bouwnce fixes both — in the same app.</strong></p>
       </div>
       <div class="pills">
-        <span class="pill">No cross-campus visibility</span>
-        <span class="pill">No reputation system</span>
-        <span class="pill">No campus income infrastructure</span>
-        <span class="pill">Right talent, wrong room</span>
+         <span class="pill">No campus-only social feed
+</span>
+        <span class="pill">WhatsApp is not a market</span>
+        <span class="pill">No vendor discovery</span>
+        <span class="pill">No trust or reviews</span>
       </div>
     </div>
   </div>
@@ -867,136 +911,141 @@ footer p{font-size:12px;color:var(--muted);transition:color .45s;}
 <section class="students">
   <div class="students-hdr inner">
     <div class="reveal">
-      <p class="tag">DIFFERENT SCHOOLS. SAME STORY</p>
-      <h2 class="sh">MEET THE STUDENTS<br>BOUWNCE WAS BUILT FOR</h2>
-      <p class="sub" style="margin-top:8px;">Tap each card to reveal their story.</p>
+      <p class="tag">REAL STUDENTS. REAL STORIES.</p>
+      <h2 class="sh">BUILT FOR EVERY<br>KIND OF STUDENT.</h2>
+      <p class="sub" style="margin-top:8px;">The ones who post. The ones who sell. The ones who buy. The ones who just want to belong.</p>
     </div>
   </div>
   <div class="flip-grid">
-    <!-- KOFI -->
+
+    <!-- ADAEZE — Social / Community student -->
+    <div class="flip-card" data-flip>
+      <div class="flip-inner">
+        <div class="flip-front">
+          <img src="https://images.unsplash.com/photo-1531123897727-8f129e1688ce?w=700&q=80&fit=crop&crop=faces,top" alt="Adaeze" loading="lazy"/>
+          <div class="flip-front-ov"></div>
+          <div class="flip-chip">The Campus Kid</div>
+          <div class="flip-front-body">
+            <p class="flip-school">Covenant University — Ota, Nigeria</p>
+            <h3 class="flip-name">ADAEZE N.</h3>
+            <p class="flip-role">200L · Knows everyone, seen everywhere</p>
+          </div>
+        </div>
+        <div class="flip-back">
+          <div class="flip-back-n">01</div>
+          <p class="bk-tag">The Social Student</p>
+          <h3 class="bk-name">ADAEZE N.</h3>
+          <p class="bk-role">200L · Covenant University</p>
+          <p class="bk-q">"I scroll Instagram and see people I'll never meet. I want to see what's actually happening on my campus — who's posting, what events are coming, who's doing what right here."</p>
+          <div class="bk-pain">
+            <div class="bk-pi">No campus-only social space</div>
+            <div class="bk-pi">Misses campus events and culture</div>
+            <div class="bk-pi">Has to ask around to find campus people</div>
+          </div>
+          <div class="bk-fix">
+            <p class="bk-fix-l">Bouwnce unlocks</p>
+            <p class="bk-fix-t">A campus feed showing only her school. Follow classmates. See what's happening in real time. Never miss a campus moment again.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- AMAKA — Food vendor -->
+    <div class="flip-card" data-flip>
+      <div class="flip-inner">
+        <div class="flip-front">
+          <img src="https://images.unsplash.com/photo-1580489944761-15a19d654956?w=700&q=80&fit=crop&crop=faces,top" alt="Amaka" loading="lazy"/>
+          <div class="flip-front-ov"></div>
+          <div class="flip-chip">The Food Vendor</div>
+          <div class="flip-front-body">
+            <p class="flip-school">UNILAG — Lagos, Nigeria</p>
+            <h3 class="flip-name">AMAKA O.</h3>
+            <p class="flip-role">Jollof & Small Chops · Cooking since 200L</p>
+          </div>
+        </div>
+        <div class="flip-back">
+          <div class="flip-back-n">02</div>
+          <p class="bk-tag">The Campus Food Vendor</p>
+          <h3 class="bk-name">AMAKA O.</h3>
+          <p class="bk-role">Food Vendor · UNILAG, Nigeria</p>
+          <p class="bk-q">"Everyone on my floor knows my jollof. Three blocks away — nobody. My whole business stops where my WhatsApp contacts end."</p>
+          <div class="bk-pain">
+            <div class="bk-pi">New customers can't find her</div>
+            <div class="bk-pi">Orders come in chaos, no structure</div>
+            <div class="bk-pi">No way to build reputation beyond her circle</div>
+          </div>
+          <div class="bk-fix">
+            <p class="bk-fix-l">Bouwnce unlocks</p>
+            <p class="bk-fix-t">A verified campus storefront. She posts on the feed — the whole campus sees her food. Orders come in. Reviews build trust she keeps forever.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- TUNDE — Thrift seller -->
+    <div class="flip-card" data-flip>
+      <div class="flip-inner">
+        <div class="flip-front">
+          <img src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=700&q=80&fit=crop&crop=faces,top" alt="Tunde" loading="lazy"/>
+          <div class="flip-front-ov"></div>
+          <div class="flip-chip">The Thrift Vendor</div>
+          <div class="flip-front-body">
+            <p class="flip-school">OAU — Ile-Ife, Nigeria</p>
+            <h3 class="flip-name">TUNDE B.</h3>
+            <p class="flip-role">Thrift &amp; Vintage Fits · Selling since Year 1</p>
+          </div>
+        </div>
+        <div class="flip-back">
+          <div class="flip-back-n">03</div>
+          <p class="bk-tag">The Thrift &amp; Fashion Vendor</p>
+          <h3 class="bk-name">TUNDE B.</h3>
+          <p class="bk-role">Thrift Seller · OAU, Nigeria</p>
+          <p class="bk-q">"I post on my story. 24 hours later it's gone. The best pieces sell to people who happened to be online. Everyone else misses out and I lose buyers."</p>
+          <div class="bk-pain">
+            <div class="bk-pi">Listings disappear after 24 hours</div>
+            <div class="bk-pi">Buyers outside his circle never find him</div>
+            <div class="bk-pi">No permanent store to send people to</div>
+          </div>
+          <div class="bk-fix">
+            <p class="bk-fix-l">Bouwnce unlocks</p>
+            <p class="bk-fix-t">Post new drops to the campus feed. Permanent storefront anyone can visit. Campus-wide audience — not just people who caught his story in time.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- KOFI — Social-first, commerce as bonus -->
     <div class="flip-card" data-flip>
       <div class="flip-inner">
         <div class="flip-front">
           <img src="https://images.unsplash.com/photo-1500648767791-00dcc994a43e?w=700&q=80&fit=crop&crop=faces,top" alt="Kofi" loading="lazy"/>
           <div class="flip-front-ov"></div>
-          <div class="flip-chip">The Hustler</div>
+          <div class="flip-chip">The Content Guy</div>
           <div class="flip-front-body">
             <p class="flip-school">KNUST — Kumasi, Ghana</p>
             <h3 class="flip-name">KOFI A.</h3>
-            <p class="flip-role">Graphic Designer · Side hustle since Year 1</p>
-          </div>
-        </div>
-        <div class="flip-back">
-          <div class="flip-back-n">01</div>
-          <p class="bk-tag">The Skilled Hustler</p>
-          <h3 class="bk-name">KOFI A.</h3>
-          <p class="bk-role">Designer · KNUST, Ghana</p>
-          <p class="bk-q">"I've designed for 40 clients. Every one came through WhatsApp. Some paid. Some disappeared. No record. No reputation."</p>
-          <div class="bk-pain">
-            <div class="bk-pi">Hard to find serious buyers</div>
-            <div class="bk-pi">No trust or reputation layer</div>
-            <div class="bk-pi">Income is feast or famine</div>
-          </div>
-          <div class="bk-fix">
-            <p class="bk-fix-l">Bouwnce unlocks</p>
-            <p class="bk-fix-t">Structured stage, verified reviews, consistent campus income.</p>
-          </div>
-        </div>
-      </div>
-    </div>
-    <!-- ZARA -->
-    <div class="flip-card" data-flip>
-      <div class="flip-inner">
-        <div class="flip-front">
-          <img src="https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?w=700&q=80&fit=crop&crop=faces,top" alt="Zara" loading="lazy"/>
-          <div class="flip-front-ov"></div>
-          <div class="flip-chip">The Misfit</div>
-          <div class="flip-front-body">
-            <p class="flip-school">UNILAG — Lagos, Nigeria</p>
-            <h3 class="flip-name">ZARA M.</h3>
-            <p class="flip-role">Filmmaker · Studying Economics</p>
-          </div>
-        </div>
-        <div class="flip-back">
-          <div class="flip-back-n">02</div>
-          <p class="bk-tag">The Creative Misfit</p>
-          <h3 class="bk-name">ZARA M.</h3>
-          <p class="bk-role">Filmmaker · UNILAG, Nigeria</p>
-          <p class="bk-q">"I've made three films. All screened on a laptop, in my room, to five people who happened to be there."</p>
-          <div class="bk-pain">
-            <div class="bk-pi">Invisible outside her circle</div>
-            <div class="bk-pi">No collaborators to find</div>
-            <div class="bk-pi">No pathway to real exposure</div>
-          </div>
-          <div class="bk-fix">
-            <p class="bk-fix-l">Bouwnce unlocks</p>
-            <p class="bk-fix-t">Cross-campus audience, collaborators, and industry reach.</p>
-          </div>
-        </div>
-      </div>
-    </div>
-    <!-- JALEN -->
-    <div class="flip-card" data-flip>
-      <div class="flip-inner">
-        <div class="flip-front">
-          <img src="https://images.unsplash.com/photo-1519085360753-af0119f7cbe7?w=700&q=80&fit=crop&crop=faces,top" alt="Jalen" loading="lazy"/>
-          <div class="flip-front-ov"></div>
-          <div class="flip-chip">The Builder</div>
-          <div class="flip-front-body">
-            <p class="flip-school">Howard University — D.C., USA</p>
-            <h3 class="flip-name">JALEN W.</h3>
-            <p class="flip-role">CS Student · Aspiring Founder</p>
-          </div>
-        </div>
-        <div class="flip-back">
-          <div class="flip-back-n">03</div>
-          <p class="bk-tag">The Curious Builder</p>
-          <h3 class="bk-name">JALEN W.</h3>
-          <p class="bk-role">CS Student · Howard, D.C.</p>
-          <p class="bk-q">"I want to build something real. I just don't know where the serious people are. Everyone I meet is playing or just talking."</p>
-          <div class="bk-pain">
-            <div class="bk-pi">Can't find serious builders</div>
-            <div class="bk-pi">Opportunities are scattered</div>
-            <div class="bk-pi">Quality communities invisible</div>
-          </div>
-          <div class="bk-fix">
-            <p class="bk-fix-l">Bouwnce unlocks</p>
-            <p class="bk-fix-t">Discovery engine for events, communities, and real collaborators.</p>
-          </div>
-        </div>
-      </div>
-    </div>
-    <!-- MARCUS -->
-    <div class="flip-card" data-flip>
-      <div class="flip-inner">
-        <div class="flip-front">
-          <img src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=700&q=80&fit=crop&crop=faces,top" alt="Marcus" loading="lazy"/>
-          <div class="flip-front-ov"></div>
-          <div class="flip-chip">The Voice</div>
-          <div class="flip-front-body">
-            <p class="flip-school">Morehouse College — Atlanta, USA</p>
-            <h3 class="flip-name">MARCUS D.</h3>
-            <p class="flip-role">Culture Driver · Campus Everything</p>
+            <p class="flip-role">Campus creative · Posts everything, sells sometimes</p>
           </div>
         </div>
         <div class="flip-back">
           <div class="flip-back-n">04</div>
-          <p class="bk-tag">The Campus Voice</p>
-          <h3 class="bk-name">MARCUS D.</h3>
-          <p class="bk-role">Content Creator · Morehouse</p>
-          <p class="bk-q">"I am the pulse of my campus. But my reach ends at the gates. I want to move culture everywhere — not just here."</p>
+          <p class="bk-tag">The Social + Commerce Student</p>
+          <h3 class="bk-name">KOFI A.</h3>
+          <p class="bk-role">Designer &amp; Campus figure · KNUST</p>
+          <p class="bk-q">"I post. People know my work. But my social life and my hustle are on different apps and nobody connects the two unless I manually send them a link."</p>
           <div class="bk-pain">
-            <div class="bk-pi">Reach ends at campus gate</div>
-            <div class="bk-pi">No cross-campus visibility</div>
-            <div class="bk-pi">Campus life lives in silos</div>
+            <div class="bk-pi">Social presence and business are disconnected</div>
+            <div class="bk-pi">Followers can't easily become clients</div>
+            <div class="bk-pi">Juggling multiple platforms to do one thing</div>
           </div>
           <div class="bk-fix">
             <p class="bk-fix-l">Bouwnce unlocks</p>
-            <p class="bk-fix-t">Cross-campus reach and influence without borders.</p>
+            <p class="bk-fix-t">One campus profile. Post content, build clout, flip on a storefront when he's ready. His campus following and his business live in the same place.</p>
           </div>
         </div>
       </div>
     </div>
+
   </div>
 </section>
 
@@ -1004,21 +1053,21 @@ footer p{font-size:12px;color:var(--muted);transition:color .45s;}
 <section class="split-story">
   <div class="split-grid">
     <div class="split-side reveal">
-      <img src="https://images.unsplash.com/photo-1523240795612-9a054b0db644?w=900&q=85&fit=crop&crop=center" alt="Before Bouwnce" loading="lazy"/>
+      <img src="https://images.unsplash.com/photo-1501386761578-eac5c94b800a?w=900&q=85&fit=crop&crop=center" alt="Before Bouwnce" loading="lazy"/>
       <div class="split-ov"></div>
       <div class="split-copy">
         <p class="split-lbl">Before Bouwnce</p>
-        <h3 class="split-h">ONE CAMPUS.<br>ONE BUBBLE.<br>NO WAY OUT.</h3>
-        <p class="split-p">Your talent locked behind a gate — known only to the people already in the room.</p>
+        <h3 class="split-h">SAME CAMPUS.<br>STRANGERS<br>ON INSTAGRAM.</h3>
+        <p class="split-p">You scroll a feed that doesn't know you exist. Hundreds of students around you — invisible, disconnected, no shared space.</p>
       </div>
     </div>
     <div class="split-side reveal d1">
-      <img src="https://images.unsplash.com/photo-1522202176988-66273c2fd55f?w=900&q=85&fit=crop&crop=center" alt="With Bouwnce" loading="lazy"/>
+      <img src="https://images.unsplash.com/photo-1529156069898-49953e39b3ac?w=900&q=85&fit=crop&crop=center" alt="With Bouwnce" loading="lazy"/>
       <div class="split-ov"></div>
       <div class="split-copy">
         <p class="split-lbl">With Bouwnce</p>
-        <h3 class="split-h">EVERY CAMPUS.<br>ONE UNIVERSE.<br>INFINITE ACCESS.</h3>
-        <p class="split-p">Your profile visible to thousands across every campus on the network, from day one.</p>
+        <h3 class="split-h">YOUR FEED.<br>YOUR PEOPLE.<br>YOUR MARKET.</h3>
+        <p class="split-p">A social feed that only knows your campus. Follow, post, connect — and when someone sells, you can buy without ever leaving.</p>
       </div>
     </div>
   </div>
@@ -1028,21 +1077,21 @@ footer p{font-size:12px;color:var(--muted);transition:color .45s;}
 <section class="sec moment">
   <div class="inner">
     <div class="moment-photo reveal">
-      <img src="https://images.unsplash.com/photo-1529390079861-591de354faf5?w=800&q=85&fit=crop" alt="Students" loading="lazy"/>
+      <img src="https://images.unsplash.com/photo-1488521787991-ed7bbaae773c?w=800&q=85&fit=crop&crop=center" alt="Students together" loading="lazy"/>
       <div class="moment-ov"></div>
       <div class="moment-badge">
-        <p>The campus universe is opening.</p>
+        <p>The social app your campus actually needs.</p>
         <p>Early waitlist → dev.bouwnce.com</p>
       </div>
     </div>
     <div class="reveal d1">
-      <p class="tag">What Bouwnce Does</p>
-      <h2 class="sh">YOUR CAMPUS.<br>YOUR STAGE.<br>YOUR ECONOMY.</h2>
+      <p class="tag">What Bouwnce Is</p>
+      <h2 class="sh">SOCIAL FIRST.<br>COMMERCE<br>BUILT IN.</h2>
       <div class="feats">
-        <div class="feat"><div class="feat-ico">🎭</div><div><h4>BE SEEN ACROSS CAMPUSES</h4><p>Your profile reaches students, mentors, and brands at schools you've never visited.</p></div></div>
-        <div class="feat"><div class="feat-ico">💸</div><div><h4>EARN WITH STRUCTURE</h4><p>Real gigs. Real reviews. Real income — not WhatsApp negotiations or ghosted clients.</p></div></div>
-        <div class="feat"><div class="feat-ico">🔗</div><div><h4>CONNECT ACROSS SCHOOLS</h4><p>Find collaborators, communities, and events at any campus — not just your own bubble.</p></div></div>
-        <div class="feat"><div class="feat-ico">🏆</div><div><h4>BUILD A REP THAT LASTS</h4><p>Verifiable reputation that compounds and opens doors long before graduation.</p></div></div>
+        <div class="feat"><div class="feat-ico">📱</div><div><h4>THE CAMPUS FEED</h4><p>A social feed that only shows your campus. Post moments, follow classmates, see what's trending right where you are. Not the whole world — just your world.</p></div></div>
+        <div class="feat"><div class="feat-ico">👥</div><div><h4>FOLLOW YOUR CAMPUS</h4><p>Build your campus presence. Follow people, get followed back. The feed surfaces the students shaping culture at your school — not algorithms built for everyone else.</p></div></div>
+        <div class="feat"><div class="feat-ico">🛍️</div><div><h4>STOREFRONTS FOR ANYONE</h4><p>Any student can flip on a storefront from their profile. Food, clothes, services — listed and discovered on the same feed your followers already scroll. Commerce grows from community.</p></div></div>
+        <div class="feat"><div class="feat-ico">📚</div><div><h4>THE QUAD</h4><p>The campus notice board only your school can see. Post opportunities. Zero value outside your campus — which is exactly the point.</p></div></div>
       </div>
     </div>
   </div>
@@ -1052,15 +1101,15 @@ footer p{font-size:12px;color:var(--muted);transition:color .45s;}
 <section class="gallery">
   <div class="inner">
     <div class="reveal">
-      <p class="tag">Campus Life, Amplified</p>
-      <h2 class="sh">THIS IS YOUR<br>UNIVERSE NOW.</h2>
+      <p class="tag">The Campus Social Marketplace</p>
+      <h2 class="sh">THIS IS WHAT<br>BOUWNCE LOOKS LIKE.</h2>
     </div>
     <div class="gallery-grid">
-      <div class="gi reveal"><img src="https://images.unsplash.com/photo-1543269664-56d93c1b41a6?w=900&q=85&fit=crop" alt="" loading="lazy"/><div class="gi-ov"><span>Find your people across campuses</span></div></div>
-      <div class="gi reveal d1"><img src="https://images.unsplash.com/photo-1600880292089-90a7e086ee0c?w=600&q=85&fit=crop" alt="" loading="lazy"/><div class="gi-ov"><span>Turn your hustle into income</span></div></div>
-      <div class="gi reveal d2"><img src="https://images.unsplash.com/photo-1524178232363-1fb2b075b655?w=600&q=85&fit=crop" alt="" loading="lazy"/><div class="gi-ov"><span>Discover events near you</span></div></div>
-      <div class="gi reveal d1"><img src="https://images.unsplash.com/photo-1522202176988-66273c2fd55f?w=600&q=85&fit=crop" alt="" loading="lazy"/><div class="gi-ov"><span>Connect, collab, create</span></div></div>
-      <div class="gi reveal d2"><img src="https://images.unsplash.com/photo-1516321318423-f06f85e504b3?w=600&q=85&fit=crop" alt="" loading="lazy"/><div class="gi-ov"><span>Build reputation that travels</span></div></div>
+      <div class="gi reveal"><img src="https://images.unsplash.com/photo-1543269664-56d93c1b41a6?w=900&q=85&fit=crop" alt="" loading="lazy"/><div class="gi-ov"><span>Scroll the campus feed. Discover vendors.</span></div></div>
+      <div class="gi reveal d1"><img src="https://images.unsplash.com/photo-1600880292089-90a7e086ee0c?w=600&q=85&fit=crop" alt="" loading="lazy"/><div class="gi-ov"><span>Open your storefront. Sell to your campus.</span></div></div>
+      <div class="gi reveal d2"><img src="https://images.unsplash.com/photo-1524178232363-1fb2b075b655?w=600&q=85&fit=crop" alt="" loading="lazy"/><div class="gi-ov"><span>Food, clothes, services — all in one place</span></div></div>
+      <div class="gi reveal d1"><img src="https://images.unsplash.com/photo-1522202176988-66273c2fd55f?w=600&q=85&fit=crop" alt="" loading="lazy"/><div class="gi-ov"><span>Post content. Convert followers to customers.</span></div></div>
+      <div class="gi reveal d2"><img src="https://images.unsplash.com/photo-1516321318423-f06f85e504b3?w=600&q=85&fit=crop" alt="" loading="lazy"/><div class="gi-ov"><span>Verified reviews from students you know</span></div></div>
     </div>
   </div>
 </section>
@@ -1069,14 +1118,14 @@ footer p{font-size:12px;color:var(--muted);transition:color .45s;}
 <section class="sec hiw">
   <div class="inner">
     <div class="reveal">
-      <p class="tag">Getting Started</p>
-      <h2 class="sh">FOUR STEPS TO<br>YOUR UNIVERSE</h2>
+      <p class="tag">How It Works</p>
+      <h2 class="sh">FEED. STORE.<br>ORDER. DONE.</h2>
     </div>
     <div class="hiw-grid">
-      <div class="hiw-step reveal"><div class="sn">01</div><div class="si">👤</div><h4>BUILD YOUR PROFILE</h4><p>Your skills, your work, your voice. Visible across every campus from day one.</p></div>
-      <div class="hiw-step reveal d1"><div class="sn">02</div><div class="si">🔍</div><h4>DISCOVER YOUR SCENE</h4><p>Students, events, gigs, and communities across campuses. Your world expands immediately.</p></div>
-      <div class="hiw-step reveal d2"><div class="sn">03</div><div class="si">🤝</div><h4>CONNECT &amp; SHARE</h4><p>Link with creatives, hustlers, builders and influencers who match your energy. No more silos.</p></div>
-      <div class="hiw-step reveal d3"><div class="sn">04</div><div class="si">💰</div><h4>EARN &amp; GROW</h4><p>Pick up gigs. Collect reviews. Build a reputation that matters — and pays.</p></div>
+      <div class="hiw-step reveal"><div class="sn">01</div><div class="si">👤</div><h4>JOIN WITH YOUR STUDENT ID</h4><p>Sign up with your campus email. Get verified. Your campus tag is permanent — buyers always know exactly who they're dealing with.</p></div>
+      <div class="hiw-step reveal d1"><div class="sn">02</div><div class="si">📱</div><h4>POST ON THE CAMPUS FEED</h4><p>Share content with your campus community. Follow students. See what's trending. The feed only shows your campus — no noise from anywhere else.</p></div>
+      <div class="hiw-step reveal d2"><div class="sn">03</div><div class="si">🛍️</div><h4>OPEN YOUR STOREFRONT</h4><p>Any student can activate a storefront in minutes. List your food, clothes, services, or skills. A "Visit Store" button goes live on your profile. Your campus can now find and buy from you.</p></div>
+      <div class="hiw-step reveal d3"><div class="sn">04</div><div class="si">📚</div><h4>EXPLORE THE QUAD</h4><p>The campus-exclusive notice board. Exchange textbooks by course code. Find housing. Swap skills. Post opportunities. Zero value outside your campus — which is exactly the point.</p></div>
     </div>
   </div>
 </section>
@@ -1085,11 +1134,11 @@ footer p{font-size:12px;color:var(--muted);transition:color .45s;}
 <section class="manifesto">
   <div class="mv"></div>
   <p class="man-text reveal">
-    Kofi's next client is at a campus he's never visited.<br>
-    Zara's collaborator is already looking for her.<br>
-    Jalen's people are already online.<br>
-    Marcus's voice has no borders.<br><br>
-    <span class="r">They just needed a way to find each other.</span><br><br>
+    Amaka's jollof deserves a storefront, not a status.<br>
+    Tunde's thrift drops deserve a campus audience, not 24-hour stories.<br>
+    Chisom knows what she wants — she just needs a place to find it.<br>
+    Kofi's campus following should convert to paying clients.<br><br>
+    <span class="r">The campus already has a market.<br>It just needed somewhere to live.</span><br><br>
     That's Bouwnce.
   </p>
   <div class="mvb"></div>
@@ -1102,14 +1151,14 @@ footer p{font-size:12px;color:var(--muted);transition:color .45s;}
       <img src="https://images.unsplash.com/photo-1522202176988-66273c2fd55f?w=900&q=85&fit=crop" alt="Students"/>
       <div class="final-ov"></div>
       <div class="final-copy">
-        <h2>YOUR<br>MOMENT<br>IS NOW.</h2>
-        <p>Early members get first access, founding perks, and the chance to shape what Bouwnce becomes. The doors open once.</p>
+        <h2>CAMPUS<br>SOCIAL.<br>CAMPUS<br>MARKET.</h2>
+        <p>The campus already has vendors. It already has buyers. Bouwnce is where they finally find each other. Founding members shape what it becomes.</p>
       </div>
     </div>
     <div class="final-form">
       <p class="fin-tag">Secure Your Spot</p>
       <h3>Join the<br>Waitlist</h3>
-      <p class="fin-sub">Space is limited. Be one of the first students to access the campus universe when we launch.</p>
+      <p class="fin-sub">Be among the first students on the platform when we launch on your campus. Founding members get early access, a permanent badge, and storefronts free for life during the pilot.</p>
       <button class="sub-btn" onclick="openModal()">I WANT EARLY ACCESS</button>
       <p class="fin-note">No spam. Just your invite when we launch.</p>
       <div class="avatars">
@@ -1132,7 +1181,7 @@ footer p{font-size:12px;color:var(--muted);transition:color .45s;}
   <p>© 2025 Bouwnce. Access is no longer a privilege.</p>
   <div class="flinks">
     <a href="https://dev.bouwnce.com" target="_blank">Waitlist</a>
-    <a href="/cdn-cgi/l/email-protection#c9aaa6a7bda8aabd89aba6bcbea7aaace7aaa6a4">Contact</a>
+    <a href="/cdn-cgi/l/email-protection#e98a86879d888a9da98b869c9e878a8cc78a8684">Contact</a>
     <a href="#">Privacy</a>
   </div>
 </footer>
@@ -1144,7 +1193,7 @@ footer p{font-size:12px;color:var(--muted);transition:color .45s;}
     <button class="modal-close" onclick="closeModal()" aria-label="Close">✕</button>
     <div class="modal-body">
       <p class="modal-eyebrow">Join the waitlist</p>
-      <p class="modal-tagline">Be first in when we launch and get early access.</p>
+      <p class="modal-tagline">Be first in when we launch — founding members get early access and a permanent badge.</p>
       <div class="mf-area" id="modalFormArea">
         <div class="mf" id="waitlistForm">
           <div class="mf-field">
@@ -1185,13 +1234,13 @@ footer p{font-size:12px;color:var(--muted);transition:color .45s;}
             <span class="btn-label">CLAIM MY SPOT</span>
             <div class="spin"></div>
           </button>
-          <p class="mf-privacy">🔒 Bouwnce. Get Access.</p>
+          <p class="mf-privacy">🔒 No spam, ever.</p>
         </div>
       </div>
       <div class="modal-success" id="modalSuccess">
         <div class="success-icon">🎉</div>
         <h3>YOU'RE IN.</h3>
-        <p> You are now an early adopter. You'll be first to know — and first to enter.</p>
+        <p>Welcome to the founding circle. You'll be first to know — and first to enter.</p>
         <p class="success-share">Tell a friend. Get access.</p>
       </div>
     </div>
@@ -1204,14 +1253,14 @@ footer p{font-size:12px;color:var(--muted);transition:color .45s;}
 </div>
 
 <script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script>
-/* ── THEME ── */
+/* THEME */
 let isDark = false;
 function toggleTheme(){
   isDark=!isDark;
   document.documentElement.setAttribute('data-theme',isDark?'dark':'light');
 }
 
-/* ── MODAL ── */
+/* MODAL */
 function openModal(){
   document.getElementById('modalBackdrop').classList.add('open');
   document.body.style.overflow='hidden';
@@ -1231,7 +1280,7 @@ function handleBackdropClick(e){
 }
 document.addEventListener('keydown',e=>{if(e.key==='Escape') closeModal();});
 
-/* ── SUBMIT ── */
+/* SUBMIT */
 async function submitWaitlist(){
   const name=document.getElementById('mf-name').value.trim();
   const email=document.getElementById('mf-email').value.trim();
@@ -1285,47 +1334,34 @@ const shakeKF=document.createElement('style');
 shakeKF.textContent=`@keyframes shake{0%,100%{transform:translateX(0)}20%,60%{transform:translateX(-6px)}40%,80%{transform:translateX(6px)}}`;
 document.head.appendChild(shakeKF);
 
-/* ── FLIP CARDS ──
-   Desktop (hover:hover pointer:fine): pure CSS :hover — no JS.
-   Mobile/touch: auto-flips when card scrolls into view (staggered),
-   AND tap to manually flip/unflip any card.
-── */
+/* FLIP CARDS
+   Desktop : CSS :hover only — no JS.
+   Mobile  : single-column, scroll-into-view stagger + tap to toggle.
+*/
 (function(){
-  var isTouch = !window.matchMedia('(hover:hover) and (pointer:fine)').matches;
+  const isTouch = !window.matchMedia('(hover:hover) and (pointer:fine)').matches;
   if(!isTouch) return;
 
-  var cards = Array.from(document.querySelectorAll('.flip-card[data-flip]'));
-  var autoTimers = [];
+  const cards = Array.from(document.querySelectorAll('.flip-card[data-flip]'));
+  cards.forEach((card, idx) => {
+    let timer = null;
+    const delay = 200 + idx * 220;
 
-  var obs = new IntersectionObserver(function(entries){
-    entries.forEach(function(entry){
-      var card = entry.target;
-      var idx = cards.indexOf(card);
-      // Clear any pending auto-flip timer for this card
-      clearTimeout(autoTimers[idx]);
+    const obs = new IntersectionObserver(([entry]) => {
       if(entry.isIntersecting){
-        // Stagger: 0→150ms, 1→350ms, 2→550ms, 3→750ms
-        var delay = 150 + idx * 200;
-        autoTimers[idx] = setTimeout(function(){
-          card.classList.add('flipped');
-        }, delay);
+        timer = setTimeout(() => card.classList.add('flipped'), delay);
       } else {
-        // Unflip when card leaves viewport
+        clearTimeout(timer);
         card.classList.remove('flipped');
       }
-    });
-  }, { threshold: 0.35 }); // flip when 35% of card visible
+    }, { threshold: 0.25 });
 
-  cards.forEach(function(card, idx){
     obs.observe(card);
-    // Tap also toggles manually (in addition to auto)
-    card.addEventListener('click', function(){
-      card.classList.toggle('flipped');
-    });
+    card.addEventListener('click', () => card.classList.toggle('flipped'));
   });
 })();
 
-/* ── WINDOWS GRID ── */
+/* WINDOWS GRID */
 const grid=document.getElementById('winGrid');
 const COLS=8,ROWS=14;
 const wins=[];
@@ -1364,7 +1400,7 @@ function lightWindows(){
 }
 setTimeout(lightWindows,800);
 
-/* ── SCROLL REVEAL ── */
+/* SCROLL REVEAL */
 const revEls=document.querySelectorAll('.reveal');
 const ro=new IntersectionObserver(entries=>{
   entries.forEach((e,i)=>{
@@ -1376,7 +1412,7 @@ const ro=new IntersectionObserver(entries=>{
 },{threshold:0.06});
 revEls.forEach(el=>ro.observe(el));
 
-/* ── LIVE COUNTER ── */
+/* LIVE COUNTER */
 let count=2847;
 function sync(){
   const c=count.toLocaleString();
