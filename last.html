@@ -1,0 +1,1446 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Bouwnce — School Never Felt This Close</title>
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Instrument+Serif:ital@0;1&family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;1,9..40,300&display=swap" rel="stylesheet">
+<style>
+[data-theme="light"]{
+  --bg:#F9F5EF;--bg2:#F1EBE2;--bg3:#EAE2D8;
+  --text:#1C1A17;--muted:rgba(28,26,23,.50);--border:rgba(28,26,23,.10);
+  --card:#ffffff;--card2:#F4EFE8;--warm:#8B6344;
+  --nav-bg:rgba(249,245,239,.93);--inp-bg:rgba(28,26,23,.05);--inp-bdr:rgba(28,26,23,.14);
+  --img-f:saturate(.92) brightness(1.02);--noise:.10;--btn-bg:rgba(28,26,23,.07);
+}
+[data-theme="dark"]{
+  --bg:#080807;--bg2:#0b0a09;--bg3:#0f0e0d;
+  --text:#F2EDE4;--muted:rgba(242,237,228,.44);--border:rgba(242,237,228,.07);
+  --card:#0f0e0d;--card2:#141312;--warm:#c9b99a;
+  --nav-bg:rgba(8,8,7,.86);--inp-bg:rgba(242,237,228,.05);--inp-bdr:rgba(242,237,228,.12);
+  --img-f:saturate(.9) brightness(.88);--noise:.55;--btn-bg:rgba(242,237,228,.07);
+}
+:root{--red:#FF4B2B;--red2:#e03a1c;}
+
+*,*::before,*::after{margin:0;padding:0;box-sizing:border-box;}
+html{scroll-behavior:smooth;}
+button,a,select,[role="button"]{cursor:pointer;}
+input,textarea,select{cursor:text;}
+
+body{
+  background:var(--bg);color:var(--text);
+  font-family:'DM Sans',sans-serif;
+  overflow-x:hidden;
+  transition:background .45s,color .45s;
+}
+body::after{
+  content:'';position:fixed;inset:0;pointer-events:none;
+  z-index:300;opacity:var(--noise);transition:opacity .45s;
+  background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='300' height='300'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='300' height='300' filter='url(%23n)' opacity='.04'/%3E%3C/svg%3E");
+}
+
+/* NAV */
+nav{
+  position:fixed;top:0;left:0;right:0;z-index:200;
+  padding:20px 52px;
+  display:flex;justify-content:space-between;align-items:center;
+  backdrop-filter:blur(22px);
+  background:var(--nav-bg);
+  border-bottom:1px solid var(--border);
+  transition:background .45s,border-color .45s;
+}
+.logo{font-family:'Bebas Neue',sans-serif;font-size:30px;letter-spacing:2px;color:var(--text);transition:color .45s;}
+.logo b{color:var(--red);}
+.nav-r{display:flex;align-items:center;gap:12px;}
+.theme-btn{
+  width:38px;height:38px;border-radius:50%;
+  background:var(--btn-bg);border:1px solid var(--border);
+  display:flex;align-items:center;justify-content:center;
+  flex-shrink:0;font-size:17px;line-height:1;
+  position:relative;overflow:hidden;
+  transition:background .25s,border-color .45s;
+}
+.theme-btn:hover{background:var(--red);border-color:var(--red);}
+.t-sun,.t-moon{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;transition:opacity .3s,transform .3s;}
+.t-sun{opacity:1;transform:rotate(0deg) scale(1);}
+.t-moon{opacity:0;transform:rotate(-45deg) scale(.6);}
+[data-theme="dark"] .t-sun{opacity:0;transform:rotate(45deg) scale(.6);}
+[data-theme="dark"] .t-moon{opacity:1;transform:rotate(0deg) scale(1);}
+.nav-btn{
+  background:transparent;border:1px solid var(--border);
+  border-radius:999px;padding:10px 24px;color:var(--text);
+  font-family:'DM Sans',sans-serif;font-size:13px;font-weight:500;
+  letter-spacing:.4px;text-decoration:none;display:inline-block;
+  transition:background .25s,border-color .25s,color .25s;
+}
+.nav-btn:hover,.nav-btn.filled{background:var(--red);border-color:var(--red);color:#fff;}
+
+/* HERO */
+.hero{min-height:100vh;display:grid;grid-template-columns:1fr 1fr;overflow:hidden;}
+.hero-left{
+  display:flex;flex-direction:column;justify-content:center;
+  padding:140px 64px 100px 52px;
+  position:relative;z-index:2;
+  background:var(--bg);transition:background .45s;
+}
+.hero-left::before{
+  content:'';position:absolute;bottom:-8%;right:-4%;width:52%;padding-top:52%;
+  border-radius:50%;
+  background:radial-gradient(circle,rgba(255,75,43,.07) 0%,transparent 70%);
+  pointer-events:none;z-index:0;
+}
+[data-theme="dark"] .hero-left::before{background:radial-gradient(circle,rgba(255,120,50,.09) 0%,transparent 70%);}
+.eyebrow{display:flex;align-items:center;gap:10px;margin-bottom:28px;opacity:0;animation:up .8s .3s ease forwards;position:relative;}
+.pdot{width:8px;height:8px;border-radius:50%;background:var(--red);flex-shrink:0;animation:pdot 1.4s ease-in-out infinite;}
+@keyframes pdot{0%,100%{opacity:1;transform:scale(1)}50%{opacity:.2;transform:scale(.7)}}
+.eyebrow span{font-size:11px;letter-spacing:3px;text-transform:uppercase;color:var(--red);font-weight:500;}
+.hero-h1{
+  font-family:'Bebas Neue',sans-serif;
+  font-size:clamp(62px,7vw,96px);line-height:.93;letter-spacing:1px;margin-bottom:6px;
+  color:var(--text);transition:color .45s;
+  opacity:0;animation:up .9s .4s ease forwards;position:relative;
+}
+.hero-it{
+  font-family:'Instrument Serif',serif;font-style:italic;
+  font-size:clamp(46px,5.5vw,76px);line-height:1;
+  color:var(--red);letter-spacing:-1px;margin-bottom:32px;
+  opacity:0;animation:up .9s .5s ease forwards;position:relative;
+}
+.hero-sub{
+  font-size:16px;color:var(--muted);line-height:1.75;font-weight:300;
+  max-width:390px;margin-bottom:46px;
+  opacity:0;animation:up 1s .6s ease forwards;
+  position:relative;transition:color .45s;
+}
+.hero-sub strong{color:var(--text);font-weight:500;transition:color .45s;}
+.form-w{opacity:0;animation:up 1s .7s ease forwards;position:relative;}
+.proof{margin-top:14px;font-size:12px;color:var(--muted);display:flex;align-items:center;gap:8px;transition:color .45s;}
+.proof::before{content:'';display:inline-block;width:22px;height:1px;background:var(--red);flex-shrink:0;}
+
+/* HERO RIGHT */
+.hero-right{position:relative;overflow:hidden;}
+.world-canvas{position:absolute;inset:0;overflow:hidden;background:#f0e6d8;transition:background .45s;}
+[data-theme="dark"] .world-canvas{background:#0d0c0b;}
+.windows-grid{
+  position:absolute;inset:0;
+  display:grid;grid-template-columns:repeat(8,1fr);grid-template-rows:repeat(14,1fr);
+  gap:3px;padding:3px;
+  transform:perspective(600px) rotateY(-8deg) rotateX(4deg);
+  transform-origin:left center;
+}
+.win{border-radius:2px;background:rgba(255,255,255,0.03);transition:background 1.5s ease,box-shadow 1.5s ease;}
+.win.lit{background:rgba(255,200,100,0.7);box-shadow:0 0 8px rgba(255,180,60,0.5);}
+.win.lit-red{background:rgba(255,75,43,0.75);box-shadow:0 0 10px rgba(255,75,43,0.6);}
+.win.dim{background:rgba(255,255,255,0.015);}
+[data-theme="light"] .win.dim{background:rgba(180,140,100,0.08);}
+.hero-mesh{
+  position:absolute;inset:0;z-index:2;pointer-events:none;
+  background:
+    radial-gradient(ellipse 65% 80% at 85% 55%,rgba(255,175,75,.30) 0%,transparent 60%),
+    radial-gradient(ellipse 45% 55% at 100% 15%,rgba(255,75,43,.22) 0%,transparent 52%),
+    radial-gradient(ellipse 55% 65% at 55% 95%,rgba(230,130,50,.22) 0%,transparent 55%),
+    radial-gradient(ellipse 40% 50% at 15% 40%,rgba(255,210,120,.15) 0%,transparent 50%),
+    linear-gradient(to right,rgba(249,245,239,1) 0%,rgba(249,245,239,.65) 22%,transparent 50%);
+  transition:background .45s;
+}
+[data-theme="dark"] .hero-mesh{
+  background:
+    radial-gradient(ellipse 65% 80% at 85% 55%,rgba(255,140,40,.20) 0%,transparent 60%),
+    radial-gradient(ellipse 45% 55% at 100% 15%,rgba(255,75,43,.16) 0%,transparent 52%),
+    radial-gradient(ellipse 55% 65% at 55% 95%,rgba(200,75,20,.16) 0%,transparent 55%),
+    radial-gradient(ellipse 40% 50% at 15% 40%,rgba(255,160,60,.10) 0%,transparent 50%),
+    linear-gradient(to right,rgba(8,8,7,1) 0%,rgba(8,8,7,.7) 22%,transparent 50%);
+}
+.hero-vignette{
+  position:absolute;inset:0;z-index:3;pointer-events:none;
+  background:linear-gradient(to bottom,rgba(249,245,239,.52) 0%,transparent 12%,transparent 84%,rgba(249,245,239,.62) 100%);
+  transition:background .45s;
+}
+[data-theme="dark"] .hero-vignette{background:linear-gradient(to bottom,rgba(8,8,7,.55) 0%,transparent 12%,transparent 84%,rgba(8,8,7,.65) 100%);}
+.hero-watermark{
+  position:absolute;top:50%;left:50%;
+  transform:translate(-50%,-50%) perspective(600px) rotateY(-8deg) rotateX(4deg);
+  font-family:'Bebas Neue',sans-serif;font-size:clamp(70px,11vw,150px);letter-spacing:-3px;
+  color:rgba(255,75,43,.055);pointer-events:none;z-index:4;
+  white-space:nowrap;user-select:none;transition:color .45s;
+}
+[data-theme="dark"] .hero-watermark{color:rgba(255,75,43,.05);}
+
+/* TICKER */
+.ticker{
+  background:var(--red);padding:13px 52px;
+  display:flex;align-items:center;justify-content:center;gap:14px;
+  position:relative;overflow:hidden;
+}
+.ticker::before{
+  content:'';position:absolute;inset:0;
+  background:repeating-linear-gradient(-45deg,transparent,transparent 12px,rgba(0,0,0,.05) 12px,rgba(0,0,0,.05) 24px);
+}
+.ticker span{font-family:'Bebas Neue',sans-serif;font-size:14px;letter-spacing:1.5px;position:relative;z-index:1;color:#fff;}
+.ticker-num{
+  background:rgba(0,0,0,.2);border-radius:6px;padding:4px 14px;
+  font-family:'Bebas Neue',sans-serif;font-size:20px;color:#fff;
+  position:relative;z-index:1;min-width:60px;text-align:center;transition:transform .18s;
+}
+
+/* MARQUEE */
+.mq{border-top:1px solid var(--border);border-bottom:1px solid var(--border);padding:16px 0;overflow:hidden;transition:border-color .45s;}
+.mq-inner{display:flex;gap:52px;width:max-content;animation:mscroll 32s linear infinite;}
+.mq-item{display:flex;align-items:center;gap:18px;font-family:'Bebas Neue',sans-serif;font-size:13px;letter-spacing:2px;color:var(--muted);white-space:nowrap;transition:color .45s;}
+.mq-item .star{color:var(--red);font-size:9px;}
+@keyframes mscroll{to{transform:translateX(-50%);}}
+
+/* SHARED SECTION */
+.sec{padding:110px 52px;transition:background .45s;}
+.inner{max-width:1200px;margin:0 auto;}
+.tag{font-size:11px;letter-spacing:3px;text-transform:uppercase;color:var(--red);font-weight:600;margin-bottom:18px;}
+.sh{font-family:'Bebas Neue',sans-serif;font-size:clamp(44px,5vw,70px);line-height:.93;letter-spacing:1px;margin-bottom:10px;color:var(--text);transition:color .45s;}
+.sub{font-family:'Instrument Serif',serif;font-style:italic;font-size:clamp(18px,2vw,26px);color:var(--warm);line-height:1.3;margin-bottom:20px;transition:color .45s;}
+.body{font-size:15px;color:var(--muted);line-height:1.85;font-weight:300;transition:color .45s;}
+.body strong{color:var(--text);font-weight:500;transition:color .45s;}
+.reveal{opacity:0;transform:translateY(26px);transition:opacity .75s ease,transform .75s ease;}
+.reveal.in{opacity:1;transform:none;}
+.d1{transition-delay:.10s}.d2{transition-delay:.20s}.d3{transition-delay:.30s}.d4{transition-delay:.40s}
+
+/* ── MANIFESTO STRIP (moved early) ───────── */
+.manifesto{padding:120px 52px;text-align:center;position:relative;overflow:hidden;background:var(--bg2);transition:background .45s;}
+.manifesto::before{content:'BOUWNCE';position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);font-family:'Bebas Neue',sans-serif;font-size:clamp(100px,18vw,240px);color:rgba(255,75,43,.04);letter-spacing:-4px;pointer-events:none;white-space:nowrap;}
+.mv{width:1px;height:72px;background:linear-gradient(to bottom,transparent,var(--red),transparent);margin:0 auto 36px;}
+.mvb{width:1px;height:72px;background:linear-gradient(to bottom,var(--red),transparent);margin:0 auto;}
+.man-text{font-family:'Instrument Serif',serif;font-size:clamp(24px,3.6vw,48px);line-height:1.35;letter-spacing:-.5px;max-width:800px;margin:0 auto 36px;position:relative;z-index:1;color:var(--text);transition:color .45s;}
+.man-text .r{color:var(--red);font-style:italic;}
+.man-text em{font-style:italic;color:var(--warm);}
+
+/* ── THE TRUTH SECTION (replaces "What If") ── */
+.truth{padding:100px 52px;text-align:center;position:relative;overflow:hidden;background:var(--bg);transition:background .45s;}
+.truth::before{content:'';position:absolute;inset:0;pointer-events:none;background:radial-gradient(ellipse at 18% 60%,rgba(255,75,43,.06),transparent 55%),radial-gradient(ellipse at 82% 38%,rgba(255,75,43,.04),transparent 55%);}
+.truth-vline{width:1px;height:72px;background:linear-gradient(to bottom,transparent,var(--red),transparent);margin:0 auto 40px;}
+.truth-vline-b{width:1px;height:72px;background:linear-gradient(to bottom,var(--red),transparent);margin:48px auto 0;}
+.truth-line{
+  font-family:'Bebas Neue',sans-serif;
+  font-size:clamp(32px,5vw,66px);
+  line-height:1;letter-spacing:1px;
+  color:var(--muted);
+  margin-bottom:20px;
+  transition:color .45s;
+  position:relative;z-index:1;
+}
+.truth-line.hot{color:var(--text);}
+.truth-line .accent{color:var(--red);}
+.truth-stats{display:flex;justify-content:center;gap:72px;flex-wrap:wrap;position:relative;z-index:1;margin-top:60px;}
+.ts{text-align:center;}
+.ts-n{font-family:'Bebas Neue',sans-serif;font-size:clamp(52px,7vw,84px);color:var(--red);line-height:1;display:block;}
+.ts-l{font-size:11px;color:var(--muted);text-transform:uppercase;letter-spacing:2px;margin-top:8px;transition:color .45s;}
+
+/* ISOLATION */
+.isolation{background:var(--bg2);transition:background .45s;}
+.isolation .inner{display:grid;grid-template-columns:1fr 1fr;gap:80px;align-items:center;}
+.iso-photo{overflow:hidden;aspect-ratio:4/5;box-shadow:0 28px 70px rgba(0,0,0,.22);position:relative;}
+.iso-photo img{width:100%;height:100%;object-fit:cover;display:block;filter:var(--img-f);transition:filter .45s;}
+.iso-ov{position:absolute;inset:0;background:linear-gradient(to top,rgba(8,8,7,.85) 0%,transparent 55%);z-index:1;}
+[data-theme="light"] .iso-ov{background:linear-gradient(to top,rgba(28,20,12,.7) 0%,transparent 55%);}
+.iso-tag{position:absolute;top:0;left:0;z-index:2;background:var(--red);padding:7px 16px;font-size:11px;letter-spacing:1.5px;text-transform:uppercase;font-weight:600;color:#fff;}
+.iso-txt{position:absolute;bottom:26px;left:26px;right:26px;z-index:2;}
+.iso-txt h3{font-family:'Bebas Neue',sans-serif;font-size:26px;letter-spacing:1px;color:#fff;margin-bottom:5px;}
+.iso-txt p{font-size:13px;color:rgba(255,255,255,.62);font-style:italic;font-family:'Instrument Serif',serif;}
+.pills{display:flex;flex-wrap:wrap;gap:9px;margin-top:24px;}
+.pill{background:rgba(255,75,43,.08);border:1px solid rgba(255,75,43,.2);border-radius:999px;padding:7px 16px;font-size:12px;color:var(--red);font-weight:500;letter-spacing:.3px;}
+
+/* FLIP CARDS */
+.students{background:var(--bg);transition:background .45s;padding:0;}
+.students-hdr{padding:110px 52px 0;max-width:1200px;margin:0 auto;}
+.flip-grid{
+  display:grid;grid-template-columns:repeat(4,1fr);
+  gap:4px;padding:52px 52px 110px;
+  max-width:1200px;margin:0 auto;
+}
+.flip-card{aspect-ratio:2/3;perspective:1200px;}
+.flip-inner{
+  position:relative;width:100%;height:100%;
+  -webkit-transform-style:preserve-3d;
+  transform-style:preserve-3d;
+  -webkit-transition:-webkit-transform .7s cubic-bezier(.4,0,.2,1);
+  transition:transform .7s cubic-bezier(.4,0,.2,1);
+  will-change:transform;
+}
+@media(hover:hover) and (pointer:fine){
+  .flip-card:hover .flip-inner{-webkit-transform:rotateY(180deg);transform:rotateY(180deg);}
+}
+.flip-card.flipped .flip-inner{-webkit-transform:rotateY(180deg);transform:rotateY(180deg);}
+.flip-front,.flip-back{
+  position:absolute;inset:0;overflow:hidden;
+  -webkit-backface-visibility:hidden;backface-visibility:hidden;
+}
+.flip-back{-webkit-transform:rotateY(180deg) translateZ(0);transform:rotateY(180deg) translateZ(0);}
+.flip-front{background:var(--bg3);}
+.flip-front img{width:100%;height:100%;object-fit:cover;display:block;}
+.flip-front-ov{
+  position:absolute;inset:0;
+  background:linear-gradient(to top,rgba(8,8,7,.88) 0%,rgba(8,8,7,.12) 55%,transparent 100%);
+  z-index:1;
+}
+[data-theme="light"] .flip-front-ov{background:linear-gradient(to top,rgba(18,12,6,.82) 0%,rgba(18,12,6,.1) 55%,transparent 100%);}
+.flip-chip{position:absolute;top:0;left:0;z-index:3;background:var(--red);padding:6px 14px;font-size:10px;letter-spacing:2px;text-transform:uppercase;font-weight:600;color:#fff;}
+.flip-front-body{position:absolute;bottom:0;left:0;right:0;z-index:2;padding:24px 22px;}
+.flip-school{font-size:10px;letter-spacing:2px;text-transform:uppercase;color:rgba(255,255,255,.55);margin-bottom:4px;}
+.flip-name{font-family:'Bebas Neue',sans-serif;font-size:28px;letter-spacing:1px;color:#fff;margin-bottom:3px;}
+.flip-role{font-family:'Instrument Serif',serif;font-style:italic;font-size:13px;color:rgba(255,255,255,.6);}
+.flip-back{
+  display:flex;flex-direction:column;justify-content:flex-start;
+  padding:22px 18px 18px;
+  background:var(--card);
+  border-left:1px solid var(--border);border-right:1px solid var(--border);
+  transition:background .45s,border-color .45s;
+  overflow:hidden;
+}
+.flip-back::before{content:'';display:block;height:3px;background:var(--red);margin:-22px -18px 14px;flex-shrink:0;}
+.flip-back-n{font-family:'Bebas Neue',sans-serif;font-size:90px;color:rgba(255,75,43,.06);position:absolute;top:-12px;right:8px;line-height:1;pointer-events:none;user-select:none;}
+[data-theme="dark"] .flip-back-n{color:rgba(255,75,43,.08);}
+.bk-tag{font-size:9px;letter-spacing:2.5px;text-transform:uppercase;color:var(--red);font-weight:600;margin-bottom:4px;}
+.bk-name{font-family:'Bebas Neue',sans-serif;font-size:26px;letter-spacing:1px;margin-bottom:1px;color:var(--text);transition:color .45s;}
+.bk-role{font-family:'Instrument Serif',serif;font-style:italic;font-size:11px;color:var(--warm);margin-bottom:10px;transition:color .45s;}
+.bk-q{font-family:'Instrument Serif',serif;font-style:italic;font-size:11px;color:var(--muted);line-height:1.55;border-left:2px solid var(--red);padding-left:8px;margin-bottom:10px;transition:color .45s;}
+.bk-pain{display:flex;flex-direction:column;gap:4px;margin-bottom:10px;}
+.bk-pi{display:flex;align-items:flex-start;gap:6px;font-size:11px;color:var(--muted);transition:color .45s;}
+.bk-pi::before{content:'—';color:rgba(255,75,43,.5);flex-shrink:0;}
+.bk-fix{background:rgba(255,75,43,.07);border-left:2px solid var(--red);padding:8px 10px;margin-top:auto;flex-shrink:0;}
+.bk-fix-l{font-size:8px;letter-spacing:2px;text-transform:uppercase;color:var(--red);font-weight:700;margin-bottom:2px;}
+.bk-fix-t{font-size:11px;color:var(--text);line-height:1.45;transition:color .45s;}
+
+/* SPLIT */
+.split-story{overflow:hidden;transition:background .45s;}
+.split-grid{display:grid;grid-template-columns:1fr 1fr;}
+.split-side{position:relative;overflow:hidden;min-height:560px;display:flex;align-items:flex-end;}
+.split-side img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;display:block;transition:transform .65s,filter .45s;filter:var(--img-f);}
+.split-side:first-child img{filter:grayscale(90%) brightness(.42);}
+[data-theme="light"] .split-side:first-child img{filter:grayscale(90%) brightness(.62);}
+.split-side:hover img{transform:scale(1.04);}
+.split-ov{position:absolute;inset:0;background:linear-gradient(to top,rgba(8,8,7,.92) 0%,rgba(8,8,7,.25) 55%,transparent 100%);z-index:1;transition:background .45s;}
+[data-theme="light"] .split-ov{background:linear-gradient(to top,rgba(20,14,8,.82) 0%,rgba(20,14,8,.18) 55%,transparent 100%);}
+.split-copy{position:relative;z-index:2;padding:44px 42px;}
+.split-lbl{font-size:11px;letter-spacing:3px;text-transform:uppercase;font-weight:600;margin-bottom:14px;}
+.split-side:first-child .split-lbl{color:rgba(255,255,255,.35);}
+.split-side:last-child .split-lbl{color:var(--red);}
+.split-h{font-family:'Bebas Neue',sans-serif;font-size:clamp(34px,4vw,54px);line-height:.95;letter-spacing:1px;color:#fff;margin-bottom:12px;}
+.split-p{font-size:14px;color:rgba(255,255,255,.62);line-height:1.72;font-weight:300;max-width:320px;}
+
+/* HOW IT WORKS */
+.hiw{background:var(--bg);transition:background .45s;}
+.hiw-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:2px;margin-top:52px;}
+.hiw-step{background:var(--card2);padding:38px 28px;position:relative;overflow:hidden;transition:background .3s;}
+.hiw-step:hover{background:rgba(255,75,43,.06);}
+.hiw-step::before{content:'';position:absolute;top:0;left:0;right:0;height:2px;background:var(--red);transform:scaleX(0);transform-origin:left;transition:transform .4s;}
+.hiw-step:hover::before{transform:scaleX(1);}
+.sn{font-family:'Bebas Neue',sans-serif;font-size:52px;color:rgba(255,75,43,.18);line-height:1;margin-bottom:10px;}
+.si{font-size:28px;margin-bottom:12px;}
+.hiw-step h4{font-family:'Bebas Neue',sans-serif;font-size:19px;letter-spacing:1px;margin-bottom:8px;color:var(--text);transition:color .45s;}
+.hiw-step p{font-size:13px;color:var(--muted);line-height:1.7;font-weight:300;transition:color .45s;}
+
+/* MOMENT / FEATURES */
+.moment{background:var(--bg2);transition:background .45s;}
+.moment .inner{display:grid;grid-template-columns:1fr 1fr;gap:72px;align-items:center;}
+.moment-photo{overflow:hidden;aspect-ratio:3/4;box-shadow:0 28px 72px rgba(0,0,0,.22);position:relative;}
+.moment-photo img{width:100%;height:100%;object-fit:cover;display:block;filter:var(--img-f);transition:filter .45s;}
+.moment-ov{position:absolute;inset:0;background:linear-gradient(to top,rgba(8,8,7,.82) 0%,transparent 55%);z-index:1;}
+[data-theme="light"] .moment-ov{background:linear-gradient(to top,rgba(20,14,8,.72) 0%,transparent 55%);}
+.moment-badge{position:absolute;bottom:0;left:0;right:0;z-index:2;background:rgba(255,75,43,.94);padding:20px 24px;}
+.moment-badge p:first-child{font-family:'Bebas Neue',sans-serif;font-size:20px;letter-spacing:1px;color:#fff;margin-bottom:4px;}
+.moment-badge p:last-child{font-size:12px;color:rgba(255,255,255,.82);}
+.feats{margin-top:36px;display:flex;flex-direction:column;gap:16px;}
+.feat{display:flex;gap:14px;align-items:flex-start;}
+.feat-ico{width:40px;height:40px;background:rgba(255,75,43,.1);border:1px solid rgba(255,75,43,.22);display:flex;align-items:center;justify-content:center;font-size:17px;flex-shrink:0;}
+.feat h4{font-family:'Bebas Neue',sans-serif;font-size:17px;letter-spacing:.5px;margin-bottom:3px;color:var(--text);transition:color .45s;}
+.feat p{font-size:13px;color:var(--muted);line-height:1.65;font-weight:300;transition:color .45s;}
+
+/* GALLERY */
+.gallery{background:var(--bg);padding:0 52px 110px;transition:background .45s;}
+.gallery-grid{display:grid;grid-template-columns:2fr 1fr 1fr;grid-template-rows:260px 260px;gap:4px;margin-top:48px;}
+.gi{overflow:hidden;position:relative;box-shadow:0 18px 52px rgba(0,0,0,.18);transition:transform .35s,box-shadow .35s;}
+.gi:hover{transform:scale(1.01);box-shadow:0 26px 68px rgba(0,0,0,.25);}
+.gi:first-child{grid-row:1/3;}
+.gi img{width:100%;height:100%;object-fit:cover;display:block;transition:transform .55s,filter .45s;filter:var(--img-f);}
+.gi:hover img{transform:scale(1.07);}
+.gi-ov{position:absolute;inset:0;background:linear-gradient(to top,rgba(0,0,0,.7) 0%,transparent 52%);display:flex;align-items:flex-end;padding:18px;opacity:0;transition:opacity .3s;}
+.gi:hover .gi-ov{opacity:1;}
+.gi-ov span{font-family:'Instrument Serif',serif;font-style:italic;font-size:14px;color:#fff;}
+
+/* FINAL CTA */
+.final{padding:0 52px 110px;}
+.final-inner{max-width:1200px;margin:0 auto;overflow:hidden;display:grid;grid-template-columns:1fr 1fr;box-shadow:0 32px 80px rgba(0,0,0,.22);}
+.final-photo{position:relative;overflow:hidden;min-height:520px;}
+.final-photo img{width:100%;height:100%;object-fit:cover;display:block;position:absolute;inset:0;filter:var(--img-f);transition:filter .45s;}
+.final-ov{position:absolute;inset:0;background:linear-gradient(135deg,rgba(255,75,43,.82) 0%,rgba(8,8,7,.65) 100%);z-index:1;}
+.final-copy{position:absolute;inset:0;z-index:2;padding:52px 44px;display:flex;flex-direction:column;justify-content:flex-end;}
+.final-copy h2{font-family:'Bebas Neue',sans-serif;font-size:clamp(46px,5.5vw,70px);line-height:.9;letter-spacing:1px;color:#fff;margin-bottom:16px;}
+.final-copy p{font-size:14px;line-height:1.75;color:rgba(255,255,255,.82);font-weight:300;max-width:290px;}
+.final-form{background:var(--card);padding:68px 52px;display:flex;flex-direction:column;justify-content:center;transition:background .45s;}
+.fin-tag{font-size:11px;letter-spacing:3px;text-transform:uppercase;color:var(--red);font-weight:600;margin-bottom:20px;}
+.final-form h3{font-family:'Bebas Neue',sans-serif;font-size:clamp(28px,3.5vw,44px);letter-spacing:1px;line-height:.95;margin-bottom:16px;color:var(--text);transition:color .45s;}
+.fin-sub{font-size:14px;color:var(--muted);line-height:1.7;margin-bottom:28px;transition:color .45s;}
+.fin-note{font-size:12px;color:var(--muted);display:flex;align-items:center;gap:8px;margin-top:14px;transition:color .45s;}
+.fin-note::before{content:'';display:inline-block;width:16px;height:1px;background:var(--red);flex-shrink:0;}
+.avatars{display:flex;align-items:center;gap:10px;margin-top:20px;flex-wrap:wrap;}
+.avs{display:flex;flex-shrink:0;}
+.av{width:30px;height:30px;border-radius:50%;border:2px solid var(--card);margin-left:-7px;object-fit:cover;transition:border-color .45s;}
+.av:first-child{margin-left:0;}
+.avatars p{font-size:12px;color:var(--muted);transition:color .45s;}
+.avatars p strong{color:var(--text);transition:color .45s;}
+
+/* BUTTONS */
+.cta-btn{
+  display:inline-flex;align-items:center;
+  background:var(--red);border:none;
+  padding:16px 36px;color:#fff;
+  font-family:'Bebas Neue',sans-serif;font-size:18px;letter-spacing:3px;
+  transition:background .2s,transform .15s,box-shadow .2s;
+  box-shadow:0 8px 28px rgba(255,75,43,.32);
+}
+.cta-btn:hover{background:var(--red2);transform:translateY(-2px);box-shadow:0 14px 36px rgba(255,75,43,.42);}
+.sub-btn{
+  display:block;width:100%;background:var(--red);border:none;
+  padding:16px;color:#fff;font-family:'Bebas Neue',sans-serif;
+  font-size:17px;letter-spacing:3px;
+  transition:background .2s,transform .15s;
+  text-align:center;text-decoration:none;
+  box-shadow:0 8px 28px rgba(255,75,43,.28);
+}
+.sub-btn:hover{background:var(--red2);transform:translateY(-2px);}
+
+/* FOOTER */
+footer{border-top:1px solid var(--border);padding:26px 52px;display:flex;justify-content:space-between;align-items:center;transition:border-color .45s;}
+footer p{font-size:12px;color:var(--muted);transition:color .45s;}
+.flinks{display:flex;gap:22px;}
+.flinks a{font-size:12px;color:var(--muted);text-decoration:none;transition:color .25s;}
+.flinks a:hover{color:var(--red);}
+
+/* TOAST */
+.toast{
+  position:fixed;bottom:32px;left:50%;
+  transform:translateX(-50%) translateY(120px);
+  background:var(--card);border:1px solid rgba(255,75,43,.32);
+  padding:14px 22px;
+  display:flex;align-items:center;gap:10px;font-size:14px;
+  z-index:500;box-shadow:0 20px 56px rgba(0,0,0,.2);
+  transition:transform .4s cubic-bezier(.34,1.56,.64,1),background .45s;
+  color:var(--text);
+}
+.toast.show{transform:translateX(-50%) translateY(0);}
+.toast-ico{width:22px;height:22px;background:var(--red);border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:11px;flex-shrink:0;color:#fff;}
+
+@keyframes up{from{opacity:0;transform:translateY(24px)}to{opacity:1;transform:translateY(0)}}
+
+/* MODAL */
+.modal-backdrop{
+  position:fixed;inset:0;z-index:1000;
+  backdrop-filter:blur(20px) saturate(1.4);-webkit-backdrop-filter:blur(20px) saturate(1.4);
+  background:rgba(0,0,0,.45);
+  display:flex;align-items:center;justify-content:center;padding:20px;
+  opacity:0;pointer-events:none;transition:opacity .35s ease;
+}
+.modal-backdrop.open{opacity:1;pointer-events:all;}
+.modal{
+  width:100%;max-width:420px;position:relative;
+  background:rgba(15,14,13,.55);
+  backdrop-filter:blur(28px) saturate(1.6);-webkit-backdrop-filter:blur(28px) saturate(1.6);
+  border-radius:24px;border:1px solid rgba(255,255,255,.10);
+  box-shadow:0 8px 48px rgba(0,0,0,.55),0 1px 0 rgba(255,255,255,.08) inset,0 0 0 1px rgba(255,75,43,.10);
+  transform:translateY(36px) scale(.95);
+  transition:transform .45s cubic-bezier(.22,1,.36,1),opacity .35s ease;overflow:hidden;
+}
+[data-theme="light"] .modal{
+  background:rgba(255,255,255,.82);border:1px solid rgba(28,26,23,.10);
+  box-shadow:0 8px 48px rgba(0,0,0,.16),0 1px 0 rgba(255,255,255,.9) inset,0 0 0 1px rgba(255,75,43,.06);
+}
+.modal-backdrop.open .modal{transform:translateY(0) scale(1);}
+.modal-topbar{height:3px;background:linear-gradient(90deg,var(--red),rgba(255,75,43,.5),transparent);}
+.modal-close{
+  position:absolute;top:16px;right:16px;width:30px;height:30px;border-radius:50%;
+  background:rgba(255,255,255,.12);border:1px solid rgba(255,255,255,.18);
+  backdrop-filter:blur(8px);display:flex;align-items:center;justify-content:center;
+  font-size:12px;color:rgba(255,255,255,.75);transition:background .2s,color .2s,border-color .2s;z-index:10;
+}
+[data-theme="light"] .modal-close{background:rgba(28,26,23,.07);border-color:rgba(28,26,23,.12);color:rgba(28,26,23,.55);}
+.modal-close:hover{background:var(--red);border-color:var(--red);color:#fff;}
+.modal-body{padding:28px 32px 32px;}
+.modal-eyebrow{font-size:10px;letter-spacing:3px;text-transform:uppercase;color:var(--red);font-weight:700;margin-bottom:6px;display:flex;align-items:center;gap:8px;}
+.modal-eyebrow::before{content:'';width:18px;height:2px;background:var(--red);flex-shrink:0;border-radius:2px;}
+.modal-tagline{font-size:13px;line-height:1.55;margin-bottom:20px;color:rgba(255,255,255,.6);}
+[data-theme="light"] .modal-tagline{color:rgba(28,26,23,.60);}
+.mf{display:flex;flex-direction:column;gap:12px;}
+.mf-field{display:flex;flex-direction:column;gap:4px;}
+.mf-label{font-size:10px;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:rgba(255,255,255,.50);}
+[data-theme="light"] .mf-label{color:rgba(28,26,23,.55);}
+.mf-inp{
+  background:rgba(255,255,255,.10);border:1.5px solid rgba(255,255,255,.16);
+  border-radius:10px;padding:11px 14px;font-size:14px;color:#fff;
+  font-family:'DM Sans',sans-serif;outline:none;width:100%;
+  transition:border-color .2s,background .2s,box-shadow .2s;
+}
+[data-theme="light"] .mf-inp{background:rgba(255,255,255,.75);border-color:rgba(28,26,23,.16);color:#1C1A17;}
+.mf-inp::placeholder{color:rgba(255,255,255,.32);}
+[data-theme="light"] .mf-inp::placeholder{color:rgba(28,26,23,.38);}
+.mf-inp:focus{border-color:var(--red);background:rgba(255,255,255,.18);box-shadow:0 0 0 3px rgba(255,75,43,.18);}
+[data-theme="light"] .mf-inp:focus{background:#fff;box-shadow:0 0 0 3px rgba(255,75,43,.12);}
+.mf-inp.sel{appearance:none;-webkit-appearance:none;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='10' height='7' viewBox='0 0 10 7'%3E%3Cpath d='M1 1l4 4 4-4' stroke='%23FF4B2B' stroke-width='1.5' fill='none' stroke-linecap='round'/%3E%3C/svg%3E");background-repeat:no-repeat;background-position:right 14px center;padding-right:36px;}
+.mf-inp.sel option{background:var(--bg);color:var(--text);}
+.mf-submit{
+  margin-top:4px;width:100%;background:var(--red);border:none;border-radius:10px;
+  padding:14px;color:#fff;font-family:'Bebas Neue',sans-serif;font-size:17px;letter-spacing:3px;
+  transition:background .2s,transform .15s,box-shadow .2s;box-shadow:0 6px 24px rgba(255,75,43,.4);
+}
+.mf-submit:hover{background:var(--red2);transform:translateY(-1px);}
+.mf-submit:disabled{opacity:.6;pointer-events:none;}
+.mf-submit .spin{display:none;width:16px;height:16px;border:2px solid rgba(255,255,255,.35);border-top-color:#fff;border-radius:50%;animation:spin .7s linear infinite;margin:0 auto;}
+.mf-submit.loading .spin{display:block;}
+.mf-submit.loading .btn-label{display:none;}
+@keyframes spin{to{transform:rotate(360deg);}}
+.mf-privacy{font-size:11px;color:rgba(255,255,255,.35);text-align:center;margin-top:10px;display:flex;align-items:center;justify-content:center;gap:5px;}
+[data-theme="light"] .mf-privacy{color:rgba(28,26,23,.42);}
+.modal-success{display:none;flex-direction:column;align-items:center;justify-content:center;text-align:center;padding:52px 32px;gap:12px;}
+.modal-success.show{display:flex;}
+.success-icon{width:64px;height:64px;background:var(--red);border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:28px;margin-bottom:4px;box-shadow:0 8px 32px rgba(255,75,43,.4);}
+.modal-success h3{font-family:'Bebas Neue',sans-serif;font-size:34px;letter-spacing:1px;color:#fff;}
+[data-theme="light"] .modal-success h3{color:#1C1A17;}
+.modal-success p{font-size:13px;color:rgba(255,255,255,.6);line-height:1.65;max-width:260px;}
+[data-theme="light"] .modal-success p{color:rgba(28,26,23,.55);}
+.modal-success .success-share{font-size:12px;color:var(--red);font-weight:600;margin-top:2px;}
+
+/* RESPONSIVE */
+@media(max-width:1100px){
+  nav{padding:18px 32px;}
+  .hero-left{padding:120px 40px 80px 32px;}
+  .sec,.truth,.manifesto{padding:90px 32px;}
+  .gallery{padding:0 32px 90px;}
+  .final{padding:0 32px 90px;}
+  .students-hdr{padding:90px 32px 0;}
+  .flip-grid{padding:40px 32px 90px;}
+  .isolation .inner,.moment .inner{gap:52px;}
+}
+@media(max-width:900px){
+  nav{padding:14px 20px;}
+  .nav-btn{padding:9px 18px;font-size:12px;}
+  .hero{display:block;min-height:100svh;position:relative;}
+  .hero-right{position:absolute;inset:0;z-index:0;}
+  .hero-left{position:relative;z-index:2;background:transparent;padding:100px 24px 72px;min-height:100svh;display:flex;flex-direction:column;justify-content:center;}
+  .hero-left::before{display:none;}
+  .windows-grid{transform:none;gap:2px;padding:2px;}
+  .win.lit{background:rgba(255,200,100,.48) !important;}
+  .win.lit-red{background:rgba(255,75,43,.52) !important;}
+  [data-theme="light"] .hero-mesh{background:radial-gradient(ellipse 100% 100% at 50% 50%,rgba(249,245,239,.85) 0%,transparent 100%),linear-gradient(to bottom,rgba(249,245,239,.75) 0%,rgba(249,245,239,.45) 100%) !important;}
+  [data-theme="dark"] .hero-mesh{background:linear-gradient(to bottom,rgba(8,8,7,.82) 0%,rgba(8,8,7,.62) 100%) !important;}
+  .hero-vignette,.hero-watermark{display:none;}
+  .sec,.truth,.manifesto{padding:64px 20px;}
+  .gallery{padding:0 20px 64px;}
+  .students-hdr{padding:64px 20px 0;}
+  .isolation .inner,.moment .inner{grid-template-columns:1fr;gap:32px;}
+  .iso-photo,.moment-photo{aspect-ratio:16/9;}
+  .flip-grid{grid-template-columns:1fr;gap:4px;padding:24px 20px 64px;}
+  .flip-card{aspect-ratio:unset;height:440px;}
+  .flip-back{padding:14px 16px;overflow:hidden;justify-content:space-between;}
+  .flip-back::before{margin:-14px -16px 12px;}
+  .flip-back-n{font-size:60px;}
+  .bk-name{font-size:22px;}.bk-q{font-size:10px;}.bk-pi{font-size:10px;}.bk-fix-t{font-size:10px;}
+  .split-grid{grid-template-columns:1fr;}
+  .split-side{min-height:280px;}
+  .gallery-grid{grid-template-columns:1fr 1fr;grid-template-rows:auto;}
+  .gallery-grid .gi:first-child{grid-row:auto;grid-column:1/3;height:200px;}
+  .gi{height:160px;}
+  .hiw-grid{grid-template-columns:1fr 1fr;gap:2px;}
+  .final{padding:0 0 64px;}
+  .final-inner{grid-template-columns:1fr;}
+  .final-photo{min-height:280px;}
+  .final-copy{padding:24px 20px 28px;}
+  .final-form{padding:28px 20px 36px;}
+  footer{flex-direction:column;gap:12px;text-align:center;padding:20px;}
+  .flinks{flex-wrap:wrap;justify-content:center;gap:16px;}
+  .ticker{flex-wrap:wrap;justify-content:center;gap:8px;padding:10px 16px;}
+  .truth-stats{gap:28px;}
+  .modal-backdrop{padding:0;align-items:flex-end;}
+  .modal{max-width:100%;border-radius:24px 24px 0 0;transform:translateY(100%);}
+  .modal-backdrop.open .modal{transform:translateY(0) scale(1);}
+  .modal-body{padding:22px 22px 40px;}
+}
+@media(max-width:480px){
+  .hero-left{padding:88px 16px 60px;}
+  .sec,.truth,.manifesto{padding:52px 16px;}
+  .gallery{padding:0 16px 52px;}
+  .students-hdr{padding:52px 16px 0;}
+  .flip-grid{padding:20px 16px 52px;}
+  .flip-card{height:400px;}
+  .hiw-grid{grid-template-columns:1fr;}
+  .hiw-step{padding:28px 20px;}
+  .split-copy{padding:28px 20px;}
+  footer{padding:16px;}
+  .final-form{padding:24px 16px 32px;}
+  .truth-stats{gap:20px;}
+  .ts-n{font-size:clamp(42px,14vw,72px);}
+}
+
+/* ── MOMENT CARDS (social post style) ──── */
+.moments-strip{
+  padding:0 52px 110px;
+  background:var(--bg);
+  transition:background .45s;
+}
+.moments-strip-hdr{
+  max-width:1200px;margin:0 auto 36px;
+  display:flex;align-items:flex-end;justify-content:space-between;
+}
+.moments-strip-hdr .sh{margin:0;}
+.mc-grid{
+  max-width:1200px;margin:0 auto;
+  display:grid;grid-template-columns:repeat(4,1fr);
+  gap:3px;
+}
+.mc{
+  position:relative;overflow:hidden;
+  aspect-ratio:3/4;
+  cursor:pointer;
+}
+.mc img{
+  width:100%;height:100%;object-fit:cover;display:block;
+  filter:var(--img-f);
+  transition:transform .6s,filter .45s;
+}
+.mc:hover img{transform:scale(1.06);}
+.mc-ov{
+  position:absolute;inset:0;
+  background:linear-gradient(to top,rgba(0,0,0,.88) 0%,rgba(0,0,0,.1) 55%,transparent 100%);
+  z-index:1;
+}
+.mc-body{
+  position:absolute;bottom:0;left:0;right:0;z-index:2;
+  padding:20px 18px;
+}
+.mc-user{
+  display:flex;align-items:center;gap:8px;margin-bottom:8px;
+}
+.mc-avatar{
+  width:28px;height:28px;border-radius:50%;
+  background:var(--red);overflow:hidden;flex-shrink:0;
+  border:1.5px solid rgba(255,255,255,.3);
+}
+.mc-avatar img{width:100%;height:100%;object-fit:cover;}
+.mc-handle{font-size:11px;color:rgba(255,255,255,.7);font-weight:500;}
+.mc-caption{
+  font-family:'Instrument Serif',serif;
+  font-style:italic;font-size:15px;
+  color:#fff;line-height:1.35;
+}
+.mc-tag{
+  display:inline-block;
+  background:var(--red);
+  color:#fff;font-size:9px;letter-spacing:1.5px;
+  text-transform:uppercase;font-weight:700;
+  padding:3px 8px;margin-bottom:10px;
+}
+
+/* ── SOCIAL PROOF BUBBLES ──────────────── */
+.bubbles-strip{
+  padding:72px 0;
+  background:var(--bg2);
+  overflow:hidden;
+  transition:background .45s;
+}
+.bubbles-inner{
+  display:flex;gap:16px;
+  width:max-content;
+  animation:bscroll 28s linear infinite;
+}
+.bubbles-inner:hover{animation-play-state:paused;}
+@keyframes bscroll{to{transform:translateX(-50%);}}
+.bubble{
+  background:var(--card);
+  border:1px solid var(--border);
+  border-radius:18px 18px 18px 4px;
+  padding:14px 20px;
+  flex-shrink:0;
+  max-width:260px;
+  transition:background .45s,border-color .45s;
+}
+.bubble-text{
+  font-size:13px;color:var(--text);line-height:1.5;
+  margin-bottom:8px;
+  transition:color .45s;
+}
+.bubble-text strong{color:var(--red);}
+.bubble-meta{
+  font-size:10px;color:var(--muted);
+  letter-spacing:.5px;
+  transition:color .45s;
+}
+
+/* ── OUTCOMES GRID (replaces features) ── */
+.outcomes{
+  padding:110px 52px;
+  background:var(--bg3);
+  transition:background .45s;
+}
+.outcomes .inner{max-width:1200px;margin:0 auto;}
+.outcomes-grid{
+  display:grid;
+  grid-template-columns:repeat(3,1fr);
+  gap:3px;
+  margin-top:48px;
+}
+.outcome-tile{
+  position:relative;overflow:hidden;
+  aspect-ratio:4/5;
+}
+.outcome-tile img{
+  width:100%;height:100%;object-fit:cover;display:block;
+  filter:var(--img-f);
+  transition:transform .6s,filter .45s;
+}
+.outcome-tile:hover img{transform:scale(1.05);}
+.outcome-ov{
+  position:absolute;inset:0;
+  background:linear-gradient(to top,rgba(0,0,0,.92) 0%,rgba(0,0,0,.25) 55%,transparent 100%);
+  z-index:1;
+}
+.outcome-body{
+  position:absolute;bottom:0;left:0;right:0;z-index:2;
+  padding:28px 24px;
+}
+.outcome-eyebrow{
+  font-size:9px;letter-spacing:2.5px;text-transform:uppercase;
+  color:var(--red);font-weight:700;margin-bottom:8px;
+}
+.outcome-h{
+  font-family:'Bebas Neue',sans-serif;
+  font-size:clamp(22px,2.5vw,30px);
+  letter-spacing:.5px;color:#fff;
+  line-height:1;margin-bottom:8px;
+}
+.outcome-p{
+  font-family:'Instrument Serif',serif;
+  font-style:italic;
+  font-size:13px;color:rgba(255,255,255,.7);
+  line-height:1.5;
+}
+
+@media(max-width:900px){
+  .mc-grid{grid-template-columns:repeat(2,1fr);}
+  .outcomes-grid{grid-template-columns:1fr 1fr;}
+  .moments-strip,.outcomes{padding:52px 20px 64px;}
+}
+@media(max-width:480px){
+  .mc-grid{grid-template-columns:1fr 1fr;}
+  .moments-strip,.outcomes{padding:40px 16px 52px;}
+  .outcomes-grid{grid-template-columns:1fr;}
+}
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <div class="logo">BOU<b>W</b>NCE</div>
+  <div class="nav-r">
+    <button class="nav-btn filled" onclick="openModal()">Join Waitlist</button>
+    <button class="theme-btn" onclick="toggleTheme()" title="Toggle theme" aria-label="Toggle theme">
+      <span class="t-sun">☀️</span>
+      <span class="t-moon">🌙</span>
+    </button>
+  </div>
+</nav>
+
+<!-- ── HERO ───────────────────────────────── -->
+<section class="hero">
+  <div class="hero-left">
+    
+    <h1 class="hero-h1">YOUR SCHOOL IS</h1>
+    <div class="hero-it">moving without you.</div>
+    <p class="hero-sub">
+      Someone just ate well.<br>
+      Someone just got paid.<br><strong>Ganusi.</strong>
+    </p>
+    <div class="form-w">
+      <button class="cta-btn" onclick="openModal()">INVOLVE ME</button>
+      <p class="proof" id="heroProof">2,847 students already locked in. Don't be the last.</p>
+    </div>
+  </div>
+  <div class="hero-right">
+    <div class="world-canvas">
+      <div class="windows-grid" id="winGrid"></div>
+    </div>
+    <div class="hero-mesh"></div>
+    <div class="hero-vignette"></div>
+    <div class="hero-watermark">BOUWNCE</div>
+  </div>
+</section>
+
+<!-- TICKER 
+<div class="ticker">
+  <span>They're already on it —</span>
+  <span class="ticker-num" id="liveNum">2,847</span>
+  <span>students locked in. Your school goes live first.</span>
+</div>-->
+
+<!-- MARQUEE -->
+<div class="mq">
+  <div class="mq-inner">
+    <div class="mq-item">Your course rep is already on it <span class="star">✦</span></div>
+    <div class="mq-item">Favour's jollof just dropped <span class="star">✦</span></div>
+    <div class="mq-item">Francisca's fit sold out in 2hrs <span class="star">✦</span></div>
+    <div class="mq-item">The party got posted before you heard <span class="star">✦</span></div>
+    <div class="mq-item">Everyone is finding each other <span class="star">✦</span></div>
+    <div class="mq-item">Scroll the feed. Tap the store. <span class="star">✦</span></div>
+    <div class="mq-item">Only your school. Nobody else. <span class="star">✦</span></div>
+    <div class="mq-item">No cap — this is the one <span class="star">✦</span></div>
+    <div class="mq-item">Your people are already linking <span class="star">✦</span></div>
+    <div class="mq-item">You're the only one not on it <span class="star">✦</span></div>
+    <div class="mq-item">Your course rep is already on it <span class="star">✦</span></div>
+    <div class="mq-item">Favour's jollof just dropped <span class="star">✦</span></div>
+    <div class="mq-item">Francisca's fit sold out in 2hrs <span class="star">✦</span></div>
+    <div class="mq-item">The party got posted before you heard <span class="star">✦</span></div>
+    <div class="mq-item">Everyone is finding each other <span class="star">✦</span></div>
+    <div class="mq-item">No cap — this is the one <span class="star">✦</span></div>
+    <div class="mq-item">Your people are already linking <span class="star">✦</span></div>
+    <div class="mq-item">You're the only one not on it <span class="star">✦</span></div>
+  </div>
+</div>
+
+<!-- ── GALLERY ─────────────────────────────── -->
+<section class="gallery">
+  <div class="inner">
+    <div class="reveal">
+      <p class="tag">This is what they're on rn</p>
+      <h2 class="sh">THE VIBE<br>YOU'RE<br>MISSING.</h2>
+    </div>
+    <div class="gallery-grid">
+      <div class="gi reveal"><img src="images/Gallery1.jpeg" alt="" loading="lazy"/><div class="gi-ov"><span>The feed. Only your school. No cap.</span></div></div>
+      <div class="gi reveal d1"><img src="images/Gallery2.jpeg" alt="" loading="lazy"/><div class="gi-ov"><span>You pass them daily. Now you can follow.</span></div></div>
+      <div class="gi reveal d2"><img src="images/Gallery3.jpg" alt="" loading="lazy"/><div class="gi-ov"><span>Storefront live. Whole school can see it. 🔥</span></div></div>
+      <div class="gi reveal d1"><img src="images/Gallery4.jpeg" alt="" loading="lazy"/><div class="gi-ov"><span>Vendors, gist, people — one place fr.</span></div></div>
+      <div class="gi reveal d2"><img src="images/Gallery5.jpg" alt="" loading="lazy"/><div class="gi-ov"><span>Tap. Buy. Done. No redirect.</span></div></div>
+    </div>
+  </div>
+</section>
+
+<!-- ── MANIFESTO ─────────────────────────────── -->
+<section class="manifesto">
+  <div class="mv"></div>
+  <p class="man-text reveal">
+    Last Thursday, Favour posted.<br>
+    <em>Sold out before midnight.</em><br><br>
+    Francisca dropped a fire fit Saturday.<br>
+    Gone by 1pm. <em>You caught the empty story at 3.</em><br><br>
+    Someone sent their girlfriend a surprise launch on it.<br>
+    <span class="r">She cried. The whole floor found out.<br>You found out from a recap.</span>
+  </p>
+  <div class="mvb"></div>
+</section>
+
+<!-- ── MOMENT CARDS ──────────────────────────── -->
+<!--<section class="moments-strip">
+  <div class="moments-strip-hdr reveal">
+    <div>
+      <p class="tag">Already happening · Right now</p>
+      <h2 class="sh">WHAT YOU'RE<br>MISSING.</h2>
+    </div>
+  </div>
+  <div class="mc-grid">
+
+    <div class="mc reveal">
+      <img src="https://images.unsplash.com/photo-1529156069898-49953e39b3ac?w=600&q=85&fit=crop&crop=faces" alt=""/>
+      <div class="mc-ov"></div>
+      <div class="mc-body">
+        <div class="mc-tag">happening rn 🔥</div>
+        <div class="mc-user">
+          <div class="mc-avatar"><img src="images/finalform1.jpeg" alt=""/></div>
+          <span class="mc-handle">@favourcooks · OOU</span>
+        </div>
+        <p class="mc-caption">"Posted at 8pm. 11 new customers by midnight. Three of them I've never even seen before."</p>
+      </div>
+    </div>
+
+    <div class="mc reveal d1">
+      <img src="https://images.unsplash.com/photo-1523240795612-9a054b0db644?w=600&q=85&fit=crop&crop=top" alt=""/>
+      <div class="mc-ov"></div>
+      <div class="mc-body">
+        <div class="mc-tag">sold out 💀</div>
+        <div class="mc-user">
+          <div class="mc-avatar"><img src="images/finalform2.jpeg" alt=""/></div>
+          <span class="mc-handle">@franciscathrifts · OOU</span>
+        </div>
+        <p class="mc-caption">"My drop went live on the feed. Gone in 90 minutes. People are saving my storefront for the next one."</p>
+      </div>
+    </div>
+
+    <div class="mc reveal d2">
+      <img src="https://images.unsplash.com/photo-1516912481808-3406841bd33c?w=600&q=85&fit=crop&crop=center" alt=""/>
+      <div class="mc-ov"></div>
+      <div class="mc-body">
+        <div class="mc-tag">e choke 😭</div>
+        <div class="mc-user">
+          <div class="mc-avatar"><img src="images/finalform3.JPG" alt=""/></div>
+          <span class="mc-handle">@daveO · OOU</span>
+        </div>
+        <p class="mc-caption">"Bro sent his girlfriend a surprise through the app. She didn't see it coming. The whole hostel was talking."</p>
+      </div>
+    </div>
+
+    <div class="mc reveal d3">
+      <img src="https://images.unsplash.com/photo-1541339907198-e08756dedf3f?w=600&q=85&fit=crop&crop=top" alt=""/>
+      <div class="mc-ov"></div>
+      <div class="mc-body">
+        <div class="mc-tag">chop life 🍽️</div>
+        <div class="mc-user">
+          <div class="mc-avatar"><img src="images/finalform4.jpeg" alt=""/></div>
+          <span class="mc-handle">@leemahf · OOU</span>
+        </div>
+        <p class="mc-caption">"I found out about the SUB concert three days before. Got there early. You found out from someone's story recap."</p>
+      </div>
+    </div>
+
+  </div>
+</section> -->
+
+<!-- ── SOCIAL PROOF BUBBLES ──────────────────── -->
+
+
+<!-- ── PULSE ─────────────────────────────────── -->
+<!--<section class="truth">
+  <div class="truth-vline"></div>
+  <div class="reveal">
+    <p class="truth-line">Your school is loud.</p>
+    <p class="truth-line hot">You're just not <span class="accent">hearing</span> it.</p>
+  </div>
+  <br><br>
+  <div class="reveal d1">
+    <p class="truth-line">People are already eating.</p>
+    <p class="truth-line hot">No gree for <span class="accent">you.</span></p>
+  </div>
+  <br><br>
+  <div class="reveal d2">
+    <p class="truth-line">Your people are linking up.</p>
+    <p class="truth-line hot"><span class="accent">Involve me</span> — or stay missing.</p>
+  </div>
+  <div class="truth-vline-b"></div>
+</section>-->
+
+<!-- ── ISOLATION ──────────────────────────────── -->
+<section class="sec isolation">
+  <div class="inner">
+    <div class="iso-photo reveal">
+      <div class="iso-tag">This is you rn 💀</div>
+      <img src="images/problem2.jpeg" alt="Student" loading="lazy"/>
+      <div class="iso-ov"></div>
+      <div class="iso-txt">
+        <h3>Outside but locked in.</h3>
+        <p>"We Outside" - no be for who no get money"</p>
+      </div>
+    </div>
+    <div class="reveal d1">
+      <p class="tag">The gist</p>
+      <h2 class="sh">THINGS ARE<br>ALREADY<br>HAPPENING.<br>WITHOUT YOU.</h2>
+      <p class="sub">"The hangout. The party. School vendor delivering surprise to a Jaymie's girlfriend." - Everything happening around you.</p>
+    
+    </div>
+  </div>
+</section>
+
+<!-- ── FLIP CARDS ──────────────────────────── -->
+<section class="students">
+  <div class="students-hdr inner">
+    <div class="reveal">
+      <p class="tag">They're already on it. Are you?</p>
+      <h2 class="sh">NAH FR —<br>YOU KNOW<br>THESE PEOPLE.</h2>
+      <p class="sub" style="margin-top:8px;">These are your classmates. They're already locked in. Hover to see what they're doing on Bouwnce right now.</p>
+    </div>
+  </div>
+  <div class="flip-grid">
+
+    <div class="flip-card" data-flip>
+      <div class="flip-inner">
+        <div class="flip-front">
+          <img src="images/student1.jpeg" alt="Leemah" loading="lazy"/>
+          <div class="flip-front-ov"></div>
+          <div class="flip-chip">Already on the app</div>
+          <div class="flip-front-body">
+            <h3 class="flip-name">LEEMAH F.</h3>
+            <p class="flip-role">300L · Knows every gist before you do</p>
+          </div>
+        </div>
+        <div class="flip-back">
+          <div class="flip-back-n">01</div>
+          <p class="bk-tag">Already locked in</p>
+          <h3 class="bk-name">LEEMAH F.</h3>
+          <p class="bk-role">300L · The one who always knows first</p>
+          <p class="bk-q">"I literally knew about that party gist before everybody — because I saw it on my Bouwnce feed."</p>
+          <div class="bk-pain">
+            <div class="bk-pi">Catches every school moment in real time</div>
+            <div class="bk-pi">Follows classmates, not random strangers</div>
+            <div class="bk-pi">Never hears about things after they happen</div>
+          </div>
+          <div class="bk-fix">
+            <p class="bk-fix-l">Her life on Bouwnce</p>
+            <p class="bk-fix-t">School-only feed. Only her campus posting. She's always in the loop — and you're wondering how she always knows.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="flip-card" data-flip>
+      <div class="flip-inner">
+        <div class="flip-front">
+          <img src="images/ay.jpeg" alt="Favour" loading="lazy"/>
+          <div class="flip-front-ov"></div>
+          <div class="flip-chip">Already blowing up</div>
+          <div class="flip-front-body">
+            <h3 class="flip-name">FAVOUR O.</h3>
+            <p class="flip-role">bake and treats · Storefront is live 🔥</p>
+          </div>
+        </div>
+        <div class="flip-back">
+          <div class="flip-back-n">02</div>
+          <p class="bk-tag">Already getting orders</p>
+          <h3 class="bk-name">FAVOUR O.</h3>
+          <p class="bk-role">Food vendor · The whole school knows now</p>
+          <p class="bk-q">"I posted my bake and treats on Bouwnce, Thursday evening. By Friday morning I had 11 new orders from people I've never even met. My storefront is just running."</p>
+          <div class="bk-pain">
+            <div class="bk-pi">New customers finding her daily</div>
+            <div class="bk-pi">Orders coming in clean, no chaos</div>
+            <div class="bk-pi">Reviews stacking. Rep is building.</div>
+          </div>
+          <div class="bk-fix">
+            <p class="bk-fix-l">Her life on Bouwnce</p>
+            <p class="bk-fix-t">She posts once. The whole school sees it. And you're still hearing about her jollof by word of mouth.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="flip-card" data-flip>
+      <div class="flip-inner">
+        <div class="flip-front">
+          <img src="images/student3.jpeg" alt="Francisca" loading="lazy"/>
+          <div class="flip-front-ov"></div>
+          <div class="flip-chip">Already sold out</div>
+          <div class="flip-front-body">
+            <h3 class="flip-name">FRANCISCA B.</h3>
+            <p class="flip-role">Thrift & Jersey · She dropped. It's gone. 💀</p>
+          </div>
+        </div>
+        <div class="flip-back">
+          <div class="flip-back-n">03</div>
+          <p class="bk-tag">Already running</p>
+          <h3 class="bk-name">FRANCISCA B.</h3>
+          <p class="bk-role">Thrift vendor · Sells out every drop</p>
+          <p class="bk-q">"I dropped on Bouwnce Saturday morning. Sold out by 1pm. People I didn't even know saved my storefront for the next drop. My next one already has a waitlist."</p>
+          <div class="bk-pain">
+            <div class="bk-pi">Drop hits the whole school at once</div>
+            <div class="bk-pi">Storefront stays — people save and come back</div>
+            <div class="bk-pi">Next drop already has people waiting</div>
+          </div>
+          <div class="bk-fix">
+            <p class="bk-fix-l">Her life on Bouwnce</p>
+            <p class="bk-fix-t">You caught her story at 4pm. It was already sold out. The people on the app got it first.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="flip-card" data-flip>
+      <div class="flip-inner">
+        <div class="flip-front">
+          <img src="images/student4.jpeg" alt="Bryan" loading="lazy"/>
+          <div class="flip-front-ov"></div>
+          <div class="flip-chip">Already eating</div>
+          <div class="flip-front-body">
+            <h3 class="flip-name">BRYAN O.</h3>
+            <p class="flip-role">School name · Posts. Sells. Repeat.</p>
+          </div>
+        </div>
+        <div class="flip-back">
+          <div class="flip-back-n">04</div>
+          <p class="bk-tag">Already winning</p>
+          <h3 class="bk-name">BRYAN O.</h3>
+          <p class="bk-role">Creator + hustler · One profile. Two streams.</p>
+          <p class="bk-q">"I post on Bouwnce. My followers see the content. They tap my profile. Store is right there. I don't have to redirect anybody anywhere — it's all in one place."</p>
+          <div class="bk-pain">
+            <div class="bk-pi">Content and business live in the same profile</div>
+            <div class="bk-pi">Followers become buyers with one tap</div>
+            <div class="bk-pi">No extra app. No broadcast. Just results.</div>
+          </div>
+          <div class="bk-fix">
+            <p class="bk-fix-l">His life on Bouwnce</p>
+            <p class="bk-fix-t">He built his school following and his business in the same place. You're still sending people "check the link in my bio."</p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+<!-- ── SPLIT ──────────────────────────────── -->
+<section class="split-story">
+  <div class="split-grid">
+    <div class="split-side reveal">
+      <img src="https://images.unsplash.com/photo-1501386761578-eac5c94b800a?w=900&q=85&fit=crop&crop=center" alt="Before" loading="lazy"/>
+      <div class="split-ov"></div>
+      <div class="split-copy">
+        <p class="split-lbl">You, right now</p>
+        <h3 class="split-h">HEARING<br>ABOUT IT<br>AFTER.<br>EVERY.<br>TIME.</h3>
+        <p class="split-p">The party. The opportunity. The vendor. The event. You're always the last to know — and by then, it's already over or sold out.</p>
+      </div>
+    </div>
+    <div class="split-side reveal d1">
+      <img src="images/withbouwnce.jpg" alt="With Bouwnce" loading="lazy"/>
+      <div class="split-ov"></div>
+      <div class="split-copy">
+        <p class="split-lbl">Your people on Bouwnce</p>
+        <h3 class="split-h">IN THE<br>LOOP.<br>EVERY.<br>SINGLE.<br>TIME.</h3>
+        <p class="split-p">They're already on the feed. Seeing everything first. Finding vendors, going to events, buying and selling — while you're still asking "how did you know?"</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ── HOW IT WORKS ────────────────────────── -->
+<section class="sec hiw">
+  <div class="inner">
+    <div class="reveal">
+      <p class="tag">Takes 2 minutes. Genuinely.</p>
+      <h2 class="sh">HOW YOUR<br>PEOPLE<br>GOT ON.</h2>
+    </div>
+    <div class="hiw-grid">
+      <div class="hiw-step reveal">
+        <div class="sn">01</div><div class="si">👤</div>
+        <h4>SIGN UP WITH YOUR SCHOOL</h4>
+        <p>Drop your details. Get verified. You're locked to your campus. No randos from outside.</p>
+      </div>
+      <div class="hiw-step reveal d1">
+        <div class="sn">02</div><div class="si">📱</div>
+        <h4>TAP INTO THE FEED</h4>
+        <p>Your school only. What dropped, who posted, what's happening tonight — you're in the loop now.</p>
+      </div>
+      <div class="hiw-step reveal d2">
+        <div class="sn">03</div><div class="si">🛍️</div>
+        <h4>FLIP ON YOUR STOREFRONT</h4>
+        <p>Selling? Turn it on from your profile. Your whole school can find you now. Orders come in.</p>
+      </div>
+      <div class="hiw-step reveal d3">
+        <div class="sn">04</div><div class="si">🎉</div>
+        <h4>LINK UP IN THE QUAD</h4>
+        <p>Events, gist, communities — all locked to your campus. Your classmates are already inside.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ── OUTCOMES GRID (what actually happens)
+<section class="outcomes">
+  <div class="inner">
+    <div class="reveal">
+      <p class="tag">What happens when you're on it</p>
+      <h2 class="sh">NOT WHAT IT HAS.<br>WHAT IT DOES.</h2>
+    </div>
+    <div class="outcomes-grid">
+
+      <div class="outcome-tile reveal">
+        <img src="https://images.unsplash.com/photo-1504674900247-0877df9cc836?w=700&q=85&fit=crop&crop=center" alt=""/>
+        <div class="outcome-ov"></div>
+        <div class="outcome-body">
+          <p class="outcome-eyebrow">The vendor three floors up</p>
+          <h3 class="outcome-h">YOUR JOLLOF FINDS 11 STRANGERS</h3>
+          <p class="outcome-p">One post. Your whole school smells it. Orders come in from people who've never met you. No broadcast. No stress.</p>
+        </div>
+      </div>
+
+      <div class="outcome-tile reveal d1">
+        <img src="https://images.unsplash.com/photo-1556742049-0cfed4f6a45d?w=700&q=85&fit=crop&crop=top" alt=""/>
+        <div class="outcome-ov"></div>
+        <div class="outcome-body">
+          <p class="outcome-eyebrow">That girl you've been noticing</p>
+          <h3 class="outcome-h">YOU FIND YOUR ACHALUGO</h3>
+          <p class="outcome-p">She posts on the school feed. You tap. You're both OOU. The conversation writes itself.</p>
+        </div>
+      </div>
+
+      <div class="outcome-tile reveal d2">
+        <img src="https://images.unsplash.com/photo-1530103862676-de8c9debad1d?w=700&q=85&fit=crop&crop=center" alt=""/>
+        <div class="outcome-ov"></div>
+        <div class="outcome-body">
+          <p class="outcome-eyebrow">The guy who moved different</p>
+          <h3 class="outcome-h">SOMEONE SURPRISED THEIR GIRLFRIEND ON IT</h3>
+          <p class="outcome-p">Sent a surprise through the app. She didn't see it coming. The whole hostel was talking by evening.</p>
+        </div>
+      </div>
+
+      <div class="outcome-tile reveal d1">
+        <img src="https://images.unsplash.com/photo-1552581234-26160f608093?w=700&q=85&fit=crop&crop=center" alt=""/>
+        <div class="outcome-ov"></div>
+        <div class="outcome-body">
+          <p class="outcome-eyebrow">The creator with a following</p>
+          <h3 class="outcome-h">YOUR FOLLOWERS BECOME CUSTOMERS</h3>
+          <p class="outcome-p">Post on the school feed. Your storefront is right there on your profile. Followers tap once — they're buying.</p>
+        </div>
+      </div>
+
+      <div class="outcome-tile reveal d2">
+        <img src="https://images.unsplash.com/photo-1543269865-cbf427effbad?w=700&q=85&fit=crop&crop=top" alt=""/>
+        <div class="outcome-ov"></div>
+        <div class="outcome-body">
+          <p class="outcome-eyebrow">The one who always knows first</p>
+          <h3 class="outcome-h">YOU HEAR ABOUT THE CONCERT BEFORE IT SELLS OUT</h3>
+          <p class="outcome-p">Events, drops, moments — they hit your school feed first. You're there early. Everyone else hears about it after.</p>
+        </div>
+      </div>
+
+      <div class="outcome-tile reveal d3">
+        <img src="https://images.unsplash.com/photo-1519671482749-fd09be7ccebf?w=700&q=85&fit=crop&crop=center" alt=""/>
+        <div class="outcome-ov"></div>
+        <div class="outcome-body">
+          <p class="outcome-eyebrow">The thrift vendor with the heat</p>
+          <h3 class="outcome-h">YOUR NEXT DROP ALREADY HAS A WAITLIST</h3>
+          <p class="outcome-p">People save your storefront. They come back for every drop. No story that disappears. No broadcast. Just buyers waiting.</p>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section> ── -->
+
+
+
+<!-- ── FINAL CTA ───────────────────────────── -->
+<section class="final">
+  <div class="final-inner reveal">
+    <div class="final-photo">
+      <img src="images/party.jpg" alt="Students"/>
+      <div class="final-ov"></div>
+      <div class="final-copy">
+        <h2>YOUR PEOPLE<br>ARE ALREADY<br>INSIDE.<br>WHY ARE YOU<br>STILL OUT?</h2>
+        <p>2,847 students locked in. The list closes when your school goes live. Don't be the one who hears about it after.</p>
+      </div>
+    </div>
+    <div class="final-form">
+      <p class="fin-tag">Early member · Free vendor access · Forever tag</p>
+      <h3>Oya.<br>Get in.</h3>
+      <p class="fin-sub">Drop your name. When OOU goes live, you're first through the door — founding member tag on your profile permanently. The ones joining after you won't get this.</p>
+      <button class="sub-btn" onclick="openModal()">INVOLVE ME</button>
+      <p class="fin-note">One form. Your invite. No wahala.</p>
+      <div class="avatars">
+        <div class="avs">
+          <img class="av" src="images/finalform1.jpeg" alt=""/>
+          <img class="av" src="images/finalform2.jpeg" alt=""/>
+          <img class="av" src="images/finalform3.JPG" alt=""/>
+          <img class="av" src="images/finalform4.jpeg" alt=""/>
+          <img class="av" src="images/finalform5.jpeg" alt=""/>
+        </div>
+        <p id="finalProof"><strong>2,847 students</strong> already locked in. 🔒</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="logo">BOU<b>W</b>NCE</div>
+  <p>© 2026 Bouwnce. Built for the school that never sleeps.</p>
+  <div class="flinks">
+    <a href="#">Waitlist</a>
+    <a href="#">Contact</a>
+    <a href="#">Privacy</a>
+  </div>
+</footer>
+
+<!-- MODAL -->
+<div class="modal-backdrop" id="modalBackdrop" onclick="handleBackdropClick(event)">
+  <div class="modal" role="dialog" aria-modal="true">
+    <div class="modal-topbar"></div>
+    <button class="modal-close" onclick="closeModal()" aria-label="Close">✕</button>
+    <div class="modal-body">
+      <p class="modal-eyebrow">Oya, you're getting in. 🔥</p>
+      <p class="modal-tagline">Drop your details. When OOU goes live, you're first — founding tag, free vendor access, first in the door. Your classmates are already on the list.</p>
+      <div class="mf-area" id="modalFormArea">
+        <div class="mf" id="waitlistForm">
+          <div class="mf-field">
+            <label class="mf-label" for="mf-name">Full Name</label>
+            <input class="mf-inp" id="mf-name" type="text" placeholder="e.g. Leemah Favour" autocomplete="name" required/>
+          </div>
+          <div class="mf-field">
+            <label class="mf-label" for="mf-email">Email Address</label>
+            <input class="mf-inp" id="mf-email" type="email" placeholder="you@university.edu" autocomplete="email" required/>
+          </div>
+          <div class="mf-field">
+            <label class="mf-label" for="mf-phone">Phone Number</label>
+            <input class="mf-inp" id="mf-phone" type="tel" placeholder="+234 800 000 0000" autocomplete="tel"/>
+          </div>
+          <div class="mf-field">
+            <label class="mf-label" for="mf-school">Institution</label>
+            <select class="mf-inp sel" id="mf-school" required>
+              <option value="" disabled selected>Select your school</option>
+              <option>Olabisi Onabanjo University (OOU)</option>
+              <option>Federal University of Agriculture, Abeokuta (FUNAAB)</option>
+              <option>University of Lagos (UNILAG)</option>
+              <option>Obafemi Awolowo University (OAU)</option>
+              <option>University of Ibadan (UI)</option>
+              <option>Ahmadu Bello University (ABU)</option>
+              <option>Covenant University</option>
+              <option>Babcock University</option>
+              <option>University of Ghana</option>
+              <option>KNUST</option>
+              <option>University of Cape Town (UCT)</option>
+              <option>Makerere University</option>
+              <option>Other</option>
+            </select>
+          </div>
+          <button class="mf-submit" id="mfSubmitBtn" onclick="submitWaitlist()">
+            <span class="btn-label">INVOLVE ME</span>
+            <div class="spin"></div>
+          </button>
+          <p class="mf-privacy">🔒 No spam. Ever.</p>
+        </div>
+      </div>
+      <div class="modal-success" id="modalSuccess">
+        <div class="success-icon">🔒</div>
+        <h3>YOU'RE LOCKED IN.</h3>
+        <p>Omo you're early. When OOU goes live, you're first through the door — founding tag on your profile, free vendor access, before everyone else even knows it's open.</p>
+        <p class="success-share">Tell your people. The ones who join after you won't get this. 👀</p>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="toast" id="toast">
+  <div class="toast-ico">✓</div>
+  <span>Locked in. You're ahead of everybody. 🔥</span>
+</div>
+
+<script>
+/* THEME */
+let isDark=true;
+function toggleTheme(){
+  isDark=!isDark;
+  document.documentElement.setAttribute('data-theme',isDark?'dark':'light');
+}
+
+/* MODAL */
+function openModal(){
+  document.getElementById('modalBackdrop').classList.add('open');
+  document.body.style.overflow='hidden';
+  document.getElementById('modalFormArea').style.display='';
+  document.getElementById('modalSuccess').classList.remove('show');
+  const btn=document.getElementById('mfSubmitBtn');
+  btn.classList.remove('loading');btn.disabled=false;
+  const e=document.getElementById('mf-err');if(e)e.remove();
+}
+function closeModal(){
+  document.getElementById('modalBackdrop').classList.remove('open');
+  document.body.style.overflow='';
+}
+function handleBackdropClick(e){if(e.target===document.getElementById('modalBackdrop'))closeModal();}
+document.addEventListener('keydown',e=>{if(e.key==='Escape')closeModal();});
+
+/* SUBMIT */
+async function submitWaitlist(){
+  const name=document.getElementById('mf-name').value.trim();
+  const email=document.getElementById('mf-email').value.trim();
+  const phone=document.getElementById('mf-phone').value.trim();
+  const school=document.getElementById('mf-school').value;
+  if(!name){shake('mf-name');return;}
+  if(!email||!email.includes('@')){shake('mf-email');return;}
+  if(!school){shake('mf-school');return;}
+  const btn=document.getElementById('mfSubmitBtn');
+  btn.classList.add('loading');btn.disabled=true;
+  try{
+    const res=await fetch('/api/v1/waitlist/waitlist/',{
+      method:'POST',
+      headers:{'Content-Type':'application/json'},
+      body:JSON.stringify({full_name:name,email,phone_number:phone,institution:school})
+    });
+    if(res.ok){
+      document.getElementById('modalFormArea').style.display='none';
+      document.getElementById('modalSuccess').classList.add('show');
+      count++;sync();
+    }else{
+      const data=await res.json().catch(()=>({}));
+      const msg=data?.detail||data?.message||data?.email?.[0]||'Something went wrong. Try again.';
+      showFieldError(msg);btn.classList.remove('loading');btn.disabled=false;
+    }
+  }catch(err){
+    showFieldError('Network error. Check your connection.');
+    btn.classList.remove('loading');btn.disabled=false;
+  }
+}
+function shake(id){
+  const el=document.getElementById(id);if(!el)return;
+  el.style.borderColor='var(--red)';el.style.animation='shake .4s ease';
+  setTimeout(()=>{el.style.animation='';},450);el.focus();
+}
+function showFieldError(msg){
+  let e=document.getElementById('mf-err');
+  if(!e){e=document.createElement('p');e.id='mf-err';e.style.cssText='font-size:12px;color:var(--red);text-align:center;margin-top:4px;';document.getElementById('mfSubmitBtn').after(e);}
+  e.textContent=msg;
+}
+const sk=document.createElement('style');
+sk.textContent='@keyframes shake{0%,100%{transform:translateX(0)}20%,60%{transform:translateX(-6px)}40%,80%{transform:translateX(6px)}}';
+document.head.appendChild(sk);
+
+/* FLIP CARDS */
+(function(){
+  const isTouch=!window.matchMedia('(hover:hover) and (pointer:fine)').matches;
+  if(!isTouch)return;
+  const cards=Array.from(document.querySelectorAll('.flip-card[data-flip]'));
+  cards.forEach((card,idx)=>{
+    let timer=null;const delay=200+idx*220;
+    const obs=new IntersectionObserver(([entry])=>{
+      if(entry.isIntersecting){timer=setTimeout(()=>card.classList.add('flipped'),delay);}
+      else{clearTimeout(timer);card.classList.remove('flipped');}
+    },{threshold:0.25});
+    obs.observe(card);
+    card.addEventListener('click',()=>card.classList.toggle('flipped'));
+  });
+})();
+
+/* WINDOWS GRID */
+const grid=document.getElementById('winGrid');
+const COLS=8,ROWS=14;const wins=[];
+for(let i=0;i<COLS*ROWS;i++){
+  const w=document.createElement('div');w.className='win dim';grid.appendChild(w);wins.push(w);
+}
+function lightWindows(){
+  const rightCols=[3,4,5,6,7];const leftCols=[0,1,2];
+  wins.forEach((w,i)=>{
+    const col=i%COLS;
+    if(rightCols.includes(col)){
+      setTimeout(()=>{w.classList.remove('dim');w.classList.add(Math.random()>.85?'lit-red':'lit');},Math.random()*3000);
+    }else if(leftCols.includes(col)&&Math.random()>.88){
+      const delay=Math.random()*5000+2000;
+      setTimeout(()=>{w.classList.remove('dim');w.classList.add('lit');setTimeout(()=>{w.classList.remove('lit');w.classList.add('dim');},900);},delay);
+    }
+  });
+  setInterval(()=>{
+    const rw=wins.filter((_,i)=>[3,4,5,6,7].includes(i%COLS));
+    const dark=rw.filter(w=>!w.classList.contains('lit')&&!w.classList.contains('lit-red'));
+    if(dark.length){const pick=dark[Math.floor(Math.random()*dark.length)];pick.classList.remove('dim');pick.classList.add(Math.random()>.8?'lit-red':'lit');}
+  },400);
+}
+setTimeout(lightWindows,800);
+
+/* SCROLL REVEAL */
+const revEls=document.querySelectorAll('.reveal');
+const ro=new IntersectionObserver(entries=>{
+  entries.forEach((e,i)=>{if(e.isIntersecting){setTimeout(()=>e.target.classList.add('in'),i*80);ro.unobserve(e.target);}});
+},{threshold:0.06});
+revEls.forEach(el=>ro.observe(el));
+
+/* COUNTER */
+let count=2847;
+function sync(){
+  const c=count.toLocaleString();
+  const ln=document.getElementById('liveNum');
+  const hp=document.getElementById('heroProof');
+  const fp=document.getElementById('finalProof');
+  if(ln){ln.textContent=c;ln.style.transform='scale(1.22)';setTimeout(()=>ln.style.transform='scale(1)',200);}
+  if(hp)hp.textContent=c+' students already in. Don\'t be last.';
+  if(fp)fp.innerHTML='<strong>'+c+' students</strong> already on the list.';
+}
+setInterval(()=>{if(Math.random()>.48){count++;sync();}},9000);
+</script>
+</body>
+</html>
