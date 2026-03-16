@@ -584,8 +584,8 @@ footer{
   <div class="nav-r">
     <button class="nav-cta" onclick="openModal()">Get Early Access</button>
     <button class="theme-btn" onclick="toggleTheme()" aria-label="Toggle theme">
-      <span class="t-sun">☀️</span>
       <span class="t-moon">🌙</span>
+      <span class="t-sun">☀️</span>
     </button>
   </div>
 </nav>
@@ -598,7 +598,7 @@ footer{
   <div class="hero-content">
     <div class="hero-eyebrow">
       <div class="pulse"></div>
-      <span>Matching Ground — Live Now</span>
+      <!--<span>Matching Ground — Live Now</span>-->
     </div>
 
     <h1 class="hero-h">
@@ -611,7 +611,7 @@ footer{
     </p>
 
     <div class="hero-actions">
-      <button class="hero-btn" onclick="openModal()">GET EARLY ACCESS</button>
+      <!--<button class="hero-btn" onclick="openModal()">GET EARLY ACCESS</button>-->
       <p class="hero-proof" id="heroProof">2,847 people already in.</p>
     </div>
   </div>
@@ -968,8 +968,8 @@ footer{
 /* THEME */
 let dark=true;
 function toggleTheme(){
-  dark=!dark;
-  document.documentElement.setAttribute('data-theme',dark?'dark':'light');
+  dark=!light;
+  document.documentElement.setAttribute('data-theme',dark?'light':'dark');
 }
 
 /* ANIMATED QUERIES */
