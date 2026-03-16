@@ -1,0 +1,1113 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Bouwnce — Matching Ground</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;700;800&family=Plus+Jakarta+Sans:ital,wght@0,300;0,400;0,500;0,600;1,300&display=swap" rel="stylesheet">
+<style>
+
+[data-theme="dark"]{
+  --bg:#080808;--bg2:#0f0e0d;--bg3:#161412;
+  --text:#F0EBE5;--muted:rgba(240,235,229,.42);--border:rgba(240,235,229,.08);
+  --card:#111010;--warm:#c9b99a;--nav:rgba(8,8,8,.9);
+  --btn:rgba(240,235,229,.07);--noise:.52;--imgf:saturate(.9) brightness(.88);
+}
+[data-theme="light"]{
+  --bg:#FAF8F5;--bg2:#F1EBE2;--bg3:#EAE2D8;
+  --text:#1A1512;--muted:rgba(26,21,18,.48);--border:rgba(26,21,18,.09);
+  --card:#fff;--warm:#8B6344;--nav:rgba(250,248,245,.93);
+  --btn:rgba(26,21,18,.06);--noise:.10;--imgf:saturate(.93) brightness(1.02);
+}
+:root{--red:#FF4B2B;--red2:#e03a1c;}
+
+*,*::before,*::after{margin:0;padding:0;box-sizing:border-box;}
+html{scroll-behavior:smooth;}
+button,a,[role=button]{cursor:pointer;}
+input,select{cursor:text;}
+
+body{
+  background:var(--bg);color:var(--text);
+  font-family:'Plus Jakarta Sans',sans-serif;
+  overflow-x:hidden;-webkit-font-smoothing:antialiased;
+  transition:background .4s,color .4s;
+}
+body::after{
+  content:'';position:fixed;inset:0;pointer-events:none;z-index:400;
+  opacity:var(--noise);transition:opacity .4s;
+  background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='300' height='300'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='300' height='300' filter='url(%23n)' opacity='.04'/%3E%3C/svg%3E");
+}
+
+/* ── NAV ── */
+nav{
+  position:fixed;top:0;left:0;right:0;z-index:300;
+  padding:14px 20px;display:flex;justify-content:space-between;align-items:center;
+  backdrop-filter:blur(24px);-webkit-backdrop-filter:blur(24px);
+  background:var(--nav);border-bottom:1px solid var(--border);
+  transition:background .4s,border-color .4s;
+}
+.logo{font-family:'Syne',sans-serif;font-size:20px;font-weight:800;letter-spacing:3px;text-transform:uppercase;color:var(--text);transition:color .4s;}
+.logo b{color:var(--red);}
+.nav-r{display:flex;align-items:center;gap:8px;}
+.theme-btn{
+  width:34px;height:34px;border-radius:50%;background:var(--btn);border:1px solid var(--border);
+  display:flex;align-items:center;justify-content:center;font-size:14px;
+  overflow:hidden;position:relative;transition:background .25s,border-color .4s;flex-shrink:0;
+}
+.theme-btn:hover{background:var(--red);border-color:var(--red);}
+.t-sun,.t-moon{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;transition:opacity .3s,transform .3s;}
+.t-sun{opacity:1;transform:scale(1);}
+.t-moon{opacity:0;transform:rotate(-45deg) scale(.6);}
+[data-theme="dark"] .t-sun{opacity:0;transform:rotate(45deg) scale(.6);}
+[data-theme="dark"] .t-moon{opacity:1;transform:rotate(0) scale(1);}
+.nav-cta{
+  background:var(--red);color:#fff;border:none;border-radius:999px;
+  padding:9px 20px;font-family:'Syne',sans-serif;font-size:11px;font-weight:700;
+  letter-spacing:1.5px;text-transform:uppercase;transition:opacity .2s,transform .15s;
+}
+.nav-cta:hover{opacity:.85;transform:scale(.96);}
+
+/* ── HERO ── */
+.hero{
+  min-height:100svh;display:flex;flex-direction:column;
+  position:relative;overflow:hidden;
+}
+/* full bleed photo bg */
+.hero-photo{
+  position:absolute;inset:0;z-index:0;
+  background:url('images/withbouwnce.jpg') center/cover no-repeat;
+  filter:var(--imgf);transition:filter .4s;
+}
+.hero-ov{
+  position:absolute;inset:0;z-index:1;
+  background:
+    linear-gradient(to bottom,rgba(8,8,8,.72) 0%,rgba(8,8,8,.38) 45%,rgba(8,8,8,.85) 80%,rgba(8,8,8,1) 100%),
+    linear-gradient(to right,rgba(8,8,8,.55) 0%,transparent 60%);
+  transition:background .4s;
+}
+[data-theme="light"] .hero-ov{
+  background:
+    linear-gradient(to bottom,rgba(250,248,245,.82) 0%,rgba(250,248,245,.4) 40%,rgba(250,248,245,.88) 80%,rgba(250,248,245,1) 100%),
+    linear-gradient(to right,rgba(250,248,245,.6) 0%,transparent 60%);
+}
+
+.hero-content{
+  position:relative;z-index:10;
+  padding:92px 20px 0;
+  flex:1;display:flex;flex-direction:column;
+}
+.hero-eyebrow{
+  display:inline-flex;align-items:center;gap:8px;
+  background:rgba(255,75,43,.1);border:1px solid rgba(255,75,43,.22);
+  border-radius:999px;padding:6px 14px;margin-bottom:20px;
+  opacity:0;animation:up .7s .2s ease forwards;align-self:flex-start;
+}
+.pulse{width:6px;height:6px;border-radius:50%;background:var(--red);flex-shrink:0;animation:pls 1.6s ease-in-out infinite;}
+@keyframes pls{0%,100%{opacity:1;transform:scale(1)}50%{opacity:.2;transform:scale(.55)}}
+.hero-eyebrow span{font-size:10px;letter-spacing:2.5px;text-transform:uppercase;color:var(--red);font-weight:700;}
+
+.hero-h{
+  font-family:'Syne',sans-serif;font-weight:800;
+  font-size:clamp(44px,13vw,82px);
+  line-height:.92;letter-spacing:-2px;
+  color:var(--text);margin-bottom:16px;
+  opacity:0;animation:up .9s .3s ease forwards;transition:color .4s;
+}
+.hero-h em{color:var(--red);font-style:normal;}
+
+.hero-sub{
+  font-size:clamp(13px,3.5vw,16px);color:var(--muted);
+  font-weight:300;line-height:1.7;margin-bottom:28px;max-width:340px;
+  opacity:0;animation:up .9s .44s ease forwards;transition:color .4s;
+}
+
+.hero-actions{
+  display:flex;flex-direction:column;align-items:flex-start;gap:10px;
+  opacity:0;animation:up .9s .56s ease forwards;
+}
+.hero-btn{
+  background:var(--red);color:#fff;border:none;
+  border-radius:4px;padding:15px 36px;
+  font-family:'Syne',sans-serif;font-size:12px;font-weight:700;
+  letter-spacing:2px;text-transform:uppercase;
+  box-shadow:0 8px 28px rgba(255,75,43,.38);
+  transition:opacity .2s,transform .15s;
+}
+.hero-btn:hover{opacity:.88;transform:scale(.97);}
+.hero-proof{
+  font-size:11px;color:var(--muted);
+  display:flex;align-items:center;gap:6px;
+}
+.hero-proof::before{content:'';width:18px;height:1px;background:var(--red);flex-shrink:0;}
+
+/* ── PHONE SCENE ── */
+.phone-scene{
+  position:relative;z-index:10;
+  width:100%;display:flex;justify-content:center;
+  padding:36px 20px 0;
+  opacity:0;animation:risePhone 1.1s .72s cubic-bezier(.22,1,.36,1) forwards;
+}
+@keyframes risePhone{from{opacity:0;transform:translateY(44px)}to{opacity:1;transform:none}}
+
+.phone{
+  width:100%;max-width:336px;border-radius:32px;
+  background:var(--card);
+  border:1px solid rgba(255,255,255,.09);
+  box-shadow:0 32px 80px rgba(0,0,0,.7),0 0 0 1px rgba(255,255,255,.03),0 -1px 0 rgba(255,255,255,.06);
+  overflow:hidden;transition:background .4s,border-color .4s;
+}
+[data-theme="light"] .phone{border:1px solid rgba(0,0,0,.09);box-shadow:0 28px 64px rgba(0,0,0,.16);}
+.phone-notch{height:26px;display:flex;justify-content:center;align-items:center;padding-top:8px;}
+.notch-bar{width:68px;height:5px;border-radius:999px;background:var(--bg3);transition:background .4s;}
+.phone-body{padding:10px 14px 18px;}
+
+/* search bar */
+.p-bar{
+  background:var(--bg3);border-radius:12px;padding:11px 14px;
+  display:flex;align-items:center;gap:9px;margin-bottom:11px;
+  border:1px solid var(--border);transition:background .4s,border-color .4s;
+}
+.p-bar-icon{color:var(--red);font-size:13px;flex-shrink:0;}
+.p-bar-text{font-size:12px;color:var(--text);flex:1;min-width:0;font-weight:400;transition:color .4s;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;}
+.cursor{display:inline-block;width:1.5px;height:12px;background:var(--red);vertical-align:middle;margin-left:1px;animation:blink 1s step-end infinite;}
+@keyframes blink{50%{opacity:0}}
+.p-bar-loc{font-size:9px;color:var(--red);font-weight:700;letter-spacing:.5px;flex-shrink:0;}
+
+/* tabs */
+.p-tabs{display:flex;gap:6px;margin-bottom:11px;}
+.tab{padding:5px 14px;border-radius:999px;font-size:10px;font-weight:700;letter-spacing:.5px;text-transform:uppercase;border:1px solid transparent;transition:.2s;cursor:pointer;}
+.tab.on{background:var(--red);color:#fff;}
+.tab.off{background:var(--btn);color:var(--muted);border-color:var(--border);}
+
+/* result cards */
+.p-results{display:flex;flex-direction:column;gap:7px;}
+.r-card{
+  background:var(--bg2);border-radius:10px;border:1px solid var(--border);
+  overflow:hidden;display:flex;align-items:stretch;min-height:58px;
+  transition:background .4s,border-color .4s;
+}
+.r-img{
+  width:52px;flex-shrink:0;overflow:hidden;position:relative;
+}
+.r-img img{width:100%;height:100%;object-fit:cover;display:block;filter:var(--imgf);transition:filter .4s;}
+.r-img-placeholder{width:100%;height:100%;display:flex;align-items:center;justify-content:center;background:var(--bg3);font-size:22px;}
+.r-body{flex:1;padding:8px 10px;}
+.r-name{font-size:11px;font-weight:600;color:var(--text);margin-bottom:2px;transition:color .4s;}
+.r-meta{font-size:10px;color:var(--muted);}
+.r-row{display:flex;align-items:center;justify-content:space-between;margin-top:4px;}
+.r-dist{font-size:9px;color:var(--muted);}
+.badge{font-size:9px;font-weight:700;letter-spacing:.3px;padding:2px 8px;border-radius:999px;flex-shrink:0;}
+.badge.open{background:rgba(60,200,90,.12);color:#3dc860;}
+.badge.top{background:rgba(255,185,60,.12);color:#e8a820;}
+.badge.match{background:rgba(255,75,43,.12);color:var(--red);}
+
+/* people tab */
+.p-card{
+  background:var(--bg2);border-radius:10px;border:1px solid var(--border);
+  display:flex;align-items:center;gap:10px;padding:8px 10px;
+  transition:background .4s,border-color .4s;
+}
+.p-av{
+  width:36px;height:36px;border-radius:50%;overflow:hidden;flex-shrink:0;
+  border:2px solid var(--border);position:relative;transition:border-color .4s;
+}
+.p-av img{width:100%;height:100%;object-fit:cover;display:block;filter:var(--imgf);transition:filter .4s;}
+.p-av::after{
+  content:'';position:absolute;bottom:0;right:0;
+  width:9px;height:9px;border-radius:50%;
+  background:#3dc860;border:1.5px solid var(--card);
+  transition:border-color .4s;
+}
+.p-info{flex:1;}
+.p-name{font-size:11px;font-weight:600;color:var(--text);margin-bottom:1px;transition:color .4s;}
+.p-bio{font-size:10px;color:var(--muted);}
+.p-action{
+  background:var(--red);color:#fff;border:none;border-radius:6px;
+  padding:5px 10px;font-size:9px;font-weight:700;letter-spacing:.3px;flex-shrink:0;
+}
+
+/* zero state */
+.p-zero{
+  background:var(--bg3);border-radius:10px;border:1px solid var(--border);
+  padding:16px;text-align:center;
+  display:none;flex-direction:column;align-items:center;gap:7px;
+  transition:background .4s,border-color .4s;
+}
+.p-zero.show{display:flex;}
+.pz-ico{font-size:26px;}
+.pz-msg{font-size:11px;color:var(--text);font-weight:600;line-height:1.5;transition:color .4s;}
+.pz-sub{font-size:10px;color:var(--muted);}
+.pz-btn{background:rgba(255,75,43,.1);border:1px solid rgba(255,75,43,.2);border-radius:8px;padding:6px 14px;font-size:10px;font-weight:700;color:var(--red);letter-spacing:.5px;text-transform:uppercase;}
+
+.p-toast-inline{
+  background:rgba(60,200,90,.09);border:1px solid rgba(60,200,90,.18);
+  border-radius:9px;padding:9px 12px;display:none;align-items:center;gap:7px;margin-top:7px;
+}
+.p-toast-inline.show{display:flex;}
+.pti-txt{font-size:11px;color:#3dc860;font-weight:600;}
+
+.phone-cta-bar{
+  margin-top:11px;padding:11px;border-radius:10px;
+  background:var(--red);font-family:'Syne',sans-serif;
+  font-size:11px;font-weight:700;letter-spacing:1px;
+  text-transform:uppercase;color:#fff;text-align:center;cursor:pointer;
+  transition:opacity .2s;
+}
+.phone-cta-bar:hover{opacity:.85;}
+.phone-glow{
+  position:absolute;bottom:-60px;left:50%;transform:translateX(-50%);
+  width:220px;height:120px;border-radius:50%;
+  background:rgba(255,75,43,.22);filter:blur(44px);
+  pointer-events:none;
+}
+
+/* ── TICKER ── */
+.ticker{
+  background:var(--red);padding:11px 0;overflow:hidden;
+  position:relative;flex-shrink:0;
+}
+.ticker::before{
+  content:'';position:absolute;inset:0;
+  background:repeating-linear-gradient(-45deg,transparent,transparent 12px,rgba(0,0,0,.06) 12px,rgba(0,0,0,.06) 24px);
+}
+.ticker-track{display:flex;gap:0;width:max-content;animation:mscroll 26s linear infinite;position:relative;z-index:1;}
+.ti{
+  font-family:'Syne',sans-serif;font-size:11px;letter-spacing:2px;text-transform:uppercase;
+  color:rgba(255,255,255,.88);white-space:nowrap;display:flex;align-items:center;padding:0 28px;
+}
+.ti::after{content:'✦';margin-left:28px;opacity:.45;font-size:7px;}
+@keyframes mscroll{to{transform:translateX(-50%);}}
+
+/* ── SECTIONS SHARED ── */
+.sec{padding:72px 20px;transition:background .4s;}
+.sec-inner{max-width:440px;margin:0 auto;}
+.lbl{font-size:10px;letter-spacing:3px;text-transform:uppercase;color:var(--red);font-weight:700;margin-bottom:12px;}
+.sh{font-family:'Syne',sans-serif;font-size:clamp(30px,9vw,50px);font-weight:800;line-height:.95;letter-spacing:-1.5px;color:var(--text);margin-bottom:10px;transition:color .4s;}
+.st{font-size:14px;color:var(--warm);font-style:italic;font-weight:300;line-height:1.65;margin-bottom:24px;}
+.body-t{font-size:13px;color:var(--muted);line-height:1.85;font-weight:300;transition:color .4s;}
+.body-t strong{color:var(--text);font-weight:500;transition:color .4s;}
+
+.reveal{opacity:0;transform:translateY(22px);transition:opacity .7s ease,transform .7s ease;}
+.reveal.in{opacity:1;transform:none;}
+.d1{transition-delay:.1s}.d2{transition-delay:.2s}.d3{transition-delay:.3s}.d4{transition-delay:.4s}
+
+/* ── § SOCIAL PROOF — faces wall ── */
+.faces-sec{background:var(--bg2);}
+.faces-inner{max-width:440px;margin:0 auto;}
+
+/* grid of real user photos with quote overlays */
+.faces-grid{
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:3px;margin-bottom:28px;
+}
+.face-card{
+  position:relative;overflow:hidden;aspect-ratio:3/4;
+}
+.face-card img{
+  width:100%;height:100%;object-fit:cover;display:block;
+  filter:var(--imgf);transition:transform .6s ease,filter .4s;
+}
+.face-card:hover img{transform:scale(1.04);}
+.face-ov{
+  position:absolute;inset:0;
+  background:linear-gradient(to top,rgba(8,8,8,.88) 0%,rgba(8,8,8,.12) 55%,transparent 100%);
+  z-index:1;
+}
+[data-theme="light"] .face-ov{background:linear-gradient(to top,rgba(18,12,6,.82) 0%,rgba(18,12,6,.1) 55%,transparent 100%);}
+.face-chip{
+  position:absolute;top:0;left:0;z-index:3;
+  background:var(--red);padding:5px 12px;
+  font-size:9px;letter-spacing:2px;text-transform:uppercase;font-weight:700;color:#fff;
+}
+.face-copy{position:absolute;bottom:0;left:0;right:0;z-index:2;padding:16px 14px;}
+.face-name{font-family:'Syne',sans-serif;font-size:15px;font-weight:800;color:#fff;margin-bottom:3px;}
+.face-quote{font-family:'Plus Jakarta Sans',sans-serif;font-style:italic;font-size:11px;color:rgba(255,255,255,.65);line-height:1.5;}
+/* wide card spans both cols */
+.face-card.wide{grid-column:1/3;aspect-ratio:16/7;}
+
+/* ── § VENDOR DISCOVERY ── */
+.discovery{background:var(--bg);}
+
+/* storefront card */
+.store-card{
+  background:var(--bg2);border-radius:16px;overflow:hidden;
+  border:1px solid var(--border);margin-bottom:28px;
+  transition:background .4s,border-color .4s;
+}
+.sc-cover{
+  height:130px;overflow:hidden;position:relative;
+}
+.sc-cover img{width:100%;height:100%;object-fit:cover;display:block;filter:var(--imgf);transition:filter .4s;}
+.sc-cover-ov{
+  position:absolute;inset:0;
+  background:linear-gradient(to top,rgba(8,8,8,.75) 0%,transparent 55%);
+  z-index:1;
+}
+[data-theme="light"] .sc-cover-ov{background:linear-gradient(to top,rgba(18,12,6,.65) 0%,transparent 55%);}
+.sc-live{
+  position:absolute;top:10px;right:10px;z-index:2;
+  display:flex;align-items:center;gap:5px;
+  background:rgba(0,0,0,.5);border:1px solid rgba(255,255,255,.15);
+  border-radius:999px;padding:4px 10px;
+  font-size:9px;font-weight:700;color:#fff;letter-spacing:.5px;
+  backdrop-filter:blur(8px);
+}
+.sc-live::before{content:'';width:5px;height:5px;border-radius:50%;background:#3dc860;animation:pls 1.4s ease-in-out infinite;}
+.sc-head{padding:12px 14px 0;display:flex;align-items:center;gap:10px;position:relative;z-index:2;margin-top:-28px;}
+.sc-avatar{
+  width:46px;height:46px;border-radius:10px;overflow:hidden;
+  border:2px solid var(--card);flex-shrink:0;
+  transition:border-color .4s;
+}
+.sc-avatar img{width:100%;height:100%;object-fit:cover;display:block;filter:var(--imgf);transition:filter .4s;}
+.sc-info{flex:1;padding-top:18px;}
+.sc-name{font-family:'Syne',sans-serif;font-size:14px;font-weight:800;color:var(--text);transition:color .4s;}
+.sc-tag{font-size:10px;color:var(--muted);}
+.sc-products{display:flex;gap:8px;padding:12px 14px;overflow-x:auto;-webkit-overflow-scrolling:touch;}
+.sc-prod{
+  background:var(--bg3);border-radius:10px;padding:10px;min-width:82px;flex-shrink:0;
+  border:1px solid var(--border);text-align:center;
+  transition:background .4s,border-color .4s;
+}
+.sc-prod-img{
+  width:100%;aspect-ratio:1;border-radius:6px;overflow:hidden;margin-bottom:6px;
+}
+.sc-prod-img img{width:100%;height:100%;object-fit:cover;display:block;filter:var(--imgf);transition:filter .4s;}
+.sc-prod-e{font-size:24px;margin-bottom:6px;line-height:1;}
+.sc-prod-n{font-size:10px;color:var(--text);font-weight:600;margin-bottom:2px;transition:color .4s;}
+.sc-prod-p{font-size:10px;color:var(--red);font-weight:700;}
+.sc-footer{
+  padding:10px 14px 14px;border-top:1px solid var(--border);
+  display:flex;align-items:center;justify-content:space-between;
+  transition:border-color .4s;
+}
+.sc-footer-txt{font-size:11px;color:var(--muted);}
+.sc-msg{background:var(--red);color:#fff;border:none;border-radius:8px;padding:7px 16px;font-size:10px;font-weight:700;letter-spacing:.5px;cursor:pointer;}
+
+/* ── § SELL ON BOUWNCE ── */
+.sell{background:var(--bg2);}
+
+/* before/after split */
+.ba-split{
+  display:grid;grid-template-columns:1fr 1fr;gap:3px;
+  border-radius:12px;overflow:hidden;margin-bottom:28px;
+}
+.ba-side{position:relative;min-height:200px;}
+.ba-side img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;display:block;filter:var(--imgf);transition:filter .4s;}
+.ba-ov{position:absolute;inset:0;background:rgba(8,8,8,.68);z-index:1;}
+[data-theme="light"] .ba-ov{background:rgba(20,14,8,.62);}
+.ba-copy{position:absolute;bottom:0;left:0;right:0;z-index:2;padding:14px 12px;}
+.ba-lbl{font-size:9px;letter-spacing:2px;text-transform:uppercase;font-weight:700;margin-bottom:6px;}
+.ba-side:first-child .ba-lbl{color:rgba(255,255,255,.38);}
+.ba-side:last-child .ba-lbl{color:var(--red);}
+.ba-h{font-family:'Syne',sans-serif;font-size:14px;font-weight:800;color:#fff;line-height:1.1;}
+
+/* steps */
+.steps-list{display:flex;flex-direction:column;gap:3px;margin-bottom:24px;}
+.step-row{
+  background:var(--bg3);padding:14px 16px;display:flex;align-items:center;gap:12px;
+  border:1px solid var(--border);position:relative;overflow:hidden;
+  transition:background .4s,border-color .4s;
+}
+.step-row::before{content:'';position:absolute;left:0;top:0;bottom:0;width:3px;background:var(--border);transition:background .3s;}
+.step-row.done::before{background:var(--red);}
+.step-n{
+  width:26px;height:26px;border-radius:50%;flex-shrink:0;
+  display:flex;align-items:center;justify-content:center;
+  font-family:'Syne',sans-serif;font-size:11px;font-weight:800;
+  background:var(--bg2);color:var(--muted);border:1px solid var(--border);
+  transition:background .3s,color .3s,border-color .3s;
+}
+.step-row.done .step-n{background:var(--red);color:#fff;border-color:var(--red);}
+.step-info{flex:1;}
+.step-t{font-family:'Syne',sans-serif;font-size:12px;font-weight:700;color:var(--text);margin-bottom:1px;transition:color .4s;}
+.step-s{font-size:10px;color:var(--muted);}
+.step-ck{color:var(--red);font-size:13px;flex-shrink:0;opacity:0;transition:opacity .3s;}
+.step-row.done .step-ck{opacity:1;}
+
+.sell-cta{
+  background:var(--red);border-radius:12px;padding:22px 18px;text-align:center;
+}
+.scta-h{font-family:'Syne',sans-serif;font-size:19px;font-weight:800;color:#fff;margin-bottom:5px;}
+.scta-p{font-size:12px;color:rgba(255,255,255,.72);margin-bottom:14px;line-height:1.6;}
+.scta-btn{
+  background:#fff;color:var(--red);border:none;border-radius:8px;
+  padding:11px 26px;font-family:'Syne',sans-serif;font-size:12px;font-weight:800;
+  letter-spacing:1px;text-transform:uppercase;cursor:pointer;transition:opacity .2s;
+}
+.scta-btn:hover{opacity:.88;}
+
+/* ── § FINAL CTA ── */
+.final{
+  padding:80px 20px 100px;text-align:center;
+  position:relative;overflow:hidden;background:var(--bg);transition:background .4s;
+}
+.final-photo-bg{
+  position:absolute;inset:0;z-index:0;
+  background:url('https://images.unsplash.com/photo-1522202176988-66273c2fd55f?w=900&q=80&fit=crop&crop=center') center/cover no-repeat;
+  filter:var(--imgf);opacity:.18;transition:filter .4s,opacity .4s;
+}
+[data-theme="light"] .final-photo-bg{opacity:.12;}
+.final-ov{
+  position:absolute;inset:0;z-index:1;
+  background:radial-gradient(ellipse 80% 70% at 50% 50%,transparent 0%,var(--bg) 70%);
+  transition:background .4s;
+}
+.final-glow{
+  position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);z-index:1;
+  width:360px;height:360px;border-radius:50%;
+  background:rgba(255,75,43,.09);filter:blur(65px);pointer-events:none;
+}
+[data-theme="light"] .final-glow{background:rgba(255,75,43,.06);}
+.final-word{
+  font-family:'Syne',sans-serif;font-weight:800;
+  font-size:clamp(72px,22vw,148px);letter-spacing:-4px;line-height:.88;
+  color:rgba(255,75,43,.055);position:absolute;top:50%;left:50%;
+  transform:translate(-50%,-50%);pointer-events:none;white-space:nowrap;user-select:none;
+  z-index:1;transition:color .4s;
+}
+[data-theme="light"] .final-word{color:rgba(255,75,43,.05);}
+.final-inner{position:relative;z-index:2;max-width:360px;margin:0 auto;}
+.final-h{
+  font-family:'Syne',sans-serif;font-size:clamp(38px,11vw,62px);
+  font-weight:800;letter-spacing:-2px;color:var(--text);
+  margin-bottom:10px;line-height:.95;transition:color .4s;
+}
+.final-h em{color:var(--red);font-style:normal;}
+.final-sub{font-size:14px;color:var(--muted);margin-bottom:30px;font-weight:300;line-height:1.65;}
+.final-form{display:flex;flex-direction:column;gap:10px;}
+.f-inp{
+  background:var(--bg2);border:1px solid var(--border);border-radius:8px;
+  padding:13px 16px;color:var(--text);
+  font-family:'Plus Jakarta Sans',sans-serif;font-size:14px;outline:none;
+  text-align:center;transition:border-color .2s,background .4s;
+}
+.f-inp::placeholder{color:var(--muted);}
+.f-inp:focus{border-color:var(--red);}
+.f-btn{
+  background:var(--red);color:#fff;border:none;border-radius:8px;
+  padding:14px;font-family:'Syne',sans-serif;font-size:12px;font-weight:700;
+  letter-spacing:2px;text-transform:uppercase;
+  box-shadow:0 6px 22px rgba(255,75,43,.32);transition:opacity .2s;
+}
+.f-btn:hover{opacity:.86;}
+.final-note{margin-top:10px;font-size:11px;color:var(--muted);}
+
+/* ── FOOTER ── */
+footer{
+  border-top:1px solid var(--border);padding:18px 20px;
+  display:flex;justify-content:space-between;align-items:center;
+  flex-wrap:wrap;gap:8px;transition:border-color .4s;
+}
+.foot-logo{font-family:'Syne',sans-serif;font-size:16px;font-weight:800;letter-spacing:2px;color:var(--muted);}
+.foot-logo b{color:var(--red);}
+.foot-txt{font-size:10px;color:var(--muted);}
+
+/* ── MODAL ── */
+.backdrop{
+  position:fixed;inset:0;z-index:500;
+  background:rgba(0,0,0,.72);backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px);
+  display:flex;align-items:flex-end;justify-content:center;padding:0;
+  opacity:0;pointer-events:none;transition:opacity .3s;
+}
+.backdrop.open{opacity:1;pointer-events:all;}
+.modal{
+  background:var(--card);border:1px solid var(--border);
+  border-radius:24px 24px 0 0;width:100%;max-width:480px;
+  padding:26px 22px 48px;
+  transform:translateY(100%);
+  transition:transform .4s cubic-bezier(.34,1.56,.64,1),background .4s,border-color .4s;
+  position:relative;
+}
+.backdrop.open .modal{transform:translateY(0);}
+.modal-handle{width:36px;height:4px;border-radius:999px;background:var(--border);margin:0 auto 20px;}
+.modal h3{font-family:'Syne',sans-serif;font-size:22px;font-weight:800;color:var(--text);margin-bottom:5px;transition:color .4s;}
+.modal h3 em{color:var(--red);font-style:normal;}
+.modal p{font-size:13px;color:var(--muted);margin-bottom:18px;}
+.mf{display:flex;flex-direction:column;gap:10px;}
+.m-inp{
+  background:var(--bg2);border:1px solid var(--border);border-radius:10px;
+  padding:13px 16px;color:var(--text);font-family:'Plus Jakarta Sans',sans-serif;
+  font-size:14px;outline:none;transition:border-color .2s,background .4s;width:100%;
+}
+.m-inp::placeholder{color:var(--muted);}
+.m-inp:focus{border-color:var(--red);}
+.m-btn{
+  background:var(--red);color:#fff;border:none;border-radius:10px;
+  padding:15px;font-family:'Syne',sans-serif;font-size:12px;font-weight:700;
+  letter-spacing:2px;text-transform:uppercase;transition:opacity .2s;
+  box-shadow:0 4px 16px rgba(255,75,43,.28);
+}
+.m-btn:hover{opacity:.87;}
+.modal-success{display:none;text-align:center;padding:20px 0;}
+.modal-success.show{display:block;}
+.modal-success .s-ico{font-size:44px;margin-bottom:12px;}
+
+/* ── TOAST ── */
+.toast{
+  position:fixed;bottom:24px;left:50%;
+  transform:translateX(-50%) translateY(100px);
+  background:var(--card);border:1px solid var(--border);border-radius:999px;
+  padding:11px 20px;display:flex;align-items:center;gap:9px;
+  font-size:13px;z-index:600;white-space:nowrap;
+  box-shadow:0 8px 32px rgba(0,0,0,.4);
+  transition:transform .4s cubic-bezier(.34,1.56,.64,1),background .4s;
+}
+.toast.show{transform:translateX(-50%) translateY(0);}
+.t-dot{width:18px;height:18px;border-radius:50%;background:var(--red);color:#fff;display:flex;align-items:center;justify-content:center;font-size:9px;font-weight:700;flex-shrink:0;}
+
+@keyframes up{from{opacity:0;transform:translateY(16px)}to{opacity:1;transform:none}}
+
+/* ── DESKTOP ── */
+@media(min-width:600px){
+  nav{padding:16px 40px;}
+  .sec{padding:88px 40px;}
+  .faces-grid{grid-template-columns:repeat(3,1fr);}
+  .face-card.wide{grid-column:2/4;aspect-ratio:4/3;}
+  .phone{max-width:360px;}
+  .final{padding:100px 40px 120px;}
+  footer{padding:20px 40px;}
+}
+@media(min-width:900px){
+  nav{padding:18px 52px;}
+  .phone{max-width:320px;}
+}
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <div class="logo">BOU<b>W</b>NCE</div>
+  <div class="nav-r">
+    <button class="nav-cta" onclick="openModal()">Get Early Access</button>
+    <button class="theme-btn" onclick="toggleTheme()" aria-label="Toggle theme">
+      <span class="t-sun">☀️</span>
+      <span class="t-moon">🌙</span>
+    </button>
+  </div>
+</nav>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-photo"></div>
+  <div class="hero-ov"></div>
+
+  <div class="hero-content">
+    <div class="hero-eyebrow">
+      <div class="pulse"></div>
+      <span>Matching Ground — Live Now</span>
+    </div>
+
+    <h1 class="hero-h">
+      Type what<br>you need.<br>
+      <em>Find it.</em>
+    </h1>
+
+    <p class="hero-sub">
+      People. All around you.<br>One search. 
+    </p>
+
+    <div class="hero-actions">
+      <button class="hero-btn" onclick="openModal()">GET EARLY ACCESS</button>
+      <p class="hero-proof" id="heroProof">2,847 people already in.</p>
+    </div>
+  </div>
+
+  <!-- Matching Ground phone demo -->
+  <div class="phone-scene">
+    <div class="phone-glow"></div>
+    <div class="phone">
+      <div class="phone-notch"><div class="notch-bar"></div></div>
+      <div class="phone-body">
+
+        <div class="p-bar">
+          <span class="p-bar-icon">🔍</span>
+          <span class="p-bar-text" id="qText">shawarma near me</span><span class="cursor"></span>
+          <span class="p-bar-loc">📍 Match</span>
+        </div>
+
+        <div class="p-tabs" id="pTabs">
+          <div class="tab on" onclick="switchTab('vendors')">Vendors</div>
+          <div class="tab off" onclick="switchTab('people')">People</div>
+        </div>
+
+        <!-- VENDOR RESULTS -->
+        <div class="p-results" id="vendorCards">
+          <div class="r-card">
+            <div class="r-img">
+              <img src="https://images.unsplash.com/photo-1555939594-58d7cb561ad1?w=120&q=80&fit=crop" alt="food">
+            </div>
+            <div class="r-body">
+              <div class="r-name">Mama Shawarma</div>
+              <div class="r-meta">Open until 11PM · Delivery available</div>
+              <div class="r-row"><span class="r-dist">📍 0.3km</span><span class="badge open">Open</span></div>
+            </div>
+          </div>
+          <div class="r-card">
+            <div class="r-img">
+              <img src="https://images.unsplash.com/photo-1565299585323-38d6b0865b47?w=120&q=80&fit=crop" alt="food">
+            </div>
+            <div class="r-body">
+              <div class="r-name">Favour's Kitchen</div>
+              <div class="r-meta">Jollof · Small Chops · Shawarma</div>
+              <div class="r-row"><span class="r-dist">📍 0.7km</span><span class="badge open">Open</span></div>
+            </div>
+          </div>
+          <div class="r-card">
+            <div class="r-img">
+              <img src="https://images.unsplash.com/photo-1504674900247-0877df9cc836?w=120&q=80&fit=crop" alt="food">
+            </div>
+            <div class="r-body">
+              <div class="r-name">Amaka's Grill</div>
+              <div class="r-meta">Top rated · Suya & Grills</div>
+              <div class="r-row"><span class="r-dist">📍 1.1km</span><span class="badge top">⭐ 4.9</span></div>
+            </div>
+          </div>
+        </div>
+
+        <!-- PEOPLE RESULTS -->
+        <div class="p-results" id="peopleCards" style="display:none">
+          <div class="p-card">
+            <div class="p-av">
+              <img src="images/student1.jpeg" alt="">
+            </div>
+            <div class="p-info">
+              <div class="p-name">Leemah</div>
+              <div class="p-bio">Also craving shawarma rn 😭</div>
+            </div>
+            <button class="p-action">Chat</button>
+          </div>
+          <div class="p-card">
+            <div class="p-av">
+              <img src="images/finalform4.jpeg" alt="">
+            </div>
+            <div class="p-info">
+              <div class="p-name">Elegida</div>
+              <div class="p-bio">Going to Mama's in 10 mins</div>
+            </div>
+            <button class="p-action">Chat</button>
+          </div>
+          <div class="p-card">
+            <div class="p-av">
+              <img src="images/student3.jpeg" alt="">
+            </div>
+            <div class="p-info">
+              <div class="p-name">Chioma O.</div>
+              <div class="p-bio">Shawarma run — anyone joining?</div>
+            </div>
+            <button class="p-action">Chat</button>
+          </div>
+        </div>
+
+        <!-- ZERO STATE -->
+        <!--<div class="p-zero" id="zeroState">
+          <div class="pz-ico">🔔</div>
+          <div class="pz-msg">We'll find the best one for you.</div>
+          <div class="pz-sub">Notify me when a match shows up nearby</div>
+          <div class="pz-btn">Notify Me</div>
+        </div>-->
+
+        <div class="p-toast-inline" id="pToast">
+          <span>🎉</span>
+          <span class="pti-txt">3 people near you want the same thing</span>
+        </div>
+
+        <div class="phone-cta-bar" onclick="openModal()">Open on Bouwnce →</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- TICKER -->
+<div class="ticker">
+  <div class="ticker-track">
+    <div class="ti">Find a shawarma vendor nearby</div>
+    <div class="ti">Match with people near you</div>
+    <div class="ti">Open your store today</div>
+    <div class="ti">Type anything. Bouwnce gets it.</div>
+    <div class="ti">Vendors. People. One search.</div>
+    <div class="ti">Find a gym partner</div>
+    <div class="ti">Sell food · clothes · services</div>
+    <div class="ti">Your storefront. Always live.</div>
+    <!-- dupe -->
+    <div class="ti">Find a shawarma vendor nearby</div>
+    <div class="ti">Match with people near you</div>
+    <div class="ti">Open your store today</div>
+    <div class="ti">Type anything. Bouwnce gets it.</div>
+    <div class="ti">Vendors. People. One search.</div>
+    <div class="ti">Find a gym partner</div>
+    <div class="ti">Sell food · clothes · services</div>
+    <div class="ti">Your storefront. Always live.</div>
+  </div>
+</div>
+
+<!-- § FACES — social proof wall -->
+<section class="sec faces-sec">
+  <div class="faces-inner">
+    <div class="reveal">
+      <p class="lbl">Already on Bouwnce</p>
+      <h2 class="sh">Real people.<br>Real matches.</h2>
+      <p class="st">They typed. They found. They connected.</p>
+    </div>
+
+    <div class="faces-grid reveal d1">
+
+      <!-- Wide card — group energy -->
+      <div class="face-card wide">
+        <img src="images/problem2.jpeg" alt="Friends">
+        <div class="face-ov"></div>
+        <div class="face-chip">Matched on Bouwnce</div>
+        <div class="face-copy">
+          <div class="face-name">Jaymie + 7 others</div>
+          <div class="face-quote">"We all searched the same thing and ended up here together."</div>
+        </div>
+      </div>
+
+      <!-- Card 1 -->
+      <div class="face-card">
+        <img src="images/student1.jpeg" alt="Adaeze">
+        <div class="face-ov"></div>
+        <div class="face-chip">The Buyer</div>
+        <div class="face-copy">
+          <div class="face-name">Leemah</div>
+          <div class="face-quote">"Found a pizza spot 0.3km away. Never knew it existed."</div>
+        </div>
+      </div>
+
+      <!-- Card 2 -->
+      <div class="face-card">
+        <img src="images/student3.jpeg" alt="Vendor">
+        <div class="face-ov"></div>
+        <div class="face-chip">The Vendor</div>
+        <div class="face-copy">
+          <div class="face-name">Francisca</div>
+          <div class="face-quote">"My first order came 20 mins after I went live."</div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- § VENDOR DISCOVERY -->
+<section class="sec discovery">
+  <div class="sec-inner">
+    <div class="reveal">
+      <p class="lbl">For Anyone Searching</p>
+      <p class="st">Search anything. See who's selling near you — with a real storefront, real prices</p>
+    </div>
+
+    <div class="store-card reveal d1">
+      <div class="sc-cover">
+        <img src="https://images.unsplash.com/photo-1565299585323-38d6b0865b47?w=600&q=80&fit=crop" alt="Favour's Kitchen">
+        <div class="sc-cover-ov"></div>
+        <div class="sc-live">LIVE</div>
+      </div>
+      <div class="sc-head">
+        <div class="sc-avatar">
+          <img src="https://images.unsplash.com/photo-1531746020798-e6953c6e8e04?w=100&q=80&fit=crop&crop=face" alt="">
+        </div>
+        <div class="sc-info">
+          <div class="sc-name">Favour's Kitchen</div>
+          <div class="sc-tag">Food · Lagos · 0.7km away</div>
+        </div>
+      </div>
+      <div class="sc-products">
+        <div class="sc-prod">
+          <div class="sc-prod-img"><img src="https://images.unsplash.com/photo-1555939594-58d7cb561ad1?w=120&q=80&fit=crop" alt=""></div>
+          <div class="sc-prod-n">Shawarma</div><div class="sc-prod-p">₦1,500</div>
+        </div>
+        <div class="sc-prod">
+          <div class="sc-prod-img"><img src="https://images.unsplash.com/photo-1504674900247-0877df9cc836?w=120&q=80&fit=crop" alt=""></div>
+          <div class="sc-prod-n">Jollof Rice</div><div class="sc-prod-p">₦800</div>
+        </div>
+        <div class="sc-prod">
+          <div class="sc-prod-img"><img src="https://images.unsplash.com/photo-1567620905732-2d1ec7ab7445?w=120&q=80&fit=crop" alt=""></div>
+          <div class="sc-prod-n">Small Chops</div><div class="sc-prod-p">₦1,200</div>
+        </div>
+        <div class="sc-prod">
+          <div class="sc-prod-e">🥘</div>
+          <div class="sc-prod-n">Egusi Soup</div><div class="sc-prod-p">₦1,000</div>
+        </div>
+      </div>
+      <div class="sc-footer">
+        <span class="sc-footer-txt">📍 0.7km · Open until 10PM</span>
+        <button class="sc-msg">Message Store</button>
+      </div>
+    </div>
+
+    <div class="reveal d2 body-t">
+      Seller's gets a storefront that stays live — discoverable the moment someone searches nearby.
+    </div>
+  </div>
+</section>
+
+<!-- § SELL — for vendors -->
+<section class="sec sell">
+  <div class="sec-inner">
+    <div class="reveal">
+      <p class="lbl">Get match</p>
+      <h2 class="sh">Start interacting.<br>4 steps.</h2>
+      <p class="st">Any user can activate the storefront. You're searchable immediately.</p>
+    </div>
+
+    <!-- Before / After photos -->
+    <div class="ba-split reveal d1">
+      <div class="ba-side">
+        <img src="images/finalform5.jpeg" alt="Before">
+        <div class="ba-ov" style="background:rgba(255,75,43,.28);"></div>
+        <div class="ba-copy">
+          <div class="ba-lbl">Before</div>
+          <div class="ba-h">Endlessly waiting for the right person.</div>
+        </div>
+      </div>
+      <div class="ba-side">
+        <img src="images/Gallery2.jpeg" alt="After">
+        <div class="ba-ov" style="background:rgba(255,75,43,.28);"></div>
+        <div class="ba-copy">
+          <div class="ba-lbl">On Bouwnce</div>
+          <div class="ba-h">Quick matches.</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="steps-list reveal d2">
+      <div class="step-row done">
+        <div class="step-n">1</div>
+        <div class="step-info"><div class="step-t">SIGN UP</div><div class="step-s">Create your account.</div></div>
+        <span class="step-ck">✓</span>
+      </div>
+      <div class="step-row done">
+        <div class="step-n">2</div>
+        <div class="step-info"><div class="step-t">TELL BOUWNCE WHAT YOU WANT</div><div class="step-s">"I'm looking for who to go on a date with."I want a coffee" "I need someone to prep with for an interview."</div></div>
+        <span class="step-ck">✓</span>
+      </div>
+      <div class="step-row done">
+        <div class="step-n">3</div>
+        <div class="step-info"><div class="step-t">BOUWNCE FINDS YOUR MATCH</div><div class="step-s">The best match for what you want — from real people around you. </div></div>
+        <span class="step-ck">✓</span>
+      </div>
+      <div class="step-row">
+        <div class="step-n">4</div>
+        <div class="step-info"><div class="step-t">CONNECT INSTANTLY</div><div class="step-s">Meet up. Order. Send the surprise.</div></div>
+        <span class="step-ck">✓</span>
+      </div>
+    </div>
+
+    <div class="sell-cta reveal d3">
+      <div class="scta-h">Get your first match</div>
+      <p class="scta-p">Link up with people who gets it.</p>
+      <button class="scta-btn" onclick="openModal()">Open My Store</button>
+    </div>
+  </div>
+</section>
+
+<!-- § FINAL CTA -->
+<section class="final">
+  <div class="final-photo-bg"></div>
+  <div class="final-ov"></div>
+  <div class="final-glow"></div>
+  <div class="final-word">BOUWNCE</div>
+  <div class="final-inner reveal">
+    <h2 class="final-h">Get in <em>early.</em></h2>
+    <p class="final-sub">First to join. First to find. First to match.</p>
+    <div class="final-form">
+      <input type="email" class="f-inp" id="finalEmail" placeholder="your@email.com">
+      <button class="f-btn" onclick="quickJoin()">CLAIM MY SPOT</button>
+    </div>
+    <p class="final-note" id="finalProof">2,847 already on the list.</p>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="foot-logo">BOU<b>W</b>NCE</div>
+  <div class="foot-txt">© 2026 Bouwnce · Matching Ground</div>
+</footer>
+
+<!-- MODAL -->
+<div class="backdrop" id="backdrop" onclick="handleBd(event)">
+  <div class="modal" id="modal">
+    <div class="modal-handle"></div>
+    <div id="mForm">
+      <h3>Get <em>Early</em> Access</h3>
+      <p>Be first in — first served when we launch.</p>
+      <div class="mf">
+        <input type="text" class="m-inp" id="mf-name" placeholder="Your full name">
+        <input type="email" class="m-inp" id="mf-email" placeholder="Email address">
+        <input type="tel" class="m-inp" id="mf-phone" placeholder="Phone number (optional)">
+        <select class="m-inp" id="mf-city">
+          <option value="">Your city</option>
+          <option>Lagos</option>
+          <option>Abuja</option>
+          <option>Port Harcourt</option>
+          <option>Ibadan</option>
+          <option>Ogun State</option>
+          <option>Other</option>
+        </select>
+        <button class="m-btn" id="mBtn" onclick="submitWaitlist()">CLAIM MY SPOT</button>
+      </div>
+    </div>
+    <div class="modal-success" id="mSuccess">
+      <div class="s-ico">🎉</div>
+      <h3>You're <em>In.</em></h3>
+      <p style="margin-bottom:0">Welcome to the early circle. You'll be first to know — and first to enter.</p>
+    </div>
+  </div>
+</div>
+
+<div class="toast" id="toast">
+  <div class="t-dot">✓</div>
+  <span>You're in! Invite drops at launch 🔥</span>
+</div>
+
+<script>
+/* THEME */
+let dark=true;
+function toggleTheme(){
+  dark=!dark;
+  document.documentElement.setAttribute('data-theme',dark?'dark':'light');
+}
+
+/* ANIMATED QUERIES */
+const queries=[
+  {q:'shawarma near me',tab:'vendors'},
+  {q:'who sells thrift here?',tab:'vendors'},
+  {q:'gym partner wanted',tab:'people'},
+  {q:'jollof rice · delivery',tab:'vendors'},
+  {q:'concert buddy tonight',tab:'people'},
+  {q:'ankara fabric seller nearby',tab:'vendors'},
+  {q:'church member for Sunday',tab:'people'},
+  {q:'hair stylist near me',tab:'vendors'},
+];
+let qIdx=0;
+function typeQuery(){
+  const {q,tab}=queries[qIdx++%queries.length];
+  const el=document.getElementById('qText');
+  if(!el)return;
+  let i=0;el.textContent='';
+  switchTab(tab,true);
+  const t=setInterval(()=>{
+    el.textContent=q.slice(0,++i);
+    if(i>=q.length){clearInterval(t);setTimeout(typeQuery,3400);}
+  },52);
+}
+setTimeout(typeQuery,2200);
+
+/* TAB SWITCH */
+function switchTab(tab,auto){
+  const ts=document.getElementById('pTabs').children;
+  const vc=document.getElementById('vendorCards');
+  const pc=document.getElementById('peopleCards');
+  const zs=document.getElementById('zeroState');
+  const pt=document.getElementById('pToast');
+  if(!auto){zs.classList.remove('show');pt.classList.remove('show');}
+  if(tab==='vendors'){
+    ts[0].className='tab on';ts[1].className='tab off';
+    vc.style.display='flex';pc.style.display='none';
+    zs.classList.remove('show');
+    if(auto&&Math.random()>.72){
+      setTimeout(()=>{vc.style.display='none';zs.classList.add('show');},1600);
+    }
+  } else {
+    ts[0].className='tab off';ts[1].className='tab on';
+    pc.style.display='flex';vc.style.display='none';
+    zs.classList.remove('show');
+    pt.classList.add('show');
+    if(auto)setTimeout(()=>pt.classList.remove('show'),3000);
+  }
+}
+
+/* MODAL */
+function openModal(){
+  document.getElementById('backdrop').classList.add('open');
+  document.body.style.overflow='hidden';
+  document.getElementById('mForm').style.display='';
+  document.getElementById('mSuccess').classList.remove('show');
+  const btn=document.getElementById('mBtn');
+  btn.textContent='CLAIM MY SPOT';btn.disabled=false;
+  const e=document.getElementById('mf-err');if(e)e.remove();
+}
+function closeModal(){
+  document.getElementById('backdrop').classList.remove('open');
+  document.body.style.overflow='';
+}
+function handleBd(ev){if(ev.target===document.getElementById('backdrop'))closeModal();}
+document.addEventListener('keydown',e=>{if(e.key==='Escape')closeModal();});
+
+/* SUBMIT */
+async function submitWaitlist(){
+  const name=document.getElementById('mf-name').value.trim();
+  const email=document.getElementById('mf-email').value.trim();
+  const phone=document.getElementById('mf-phone').value.trim();
+  const city=document.getElementById('mf-city').value;
+  if(!name){shake('mf-name');return;}
+  if(!email||!email.includes('@')){shake('mf-email');return;}
+  if(!city){shake('mf-city');return;}
+  const btn=document.getElementById('mBtn');
+  btn.textContent='...';btn.disabled=true;
+  try{
+    const res=await fetch('/api/v1/waitlist/waitlist/',{
+      method:'POST',headers:{'Content-Type':'application/json'},
+      body:JSON.stringify({full_name:name,email,phone_number:phone,institution:city})
+    });
+    if(res.ok){
+      document.getElementById('mForm').style.display='none';
+      document.getElementById('mSuccess').classList.add('show');
+      count++;syncCount();
+    } else {
+      const d=await res.json().catch(()=>({}));
+      showErr(d?.detail||d?.message||d?.email?.[0]||'Something went wrong.');
+      btn.textContent='CLAIM MY SPOT';btn.disabled=false;
+    }
+  } catch{
+    showErr('Network error. Try again.');
+    btn.textContent='CLAIM MY SPOT';btn.disabled=false;
+  }
+}
+function shake(id){
+  const el=document.getElementById(id);if(!el)return;
+  el.style.borderColor='var(--red)';el.style.animation='sh .4s ease';
+  setTimeout(()=>el.style.animation='',450);el.focus();
+}
+function showErr(msg){
+  let e=document.getElementById('mf-err');
+  if(!e){e=document.createElement('p');e.id='mf-err';e.style.cssText='font-size:12px;color:var(--red);text-align:center;';document.getElementById('mBtn').after(e);}
+  e.textContent=msg;
+}
+const sk=document.createElement('style');
+sk.textContent=`@keyframes sh{0%,100%{transform:translateX(0)}20%,60%{transform:translateX(-6px)}40%,80%{transform:translateX(6px)}}`;
+document.head.appendChild(sk);
+
+/* QUICK JOIN */
+function quickJoin(){
+  const email=document.getElementById('finalEmail').value.trim();
+  openModal();
+  if(email&&email.includes('@'))setTimeout(()=>{document.getElementById('mf-email').value=email;},120);
+}
+
+/* COUNTER */
+let count=2847;
+function syncCount(){
+  const c=count.toLocaleString();
+  const h=document.getElementById('heroProof');
+  const f=document.getElementById('finalProof');
+  if(h)h.textContent=c+' people already in.';
+  if(f)f.innerHTML='<strong>'+c+' already</strong> on the list.';
+}
+setInterval(()=>{if(Math.random()>.5){count++;syncCount();}},9000);
+
+/* SCROLL REVEAL */
+const revs=document.querySelectorAll('.reveal');
+const obs=new IntersectionObserver(es=>{
+  es.forEach((e,i)=>{
+    if(e.isIntersecting){setTimeout(()=>e.target.classList.add('in'),i*60);obs.unobserve(e.target);}
+  });
+},{threshold:.06});
+revs.forEach(r=>obs.observe(r));
+</script>
+</body>
+</html>
