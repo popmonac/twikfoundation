@@ -582,10 +582,11 @@ footer{
 <nav>
   <div class="logo">BOU<b>W</b>NCE</div>
   <div class="nav-r">
-    <button class="nav-cta" onclick="openModal()">Get Early Access</button>
+    <!-- <button class="nav-cta" onclick="openModal()">Get Early Access</button>-->
     <button class="theme-btn" onclick="toggleTheme()" aria-label="Toggle theme">
-      <span class="t-moon">🌙</span>
       <span class="t-sun">☀️</span>
+      <span class="t-moon">🌙</span>
+      
     </button>
   </div>
 </nav>
@@ -597,8 +598,8 @@ footer{
 
   <div class="hero-content">
     <div class="hero-eyebrow">
-      <div class="pulse"></div>
-      <!--<span>Matching Ground — Live Now</span>-->
+       <!--<div class="pulse"></div>
+      <span>Matching Ground — Live Now</span>-->
     </div>
 
     <h1 class="hero-h">
@@ -966,10 +967,11 @@ footer{
 
 <script>
 /* THEME */
+
 let dark=true;
 function toggleTheme(){
-  dark=!light;
-  document.documentElement.setAttribute('data-theme',dark?'light':'dark');
+  dark=!dark;
+  document.documentElement.setAttribute('data-theme',dark?'dark':'light');
 }
 
 /* ANIMATED QUERIES */
