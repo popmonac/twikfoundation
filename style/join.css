@@ -1,0 +1,481 @@
+    :root {
+      --primary-red: #dc2626;
+      --red-dark: #b91c1c;
+      --yellow: #fbbf24;
+      --black: #111111;
+      --off-white: #f7f5f2;
+      --mid: #4b5563;
+      --card-bg: #ffffff;
+      --border: #e2e0dc;
+      --nav-h: 68px;
+    }
+
+    *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+
+    html, body {
+      overflow: visible;
+      width: 100%;
+    }
+
+    body {
+      font-family: 'DM Sans', sans-serif;
+      background: var(--off-white);
+      color: var(--black);
+      min-height: 100vh;
+    }
+
+  
+    /* ════════════════════════════
+       PAGE LAYOUT — equal halves
+    ════════════════════════════ */
+    .page {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      min-height: calc(100vh - var(--nav-h));
+      margin-top: var(--nav-h);
+      align-items: start;
+    }
+
+    /* ════════════════════════════
+       SIDEBAR
+    ════════════════════════════ */
+    .sidebar {
+      color: #fff;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      position: sticky;
+      top: var(--nav-h);
+      height: calc(100vh - var(--nav-h));
+      padding: 3rem;
+
+      /* Background photo */
+      background-image: url('https://images.unsplash.com/photo-1531482615713-2afd69097998?w=1200&q=80');
+      background-size: cover;
+      background-position: center;
+    }
+
+    /* Deep red gradient overlay for readability */
+    .sidebar::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(
+        160deg,
+        rgba(185, 28, 28, 0.88) 0%,
+        rgba(120, 10, 10, 0.92) 60%,
+        rgba(17, 17, 17, 0.82) 100%
+      );
+      pointer-events: none;
+      z-index: 1;
+    }
+
+    .sidebar-inner {
+      text-align: center;
+      z-index: 2;
+      position: relative;
+      width: 100%;
+      max-width: 420px;
+    }
+
+    .wordmark {
+      font-family: var(--font-display, 'Playfair Display', Georgia, serif);
+      font-size: 4.2rem;
+      font-weight: 900;
+      letter-spacing: -2px;
+      line-height: 1;
+      color: #fff;
+    }
+
+    .sidebar-tagline {
+      margin-top: 1.25rem;
+      font-size: 1.05rem;
+      font-weight: 400;
+      color: rgba(255,255,255,0.9);
+      line-height: 1.65;
+      max-width: 300px;
+      margin-left: auto;
+      margin-right: auto;
+    }
+
+    .divider {
+      width: 40px;
+      height: 2px;
+      background: rgba(255,255,255,0.35);
+      margin: 2rem auto;
+    }
+
+    .stat-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 0.85rem;
+    }
+
+    .stat {
+      padding: 1.1rem 1rem;
+      border: 1px solid rgba(255,255,255,0.3);
+      border-radius: 10px;
+      background: rgba(0,0,0,0.25);
+      backdrop-filter: blur(6px);
+    }
+
+    .stat-num {
+      font-family: var(--font-display, 'Playfair Display', Georgia, serif);
+      font-size: 1.75rem;
+      font-weight: 800;
+      color: #fff;
+      display: block;
+      line-height: 1;
+    }
+
+    .stat-label {
+      font-size: 0.78rem;
+      color: rgba(255,255,255,0.82);
+      margin-top: 0.3rem;
+      display: block;
+    }
+
+    /* ════════════════════════════
+       MAIN CONTENT
+    ════════════════════════════ */
+    .content {
+      background: var(--off-white);
+      padding: 3rem;
+      display: flex;
+      flex-direction: column;
+      justify-content: flex-start;
+      position: relative;
+    }
+
+    .section-label {
+      font-size: 0.72rem;
+      font-weight: 600;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: var(--primary-red);
+      margin-bottom: 0.5rem;
+    }
+
+    .page-heading {
+      font-family: var(--font-display, 'Playfair Display', Georgia, serif);
+      font-size: 2.6rem;
+      font-weight: 800;
+      line-height: 1.1;
+      letter-spacing: -0.5px;
+      color: var(--black);
+      margin-bottom: 2.25rem;
+    }
+
+    /* ════════════════════════════
+       TABS
+    ════════════════════════════ */
+    .audience-tabs {
+      display: flex;
+      gap: 0.5rem;
+      margin-bottom: 2.5rem;
+      flex-wrap: wrap;
+    }
+
+    .tab-btn {
+      font-family: 'DM Sans', sans-serif;
+      font-size: 0.9rem;
+      font-weight: 500;
+      padding: 0.6rem 1.35rem;
+      border-radius: 100px;
+      border: 1.5px solid var(--border);
+      background: transparent;
+      color: var(--mid);
+      cursor: pointer;
+      transition: all 0.2s ease;
+    }
+
+    .tab-btn:hover { border-color: var(--primary-red); color: var(--primary-red); }
+    .tab-btn.active { background: var(--primary-red); border-color: var(--primary-red); color: #fff; font-weight: 600; }
+
+    /* ════════════════════════════
+       PANELS
+    ════════════════════════════ */
+    .panel { display: none; }
+    .panel.active { display: block; animation: fadeUp 0.28s ease forwards; }
+
+    @keyframes fadeUp {
+      from { opacity: 0; transform: translateY(10px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+
+    /* ════════════════════════════
+       SIMPLE CARD (student / partner)
+    ════════════════════════════ */
+    .simple-card {
+      background: var(--card-bg);
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      padding: 2.5rem;
+      box-shadow: 0 2px 12px rgba(0,0,0,0.04);
+    }
+
+    .simple-card h3 {
+      font-family: var(--font-display, 'Playfair Display', Georgia, serif);
+      font-size: 1.55rem;
+      font-weight: 700;
+      color: var(--black);
+      margin-bottom: 0.85rem;
+    }
+
+    .simple-card p {
+      color: var(--mid);
+      font-size: 1rem;
+      line-height: 1.75;
+    }
+
+    /* ════════════════════════════
+       CTA BUTTONS
+    ════════════════════════════ */
+    .cta-btn {
+      display: inline-block;
+      margin-top: 1.75rem;
+      padding: 0.9rem 2.25rem;
+      border-radius: 100px;
+      background: var(--primary-red);
+      color: #fff;
+      font-family: 'DM Sans', sans-serif;
+      font-weight: 600;
+      font-size: 0.95rem;
+      border: none;
+      cursor: pointer;
+      text-decoration: none;
+      transition: background 0.2s, transform 0.15s;
+    }
+
+    .cta-btn:hover { background: #b91c1c; transform: translateY(-1px); }
+
+    /* ════════════════════════════
+       VOLUNTEER PANEL
+    ════════════════════════════ */
+    .roles-intro {
+      font-size: 1rem;
+      color: var(--mid);
+      line-height: 1.7;
+      margin-bottom: 1.75rem;
+      font-family: var(--font-display);
+    }
+
+    .roles-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 1rem;
+    }
+
+    .role-card {
+      background: var(--card-bg);
+      border: 1px solid var(--border);
+      border-radius: 14px;
+      padding: 1.6rem 1.5rem 1.4rem;
+      transition: box-shadow 0.2s, transform 0.15s, border-color 0.2s;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .role-card::after {
+      content: '';
+      position: absolute;
+      bottom: 0; left: 0; right: 0;
+      height: 3px;
+      background: var(--primary-red);
+      transform: scaleX(0);
+      transform-origin: left;
+      transition: transform 0.25s ease;
+    }
+
+    .role-card:hover {
+      box-shadow: 0 6px 20px rgba(0,0,0,0.08);
+      transform: translateY(-2px);
+      border-color: #d1cfc9;
+    }
+
+    .role-card:hover::after { transform: scaleX(1); }
+
+    .role-icon-sq {
+      width: 38px;
+      height: 38px;
+      border-radius: 9px;
+      background: #fef2f2;
+      border: 1px solid rgba(220,38,38,0.15);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin-bottom: 0.85rem;
+    }
+
+    .role-icon-sq svg {
+      width: 18px;
+      height: 18px;
+      stroke: var(--primary-red);
+      fill: none;
+      stroke-width: 1.8;
+      stroke-linecap: round;
+      stroke-linejoin: round;
+    }
+
+    .role-name {
+      font-family: var(--font-display, 'Playfair Display', Georgia, serif);
+      font-size: 0.975rem;
+      font-weight: 700;
+      color: var(--black);
+      margin-bottom: 0.4rem;
+    }
+
+    .role-desc {
+      font-size: 0.875rem;
+      color: var(--mid);
+      line-height: 1.65;
+      margin-bottom: 1rem;
+    }
+
+    .role-volunteer-btn {
+      display: inline-block;
+      padding: 0.42rem 1rem;
+      border-radius: 100px;
+      border: 1.5px solid var(--primary-red);
+      background: transparent;
+      color: var(--primary-red);
+      font-family: 'DM Sans', sans-serif;
+      font-size: 0.8rem;
+      font-weight: 600;
+      cursor: pointer;
+      transition: background 0.18s, color 0.18s;
+      text-decoration: none;
+    }
+
+    .role-volunteer-btn:hover { background: var(--red-dark); color: #fff; }
+
+
+    /* ════════════════════════════
+       DONOR PANEL
+    ════════════════════════════ */
+    .donor-note {
+      font-size: 1rem;
+      color: var(--mid);
+      line-height: 1.7;
+      margin-bottom: 1.5rem;
+    }
+
+    .donor-options {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 1rem;
+      margin-bottom: 1.5rem;
+    }
+
+    .donor-card {
+      background: var(--card-bg);
+      border: 1.5px solid var(--border);
+      border-radius: 14px;
+      padding: 1.5rem 1.25rem;
+      text-align: center;
+      cursor: pointer;
+      transition: border-color 0.2s, background 0.2s;
+    }
+
+    .donor-card:hover { border-color: var(--primary-red); }
+    .donor-card.selected { border-color: var(--primary-red); background: #fef2f2; }
+
+    .donor-amount {
+      font-family: var(--font-display, 'Playfair Display', Georgia, serif);
+      font-size: 1.7rem;
+      font-weight: 800;
+      color: var(--black);
+      display: block;
+    }
+
+    .donor-impact {
+      font-size: 0.82rem;
+      color: var(--mid);
+      margin-top: 0.35rem;
+      line-height: 1.5;
+      display: block;
+    }
+
+    /* ════════════════════════════
+       RESPONSIVE
+    ════════════════════════════ */
+
+    /* ── Tablet landscape (≤ 1100px) ── */
+    @media (max-width: 1100px) {
+      .sidebar { padding: 2.5rem 2rem; }
+      .content { padding: 2.5rem 2rem; }
+      .wordmark { font-size: 3.2rem; }
+      .page-heading { font-size: 2.1rem; }
+      .roles-grid { grid-template-columns: 1fr; }
+    }
+
+    /* ── Tablet portrait (≤ 900px) ── */
+    @media (max-width: 900px) {
+      .page {
+        grid-template-columns: 1fr;
+        align-items: stretch;
+        /* sidebar is now static so the whole page scrolls —
+           margin-top already set on base rule, but restate to be safe */
+        margin-top: var(--nav-h);
+      }
+
+      /* Sidebar becomes a full-width photo banner, not sticky */
+      .sidebar {
+        position: relative;   /* kills sticky, no top offset applied */
+        top: 0;
+        height: auto;
+        min-height: 320px;
+        padding: 3rem 2rem;
+      }
+
+      .content {
+        padding: 2.5rem 2rem;
+      }
+
+      .stat-grid { grid-template-columns: repeat(4, 1fr); }
+      .roles-grid { grid-template-columns: 1fr 1fr; }
+      .donor-options { grid-template-columns: repeat(3, 1fr); }
+
+   
+
+    }
+
+    /* ── Small phone (≤ 600px) ── */
+    @media (max-width: 600px) {
+
+      .sidebar {
+        min-height: 260px;
+        padding: 2.5rem 1.5rem;
+      }
+
+      .wordmark { font-size: 2.8rem; }
+      .sidebar-tagline { font-size: 0.95rem; }
+      .divider { margin: 1.25rem auto; }
+      .stat-grid { grid-template-columns: 1fr 1fr; }
+
+      .content { padding: 1.75rem 1.25rem; }
+      .page-heading { font-size: 1.85rem; }
+
+      .audience-tabs { gap: 0.4rem; }
+      .tab-btn { font-size: 0.82rem; padding: 0.5rem 0.9rem; }
+
+      .roles-grid { grid-template-columns: 1fr; }
+      .donor-options { grid-template-columns: 1fr; }
+
+      .simple-card { padding: 1.75rem 1.5rem; }
+      .role-card { padding: 1.25rem; }
+
+      .cta-btn { width: 100%; text-align: center; display: block; }
+
+    }
+
+    /* ── Extra small (≤ 380px) ── */
+    @media (max-width: 380px) {
+      .sidebar { min-height: 220px; padding: 2rem 1.25rem; }
+      .wordmark { font-size: 2.3rem; }
+      .page-heading { font-size: 1.6rem; }
+      .tab-btn { font-size: 0.76rem; padding: 0.45rem 0.75rem; }
+      .content { padding: 1.5rem 1rem; }
+    }
+  

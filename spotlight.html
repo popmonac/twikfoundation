@@ -1,0 +1,515 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Spotlight — TWiK Foundation</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+ 
+  <link rel="stylesheet" href="style/page.css">
+  <link rel="stylesheet" href="style/nav.css">
+  <link rel="stylesheet" href="style/spotlight.css">
+  <script src="script/home.js" defer></script>
+  <script src="script/spotlight.js" defer></script>
+
+</head>
+<body>
+
+<!-- Navigation Bar -->
+   <nav class="navbar" id="navbar">
+        <div class="nav-container">
+            <!-- Logo -->
+            <a href="#home" class="nav-logo">
+                <img src="image/twik.png" class="logo-icon" alt="TWiK Logo">
+            </a>
+
+            <!-- Desktop Navigation Menu -->
+            <ul class="nav-menu">
+                <li class="nav-item">
+                    <a href="index.html" class="nav-link">Home</a>
+                </li>
+                <li class="nav-item">
+                    <a href="about.html" class="nav-link">About Us</a>
+                </li>
+                
+                <li class="nav-item">
+                    <a href="spotlight.html" class="nav-link active">Spotlight</a>
+                </li>
+
+                <li class="nav-item">
+                    <a href="join.html" class="nav-link">Volunteer</a>
+                </li>
+
+                <li class="nav-item">
+                    <a href="donation.html" class="nav-link">Donate</a>
+                </li>
+                
+                
+            </ul>
+
+            <!-- CTA Button 
+            <a href="join.html" class="nav-cta">Join the Movement</a>-->
+
+            <!-- Mobile Toggle -->
+            <button class="mobile-toggle" id="mobileToggle">
+                <span class="hamburger-line"></span>
+                <span class="hamburger-line"></span>
+                <span class="hamburger-line"></span>
+            </button>
+        </div>
+
+        <!-- Mobile Menu -->
+        <div class="mobile-menu" id="mobileMenu">
+            <ul class="mobile-nav-menu">
+                <li><a href="index.html" class="mobile-nav-link">Home</a></li>
+                <li><a href="about.html" class="mobile-nav-link">About Us</a></li>
+                <li><a href="spotlight.html" class="mobile-nav-link active">Spotlight</a></li>
+                <li><a href="join.html" class="mobile-nav-link">Volunteer</a></li>
+                <li><a href="donation.html" class="mobile-nav-link">Donate</a></li>
+               <!-- <li class="mobile-cta">
+                    <a href="teai.html" class="mobile-nav-link">Apply for Twik X Google X Electrons AI Access</a>
+                -->
+                   
+                </li>
+                
+            </ul>
+        </div>
+    </nav>
+
+<section class="hero-section">
+  <div class="hero-carousel">
+    <div class="hero-carousel-track">
+      <div class="hero-carousel-slide"><img src="image/34.jpg" alt="Team collaboration"></div>
+      <div class="hero-carousel-slide"><img src="image/26.jpg" alt="Our dedicated team"></div>
+      <div class="hero-carousel-slide"><img src="image/74.jpg" alt="Our mission in action"></div>
+      <div class="hero-carousel-slide"><img src="image/34.jpg" alt="Team collaboration"></div>
+      <div class="hero-carousel-slide"><img src="image/26.jpg" alt="Our dedicated team"></div>
+      <div class="hero-carousel-slide"><img src="image/74.jpg" alt="Our mission in action"></div>
+    </div>
+  </div>
+  <div class="hero-overlay"></div>
+  <div class="hero-content-wrapper">
+    <div class="hero-content">
+      <div class="hero-breadcrumb">
+        <a href="index.html">Home</a>
+        <span>→</span>
+        <span>Spotlight</span>
+      </div>
+      <h1 class="hero-title">Community<br><em>Spotlight</em></h1>
+       <p class="hero-description">Real stories of transformation. Meet the young changemakers, families, and communities whose lives have been reshaped by digital opportunity.</p>
+
+    </div>
+  </div>
+</section>
+
+<!-- FEATURED STORY -->
+<section class="featured-section" id="featured-section">
+  <div class="container">
+    <div class="featured-label">Featured Story</div>
+    <div class="featured-grid">
+
+      <div class="featured-image-wrap" onclick="window.location='spotlight-stories/spotlight-favour.html'">
+        <img src="image/Favourd.jpeg" alt="Favour - Featured Story">
+        <div class="featured-play-btn">
+          <div class="play-circle">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="var(--primary-red)"><polygon points="5 3 19 12 5 21 5 3"/></svg>
+          </div>
+        </div>
+
+      </div>
+
+      <div>
+        <div class="featured-category">Youth Empowerment · Lagos</div>
+        <h2 class="featured-title">𝐓𝐡𝐞 15-𝐘𝐞𝐚𝐫-𝐎𝐥𝐝 𝐖𝐡𝐨 𝐓𝐮𝐫𝐧𝐞𝐝 𝐂𝐮𝐫𝐢𝐨𝐬𝐢𝐭𝐲 𝐈𝐧𝐭𝐨 𝐚 𝐖𝐢𝐧𝐧𝐢𝐧𝐠 𝐈𝐧𝐧𝐨𝐯𝐚𝐭𝐢𝐨𝐧</h2>
+        <p class="featured-excerpt">Despite not having a computer to program her Raspberry Pi, she didn't let that stop her from completing the holiday project I assigned.</p>
+
+        <div class="featured-quote">
+          <p>"TWiK didn't just teach me to code. They made me believe that someone like me could lead, create, and give back."</p>
+          <cite>— Favour Adisa</cite>
+        </div>
+
+        <div class="featured-stats">
+          <div class="fstat">
+            <span class="fstat-num">2</span>
+            <span class="fstat-label">Leadership Roles</span>
+          </div>
+          <div class="fstat">
+            <span class="fstat-num">30+</span>
+            <span class="fstat-label">Girls Mentored</span>
+          </div>
+          <div class="fstat">
+            <span class="fstat-num">2×</span>
+            <span class="fstat-label">Award Winner</span>
+          </div>
+        </div>
+
+        <div class="featured-meta">
+          <div class="featured-author">
+            <img class="author-avatar" src="image/LAWAL TAOFEEK HEADSHOT(2).JPG" alt="Author">
+            <div>
+              <div class="author-name">Taofeek Ayodeji Khalid</div>
+              <div class="author-role">Impact Writer</div>
+            </div>
+          </div>
+          <div class="meta-sep"></div>
+          <span class="featured-date">January 28, 2026</span>
+        </div>
+
+        <a href="spotlight-stories/spotlight-favour.html" class="btn-read">Read Full Story</a>
+        <a href="https://www.youtube.com/shorts/S0XIecRImJA" class="btn-outline">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polygon points="5 3 19 12 5 21 5 3"/></svg>
+          Watch Video
+        </a>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- STORIES GRID -->
+<section class="stories-section">
+  <div class="container">
+    <header class="section-header">
+      <h2 class="section-title">Impact <span class="accent">Stories</span></h2>
+      <p class="section-subtitle">Every story here is a testament to what becomes possible when communities get access to opportunity.</p>
+    </header>
+
+    <div class="stories-grid" id="storiesGrid">
+
+      <!-- Card 1 — Wide -->
+      <div class="story-card wide" data-category="education" onclick="window.location='spotlight-stories/spotlight-yusuf.html'">
+        <div class="story-image">
+          <img src="image/chris.jpeg" alt="School Tech Lab">
+        </div>
+        <div class="story-body">
+          <div class="story-tags"><span class="story-tag education">Education</span></div>
+          <h3 class="story-title">He Built a Digital System from a Broken Computer — and Refused to Stop There</h3>
+          <p class="story-excerpt">From identifying gaps in school record-keeping to building a digital solution, this story reflects what young minds can achieve with the right exposure.</p>
+          <div class="story-pullquote">"I want to be able to access my academic records anytime, anywhere." — Yusuf, Year 9</div>
+
+          <div class="featured-stats">
+          <div class="fstat">
+            <span class="fstat-num">1</span>
+            <span class="fstat-label">Leadership Role</span>
+          </div>
+          <div class="fstat">
+            <span class="fstat-num">10+</span>
+            <span class="fstat-label">Students Mentored</span>
+          </div>
+          <div class="fstat">
+            <span class="fstat-num">2×</span>
+            <span class="fstat-label">Award Winner</span>
+          </div>
+        </div>
+          
+          <div class="story-footer">
+            <div class="story-author">
+              <img src="image/twik.png" class="logo-icon" alt="TWiK Logo">
+              <div><div class="story-author-name">TWiK Editorial Team</div><div class="story-date">Feb 3, 2025</div></div>
+            </div>
+            <a href="spotlight-stories/spotlight-yusuf.html" class="story-read-link" onclick="event.stopPropagation()">Read more</a>
+          </div>
+          <div class="share-row">
+            <span class="share-label">Share:</span>
+            <button class="share-btn" onclick="event.stopPropagation()"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-4.714-6.231-5.401 6.231H2.745l7.736-8.84L1.254 2.25H8.08l4.258 5.632zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg></button>
+            <button class="share-btn" onclick="event.stopPropagation()"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/></svg></button>
+            <button class="share-btn" onclick="event.stopPropagation()"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M10 13a5 5 0 007.54.54l3-3a5 5 0 00-7.07-7.07l-1.72 1.71"/><path d="M14 11a5 5 0 00-7.54-.54l-3 3a5 5 0 007.07 7.07l1.71-1.71"/></svg></button>
+          </div>
+        </div>
+      </div>
+
+      <!-- Card 2 -->
+      <div class="story-card" data-category="outreach" onclick="window.location='spotlight-stories/spotlight-alade.html'">
+        <div class="story-image">
+          <img src="image/Aladec.jpeg" alt="Alade Oluwajomiloju">
+        </div>
+        <div class="story-body">
+          <div class="story-tags"><span class="story-tag outreach">Outreach</span></div>
+          <h3 class="story-title">He Wrote Code Without a Computer to Power a Car Trafficating System Made From Scraps</h3>
+          <p class="story-excerpt">He wrote a complete code for a car trafficating system in his notebook without a laptop to check.</p>
+        
+          <div class="story-footer">
+            <div class="story-author">
+              <img src="image/twik.png" class="logo-icon" alt="TWiK Logo">
+              <div><div class="story-author-name">TWiK Editorial Team</div><div class="story-date">Mar 13, 2026</div></div>
+            </div>
+            <a href="spotlight-stories/spotlight-alade.html" class="story-read-link" onclick="event.stopPropagation()">Read more</a>
+          </div>
+          <div class="share-row">
+            <span class="share-label">Share:</span>
+            <button class="share-btn" title="Share on X" onclick="event.stopPropagation()"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-4.714-6.231-5.401 6.231H2.745l7.736-8.84L1.254 2.25H8.08l4.258 5.632zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg></button>
+            <button class="share-btn" title="Share on Facebook" onclick="event.stopPropagation()"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/></svg></button>
+            <button class="share-btn" title="Copy link" onclick="event.stopPropagation()"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M10 13a5 5 0 007.54.54l3-3a5 5 0 00-7.07-7.07l-1.72 1.71"/><path d="M14 11a5 5 0 00-7.54-.54l-3 3a5 5 0 007.07 7.07l1.71-1.71"/></svg></button>
+          </div>
+        </div>
+      </div>
+
+      <!-- Card 3 -->
+      <div class="story-card" data-category="bootcamp" onclick="window.location='spotlight-stories/spotlight-daniel.html'">
+        <div class="story-image">
+          <img src="image/Danielb.jpeg" alt="Ayodele Daniel">
+        </div>
+        <div class="story-body">
+          <div class="story-tags"><span class="story-tag women">Bootcamp</span></div>
+          <h3 class="story-title">He Built an ATM from Scraps — And It Got the Attention of Ogun State Government</h3>
+          <p class="story-excerpt">What started as a simple assignment became a breakthrough moment, as a secondary school student turned limited resources into a project recognized beyond his classroom.</p>
+          <div class="story-footer">
+           <div class="story-author">
+              <img src="image/twik.png" class="logo-icon" alt="TWiK Logo">
+              <div><div class="story-author-name">TWiK Editorial Team</div><div class="story-date">Apr 10, 2026</div></div>
+            </div>
+            <a href="spotlight-stories/spotlight-daniel.html" class="story-read-link" onclick="event.stopPropagation()">Read more</a>
+          </div>
+          <div class="share-row">
+            <span class="share-label">Share:</span>
+            <button class="share-btn" onclick="event.stopPropagation()"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-4.714-6.231-5.401 6.231H2.745l7.736-8.84L1.254 2.25H8.08l4.258 5.632zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg></button>
+            <button class="share-btn" onclick="event.stopPropagation()"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/></svg></button>
+            <button class="share-btn" onclick="event.stopPropagation()"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M10 13a5 5 0 007.54.54l3-3a5 5 0 00-7.07-7.07l-1.72 1.71"/><path d="M14 11a5 5 0 00-7.54-.54l-3 3a5 5 0 007.07 7.07l1.71-1.71"/></svg></button>
+          </div>
+        </div>
+      </div>
+
+      <!-- Card 4 -->
+      <div class="story-card" data-category="career" onclick="window.location='spotlight-stories/spotlight-igss.html'">
+        <div class="story-image">
+          <img src="image/igssb.png">
+        </div>
+        <div class="story-body">
+          <div class="story-tags"><span class="story-tag outreach">Outreach</span></div>
+          <h3 class="story-title">When Exposure Becomes Empowerment: Inside Our Visit to Ijebu Igbo Girls Grammar School</h3>
+          <p class="story-excerpt">A classroom filled with curiosity turned into a space of discovery, possibility, and first-time encounters with the world of technology.</p>
+      
+          <div class="story-footer">
+            <div class="story-author">
+              <img src="image/twik.png" class="logo-icon" alt="TWiK Logo">
+              <div><div class="story-author-name">TWiK Editorial Team</div><div class="story-date">Jan 15, 2026</div></div>
+            </div>
+            <a href="spotlight-stories/spotlight-igss.html" class="story-read-link" onclick="event.stopPropagation()">Read more</a>
+          </div>
+          <div class="share-row">
+            <span class="share-label">Share:</span>
+            <button class="share-btn" onclick="event.stopPropagation()"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-4.714-6.231-5.401 6.231H2.745l7.736-8.84L1.254 2.25H8.08l4.258 5.632zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg></button>
+            <button class="share-btn" onclick="event.stopPropagation()"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/></svg></button>
+            <button class="share-btn" onclick="event.stopPropagation()"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M10 13a5 5 0 007.54.54l3-3a5 5 0 00-7.07-7.07l-1.72 1.71"/><path d="M14 11a5 5 0 00-7.54-.54l-3 3a5 5 0 007.07 7.07l1.71-1.71"/></svg></button>
+          </div>
+        </div>
+      </div>
+
+      <!-- Card 5 -->
+      <div class="story-card" data-category="youth" onclick="window.location='spotlight-stories/spotlight-beje.html'">
+        <div class="story-image">
+          <img src="image/bejea.png">
+        </div>
+        <div class="story-body">
+          <div class="story-tags"><span class="story-tag outreach">Outreach</span></div>
+          <h3 class="story-title">From First Exposure to Real Application: What Happened at Beje High School</h3>
+          <p class="story-excerpt">Two visits. One shift. A classroom moved from curiosity to building real-world solutions.</p>
+          <div class="story-footer">
+            <div class="story-author">
+              <img src="image/twik.png" class="logo-icon" alt="TWiK Logo">
+              <div><div class="story-author-name">TWiK Editorial Team</div><div class="story-date">Oct 15, 2025</div></div>
+            </div>
+            <a href="spotlight-stories/spotlight-beje.html" class="story-read-link" onclick="event.stopPropagation()">Read more</a>
+          </div>
+          <div class="share-row">
+            <span class="share-label">Share:</span>
+            <button class="share-btn" onclick="event.stopPropagation()"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-4.714-6.231-5.401 6.231H2.745l7.736-8.84L1.254 2.25H8.08l4.258 5.632zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg></button>
+            <button class="share-btn" onclick="event.stopPropagation()"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/></svg></button>
+            <button class="share-btn" onclick="event.stopPropagation()"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M10 13a5 5 0 007.54.54l3-3a5 5 0 00-7.07-7.07l-1.72 1.71"/><path d="M14 11a5 5 0 00-7.54-.54l-3 3a5 5 0 007.07 7.07l1.71-1.71"/></svg></button>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- VIDEO SPOTLIGHT -->
+
+
+<!-- LEADERBOARD -->
+
+
+<!-- IMPACT NUMBERS -->
+<section class="impact-section">
+  <div class="container">
+    <div class="impact-grid">
+      <div class="impact-item">
+        <span class="impact-num">500+</span>
+        <span class="impact-label">Lives directly impacted</span>
+      </div>
+      <div class="impact-item">
+        <span class="impact-num">20+</span>
+        <span class="impact-label">Outreach</span>
+      </div>
+      <div class="impact-item">
+        <span class="impact-num">10+</span>
+        <span class="impact-label">Communities reached</span>
+      </div>
+      <div class="impact-item">
+        <span class="impact-num">20+</span>
+        <span class="impact-label">Impact stories documented</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CTA -->
+<section class="cta-section">
+  <div class="container">
+    <div class="cta-card">
+      <h2 class="cta-title">Have a Story to <span style="color:var(--primary-red)">Share?</span></h2>
+      <p class="cta-subtitle">Are you a TWiK alumnus, community partner, or someone whose life has been touched by our programs? We'd love to feature you.</p>
+      <div class="cta-actions">
+        <a href="#" class="btn-cta-primary">Submit Your Story</a>
+        <a href="about.html" class="btn-cta-outline">Learn About Our Programs</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+ <footer class="footer">
+        <div class="footer-container">
+            <!-- Footer Top -->
+            <div class="footer-top">
+               
+                <!-- Footer Content Grid -->
+                <div class="footer-content">
+                    <!-- Brand Section -->
+                    <div class="footer-brand">
+                        <a href="index.html" class="footer-logo">
+                           <img src="image/IMG_8359.JPG" class="footer-logo-icon" alt="TWiK Logo">
+                           <div class="wordmark-footer">TW<span class="i-yellow">i</span>K</div>
+                        </a>
+                        <p class="footer-description">
+                            Empowering young minds to turn ideas into impact and challenges into opportunities. Because potential isn’t defined by background, it’s defined by what you build.
+                        </p>
+                        <div class="footer-social">
+                        <a href="https://youtube.com/@twik_foundation?si=5cbQbeUc00aPxaFP" class="social-link" aria-label="YouTube">
+                            <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor">
+                                <path d="M23.498 6.186a2.999 2.999 0 0 0-2.114-2.114C19.505 3.546 12 3.546 12 3.546s-7.505 0-9.384.526A2.999 2.999 0 0 0 .502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a2.999 2.999 0 0 0 2.114 2.114C4.495 20.454 12 20.454 12 20.454s7.505 0 9.384-.526a2.999 2.999 0 0 0 2.114-2.114C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.546 15.569V8.431L15.818 12l-6.272 3.569z"/>
+                            </svg>
+                        </a>
+                        <a href="https://www.instagram.com/twik_foundation?igsh=MWtqcmJwa3U3Zm1wcw%3D%3D&utm_source=qr" class="social-link" aria-label="Instagram">
+                            <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor">
+                                <path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/>
+                            </svg>
+                        </a>
+                        <a href="https://x.com/twik_foundation?s=21" class="social-link" aria-label="Twitter">
+                            <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor">
+                                <path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/>
+                            </svg>
+                        </a>
+                        <a href="https://www.linkedin.com/company/tech-with-khalid-twik/" class="social-link" aria-label="LinkedIn">
+                            <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor">
+                                <path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433c-1.144 0-2.063-.926-2.063-2.065 0-1.138.92-2.063 2.063-2.063 1.14 0 2.064.925 2.064 2.063 0 1.139-.925 2.065-2.064 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/>
+                            </svg>
+                        </a>
+                        <a href="https://www.tiktok.com/@twik_foundation?_r=1&_t=ZS-95uzo032xnh" class="social-link" aria-label="TikTok">
+                            <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor">
+                                <path d="M19.59 6.69a4.83 4.83 0 0 1-3.77-4.25V2h-3.45v13.67a2.89 2.89 0 0 1-2.88 2.5 2.89 2.89 0 0 1-2.89-2.89 2.89 2.89 0 0 1 2.89-2.89c.28 0 .54.04.79.1V9.01a6.32 6.32 0 0 0-.79-.05 6.34 6.34 0 0 0-6.34 6.34 6.34 6.34 0 0 0 6.34 6.34 6.34 6.34 0 0 0 6.33-6.34V8.69a8.18 8.18 0 0 0 4.78 1.52V6.75a4.85 4.85 0 0 1-1.01-.06z"/>
+                            </svg>
+                        </a>
+                    </div>
+                                        </div>
+
+                    <!-- Quick Links -->
+                    <div class="footer-section">
+                        <h4>Explore</h4>
+                        <ul class="footer-links">
+                            <li><a href="spotlight.html#featured-section">The Spark</a></li>
+                            <li><a href="index.html#projects">Projects</a></li>
+                            <li><a href="donation.html">Donate</a></li>
+                            <li><a href="join.html">Volunteers</a></li>
+                            <li><a href="spotlight.html">Success Stories</a></li>
+                        </ul>
+                    </div>
+
+                    <!-- Programs -->
+                    <div class="footer-section">
+                        <h4>Programs</h4>
+                        <ul class="footer-links">
+                            <li><a href="index.html#programs">Program</a></li>
+                            <li><a href="about.html#workshops">Workshops</a></li>
+                            <li><a href="about.html">Resources</a></li>
+                            <li><a href="join.html">Community</a></li>
+                            <li><a href="spotlight.html">Events</a></li>
+                        </ul>
+                    </div>
+
+                    <!-- Contact -->
+                    <div class="footer-section">
+                        <h4>Get in Touch</h4>
+                        <div class="contact-item">
+                            <svg class="contact-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/>
+                                <circle cx="12" cy="10" r="3"/>
+                            </svg>
+                            <span>Lagos, Nigeria</span>
+                        </div>
+                        <div class="contact-item">
+                            <svg class="contact-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                                <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/>
+                                <polyline points="22,6 12,13 2,6"/>
+                            </svg>
+                            <span>techwithkhalidfoundation@gmail.com</span>
+                        </div>
+                        
+                        <!-- Newsletter -->
+                        <div class="newsletter">
+                            <h4>Stay Updated</h4>
+                            <p>Follow Twik Foundation on all social media platforms to get the latest stories and impact updates.</p>
+                           
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Footer Bottom -->
+            <div class="footer-bottom">
+                <div class="footer-bottom-content">
+                    <div class="footer-copyright">
+                        <p>&copy; 2025 TWiK. All rights reserved. Empowering young changemakers worldwide.</p>
+                    </div>
+                    <ul class="footer-links-bottom">
+                        <li><a href="#privacy">Privacy Policy</a></li>
+                        <li><a href="#terms">Terms of Service</a></li>
+                        <li><a href="#cookies">Cookie Policy</a></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+<!-- STORY MODAL -->
+<div class="modal-backdrop" id="modalBackdrop" onclick="closeModal(event)">
+  <div class="modal" id="modal">
+    <div class="modal-hero">
+      <img class="modal-hero-image" id="modalImage" src="" alt="">
+      <button class="modal-close" onclick="closeModalBtn()">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+      </button>
+    </div>
+    <div class="modal-body">
+      <div class="modal-category" id="modalCategory"></div>
+      <h2 class="modal-title" id="modalTitle"></h2>
+      <div class="modal-stats" id="modalStats"></div>
+      <p class="modal-text" id="modalText"></p>
+      <div class="modal-quote" id="modalQuote">
+        <p id="modalQuoteText"></p>
+        <cite id="modalQuoteCite"></cite>
+      </div>
+      <p class="modal-text" id="modalText2"></p>
+      <div class="modal-share">
+        <span class="modal-share-label">Share this story:</span>
+        <button class="share-btn"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-4.714-6.231-5.401 6.231H2.745l7.736-8.84L1.254 2.25H8.08l4.258 5.632zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg></button>
+        <button class="share-btn"><svg viewBox="0 0 24 24" fill="currentColor"><path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/></svg></button>
+        <button class="share-btn"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M10 13a5 5 0 007.54.54l3-3a5 5 0 00-7.07-7.07l-1.72 1.71"/><path d="M14 11a5 5 0 00-7.54-.54l-3 3a5 5 0 007.07 7.07l1.71-1.71"/></svg></button>
+      </div>
+    </div>
+  </div>
+</div>
+
+</body>
+</html>

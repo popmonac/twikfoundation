@@ -1,13 +1,4 @@
 
-/* ========================================
-   1. CSS VARIABLES & ROOT STYLES
-   ======================================== */
-
-
-
-/* ========================================
-   2. HEADER & SECTION TITLE STYLES
-   ======================================== */
 .section-header {
     text-align: center;
     margin-bottom: 60px;
@@ -22,19 +13,21 @@
     transform: translateX(-50%);
     width: 80px;
     height: 3px;
-    background: var(--gradient-primary);
+    background: var(--gradient-text);
     border-radius: 2px;
 }
 
 .section-title {
     font-size: 2.5rem;
     font-weight: 700;
-    background: var(--gradient-text);
+    font-family: var(--font-display, 'Playfair Display', Georgia, serif);
+    background: var(--red-dark);
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
     background-clip: text;
     margin-bottom: 16px;
     line-height: 1.2;
+    letter-spacing: -0.02em;
 }
 
 .section-subtitle,
@@ -72,14 +65,7 @@
 }
 
 .about_section::before {
-    content: '';
-    position: absolute;
-    top: -50%;
-    right: -20%;
-    width: 600px;
-    height: 600px;
-    background: radial-gradient(circle, rgba(220, 38, 38, 0.08) 0%, transparent 70%);
-    pointer-events: none;
+    display: none;
 }
 
 /* About Grid Layout */
@@ -171,31 +157,10 @@
     object-fit: cover;
 }
 
-/* Decorative Elements for Image Pyramid */
-.image_pyramid::before {
-    content: '';
-    position: absolute;
-    top: -20px;
-    right: -20px;
-    width: 150px;
-    height: 150px;
-    background: var(--gradient-primary);
-    opacity: 0.1;
-    border-radius: 50%;
-    z-index: 0;
-}
-
+/* Decorative circles removed */
+.image_pyramid::before,
 .image_pyramid::after {
-    content: '';
-    position: absolute;
-    bottom: -30px;
-    left: -30px;
-    width: 200px;
-    height: 200px;
-    background: var(--gradient-primary);
-    opacity: 0.08;
-    border-radius: 30% 70% 70% 30% / 30% 30% 70% 70%;
-    z-index: 0;
+    display: none;
 }
 
 /* About Content Section */
@@ -204,11 +169,12 @@
 }
 
 .top_title {
-    font-size: 0.9rem;
-    font-weight: 600;
-    letter-spacing: 2px;
+    font-size: 0.85rem;
+    font-weight: 700;
+    letter-spacing: 3px;
     text-transform: uppercase;
-    background: var(--gradient-text);
+    font-family: var(--font-mono, 'Space Mono', monospace);
+    background: var(--red-dark);
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
     margin-bottom: 16px;
@@ -218,9 +184,11 @@
 .about_content h2 {
     font-size: 3rem;
     font-weight: 700;
+    font-family: var(--font-display, 'Playfair Display', Georgia, serif);
     color: var(--text-primary);
     margin-bottom: 24px;
     line-height: 1.2;
+    letter-spacing: -0.02em;
 }
 
 .about_content p {
@@ -230,35 +198,12 @@
     line-height: 1.8;
 }
 
-/* Mission Points List */
-.mission-points {
-    list-style: none;
-    margin: 32px 0;
-}
-
-.mission-points li {
-    display: flex;
-    align-items: center;
-    margin-bottom: 16px;
-    font-size: 1.1rem;
-    color: var(--text-secondary);
-}
-
-.mission-points li::before {
-    content: '✓';
-    background: var(--gradient-primary);
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-    font-weight: bold;
-    font-size: 1.2rem;
-    margin-right: 16px;
-}
 
 /* Primary CTA Button */
 .primary_btn {
     display: inline-block;
     padding: 16px 40px;
-    background: var(--gradient-primary);
+    background: var(--primary-red);
     color: white;
     text-decoration: none;
     border-radius: 50px;
@@ -295,10 +240,15 @@
 /* ========================================
    5. PROGRAMS SECTION STYLES
    ======================================== */
-.programs , .impact-gallery-section {
+.programs {
     padding: 20px 0 60px   0;
-    background: var(--background-secondary);
+    background:   #f8fafc; 
 }
+
+.impact-gallery-section {
+    padding: 20px 0 60px   0;
+    background:  #f7f5f2; 
+} 
 
 .programs-grid {
     display: grid;
@@ -331,7 +281,7 @@
     left: 0;
     right: 0;
     height: 4px;
-    background: var(--gradient-primary);
+    background: var(--primary-red);
 }
 
 
@@ -339,7 +289,9 @@
     font-size: 1.5rem;
     margin-bottom: 1rem;
     color: var(--text-primary);
+    font-family: var(--font-display, 'Playfair Display', Georgia, serif);
     font-weight: 700;
+    letter-spacing: -0.01em;
 }
 
 .program-card p {
@@ -418,9 +370,12 @@
 .break-1 .quote {
     font-size: 3rem;
     font-weight: 700;
+    font-family: var(--font-display, 'Playfair Display', Georgia, serif);
+    font-style: italic;
     margin-bottom: 2rem;
     text-shadow: 0 2px 20px rgba(0, 0, 0, 0.5);
     line-height: 1.2;
+    letter-spacing: -0.01em;
 }
 
 .break-1 .author {
@@ -443,6 +398,7 @@
     gap: 40px;
     margin-top: 48px;
 }
+
 
 /* Blog Card */
 .blog-card {
@@ -485,7 +441,7 @@
     position: absolute;
     top: 16px;
     left: 16px;
-    background: var(--gradient-primary);
+    background: var(--primary-red);
     color: white;
     padding: 8px 16px;
     border-radius: 20px;
@@ -506,9 +462,11 @@
 .card-title {
     font-size: 1.5rem;
     font-weight: 700;
+    font-family: var(--font-display, 'Playfair Display', Georgia, serif);
     color: var(--text-primary);
     margin-bottom: 12px;
     line-height: 1.3;
+    letter-spacing: -0.01em;
     transition: color 0.3s ease;
 }
 
@@ -599,7 +557,7 @@
 }
 
 .btn-view-all {
-    background: var(--gradient-primary);
+    background: var(--primary-red);
     color: white;
     padding: 16px 40px;
     border: none;
@@ -888,10 +846,12 @@
 .twik-section-title {
     font-size: clamp(2rem, 5vw, 3.5rem);
     font-weight: 800;
+    font-family: var(--font-display, 'Playfair Display', Georgia, serif);
     line-height: 1.2;
     margin-bottom: 1.5rem;
     color: var(--text-light);
     text-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+    letter-spacing: -0.02em;
 }
 
 .twik-section-subtitle {
@@ -979,9 +939,11 @@
 .twik-card-title {
     font-size: clamp(1.5rem, 3vw, 1.85rem);
     font-weight: 700;
+    font-family: var(--font-display, 'Playfair Display', Georgia, serif);
     margin-bottom: 1rem;
     color: var(--text-primary);
     line-height: 1.3;
+    letter-spacing: -0.01em;
 }
 
 .twik-card-excerpt {
@@ -1267,7 +1229,6 @@
 
     .programs , .impact-gallery-section {
         padding: 20px 0;
-        background: var(--background-secondary);
     }
 
     .programs-grid {

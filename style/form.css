@@ -1,0 +1,329 @@
+
+    /* ── TOKENS ── */
+    :root {
+      --primary-red:        #dc2626;
+      --red-dark:   #b91c1c;
+      --red-light:  rgba(220,38,38,0.08);
+      --red-border: rgba(220,38,38,0.2);
+      --yellow:     #fbbf24;
+      --black:      #111111;
+      --off-white:  #f7f5f2;
+      --white:      #ffffff;
+      --mid:        #4b5563;
+      --muted:      #9ca3af;
+      --border:     #e2e0dc;
+      --nav-h:      80px;
+
+      --font-display: "Playfair Display", Georgia, serif;
+      --font-body:    "DM Sans", -apple-system, sans-serif;
+      --font-mono:    "Space Mono", monospace;
+    }
+
+    *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      font-family: var(--font-body);
+      background: var(--off-white);
+      color: var(--black);
+      min-height: 100vh;
+      overflow-x: hidden;
+    }
+
+
+    /* ════════════════════════════════════════
+       PAGE LAYOUT
+       ════════════════════════════════════════ */
+    .page {
+      margin-top: var(--nav-h);
+      display: grid;
+      grid-template-columns: 340px 1fr;
+      min-height: calc(100vh - var(--nav-h));
+    }
+
+    /* ════════════════════════════════════════
+       LEFT PANEL (desktop)
+       ════════════════════════════════════════ */
+    .left-panel {
+      background: var(--primary-red);
+      color: var(--white);
+      padding: 3.5rem 2.5rem 3rem;
+      position: sticky;
+      top: var(--nav-h);
+      height: calc(100vh - var(--nav-h));
+      display: flex;
+      flex-direction: column;
+      overflow: hidden;
+    }
+
+    /* Diagonal stripe texture */
+    .left-panel::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: repeating-linear-gradient(
+        -55deg, transparent, transparent 35px,
+        rgba(0,0,0,0.04) 35px, rgba(0,0,0,0.04) 70px
+      );
+      pointer-events: none;
+    }
+
+    /* Bottom glow blob */
+    .left-panel::after {
+      content: '';
+      position: absolute;
+      bottom: -80px; left: -60px;
+      width: 300px; height: 300px;
+      background: radial-gradient(circle, rgba(0,0,0,0.15) 0%, transparent 70%);
+      pointer-events: none;
+    }
+
+    .left-inner {
+      position: relative;
+      z-index: 1;
+      height: 100%;
+      display: flex;
+      flex-direction: column;
+    }
+
+   
+
+    .left-eyebrow {
+      font-family: var(--font-mono);
+      font-size: 0.72rem;
+      font-weight: 700;
+      letter-spacing: 2.5px;
+      text-transform: uppercase;
+      color: rgba(255,255,255,0.55);
+      margin-bottom: 0.6rem;
+    }
+
+    .left-heading {
+      font-family: var(--font-display);
+      font-size: 1.45rem;
+      font-weight: 800;
+      color: var(--white);
+      margin-bottom: 0.9rem;
+      line-height: 1.25;
+      letter-spacing: -0.01em;
+    }
+
+    .left-desc {
+      font-family: var(--font-body);
+      font-size: 0.92rem;
+      color: rgba(255,255,255,0.8);
+      line-height: 1.75;
+      margin-bottom: 2rem;
+    }
+
+    .divider {
+      width: 36px;
+      height: 2px;
+      background: rgba(255,255,255,0.25);
+      border-radius: 2px;
+      margin-bottom: 1.75rem;
+    }
+
+    /* Expect bullets */
+    .expect-list {
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+      gap: 0.85rem;
+      margin-bottom: 2rem;
+    }
+
+    .expect-item {
+      display: flex;
+      align-items: flex-start;
+      gap: 0.75rem;
+      font-family: var(--font-body);
+      font-size: 0.88rem;
+      color: rgba(255,255,255,0.8);
+      line-height: 1.55;
+    }
+
+    .expect-dot {
+      width: 7px; height: 7px;
+      border-radius: 50%;
+      background: var(--yellow);
+      flex-shrink: 0;
+      margin-top: 5px;
+    }
+    
+   
+
+    .left-footer {
+      margin-top: 1.25rem;
+      font-family: var(--font-mono);
+      font-size: 0.68rem;
+      color: rgba(255,255,255,0.35);
+      letter-spacing: 0.5px;
+    }
+
+    /* ════════════════════════════════════════
+       RIGHT PANEL — form area
+       ════════════════════════════════════════ */
+    .form-side {
+      background: var(--off-white);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: flex-start;
+      padding: 3rem 2.5rem;
+      min-height: calc(100vh - var(--nav-h));
+    }
+
+    .form-wrapper {
+      width: 100%;
+      max-width: 720px;
+    }
+
+    /* Form header above iframe */
+    .form-header {
+      margin-bottom: 1.5rem;
+    }
+
+    .form-header-eyebrow {
+      font-family: var(--font-mono);
+      font-size: 0.72rem;
+      font-weight: 700;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      color: var(--primary-red);
+      margin-bottom: 0.5rem;
+    }
+
+    .form-header-title {
+      font-family: var(--font-display);
+      font-size: 1.9rem;
+      font-weight: 800;
+      color: var(--black);
+      line-height: 1.2;
+      letter-spacing: -0.02em;
+      margin-bottom: 0.5rem;
+    }
+
+    .form-header-sub {
+      font-family: var(--font-body);
+      font-size: 0.92rem;
+      color: var(--mid);
+      line-height: 1.6;
+    }
+
+    /* Progress indicator */
+    .form-meta {
+      display: flex;
+      align-items: center;
+      gap: 1.5rem;
+      margin-bottom: 1.75rem;
+      padding: 0.9rem 1.25rem;
+      background: var(--white);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+    }
+
+    .form-meta-item {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      font-family: var(--font-body);
+      font-size: 0.82rem;
+      color: var(--mid);
+    }
+
+    .form-meta-dot {
+      width: 8px; height: 8px;
+      border-radius: 50%;
+      background: var(--primary-red);
+      opacity: 0.7;
+      flex-shrink: 0;
+    }
+
+    /* iframe container */
+    .form-container {
+      background: var(--white);
+      border-radius: 16px;
+      border: 1px solid var(--border);
+      box-shadow: 0 2px 16px rgba(0,0,0,0.05);
+      overflow: hidden;
+    }
+
+    .form-container iframe {
+      width: 100%;
+      height: 820px;
+      border: none;
+      display: block;
+    }
+
+    /* ════════════════════════════════════════
+       RESPONSIVE
+       ════════════════════════════════════════ */
+
+    /* Tablet: collapse left panel */
+    @media (max-width: 1024px) {
+      .page { grid-template-columns: 280px 1fr; }
+      .left-panel { padding: 2.5rem 1.75rem 2rem; }
+      .form-side { padding: 2.5rem 2rem; }
+    }
+
+    /* Mobile: single column, compact header */
+    @media (max-width: 768px) {
+
+      .page {
+        grid-template-columns: 1fr;
+        min-height: unset;
+      }
+
+      /* Left panel becomes a compact top banner on mobile */
+      .left-panel {
+        position: static;
+        height: auto;
+        padding: 2rem 1.5rem 1.75rem;
+        min-height: unset;
+      }
+
+      /* On mobile: hide the full expect list and wordmark,
+         show a compact summary instead */
+      .left-heading   { font-size: 1.2rem; }
+      .left-desc      { font-size: 0.88rem; margin-bottom: 1.25rem; }
+      .expect-list    { display: none; }
+      .divider        { display: none; }
+      .left-footer    { display: none; }
+
+      /* Mobile quick-fact pills visible instead */
+      
+
+      .form-side {
+        padding: 1.5rem 1rem 2rem;
+        min-height: unset;
+      }
+
+      .form-header-title { font-size: 1.5rem; }
+
+      .form-meta {
+        flex-wrap: wrap;
+        gap: 0.75rem;
+        padding: 0.75rem 1rem;
+      }
+
+      .form-container iframe {
+        /* Let the iframe size to its content instead of a fixed height.
+           Using a tall min-height avoids double-scroll on most phones. */
+        height: 800px;
+        min-height: unset;
+      }
+    }
+
+    @media (max-width: 480px) {
+      .left-panel    { padding: 1.75rem 1.25rem 1.5rem; }
+      .form-side     { padding: 1.25rem 0.75rem 2rem; }
+      .form-container { border-radius: 12px; }
+      .form-container iframe { height: 750px; }
+      .form-header-title { font-size: 1.35rem; }
+      .form-meta { display: none; } /* hide on very small phones — not critical */
+    }
+
+    
+  

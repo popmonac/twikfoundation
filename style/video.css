@@ -1,5 +1,4 @@
-
-        :root {
+:root {
             /* Primary Colors - Matching TWiK Logo */
             --primary-red: #dc2626;
             --primary-black: #1f2937;
@@ -30,7 +29,7 @@
         }
 
         body {
-            font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+            font-family: var(--font-body, 'DM Sans', -apple-system, BlinkMacSystemFont, sans-serif);
             background: var(--background-gradient);
             color: var(--text-primary);
             line-height: 1.6;
@@ -350,4 +349,3 @@
             height: 100%;
             border: 0;
         }
-    
