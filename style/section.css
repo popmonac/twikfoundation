@@ -40,41 +40,10 @@
 }
 
 
-/* ========================================
-   3. CONTAINER & LAYOUT STYLES
-   .container {
-    max-width: 1200px;
-    margin: 0 auto;
-    padding: 0 24px;
-    position: relative;
-    z-index: 2;
-}
-   ======================================== */
 
-
-
-/* ========================================
-   4. ABOUT SECTION STYLES
-   ======================================== */
-.about_section {
-    margin-top: 2rem;
-    padding: 100px 0;
-    background: var(--background-gradient);
-    position: relative;
-    overflow: hidden;
-}
-
-.about_section::before {
-    display: none;
-}
 
 /* About Grid Layout */
-.about_grid {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 80px;
-    align-items: center;
-}
+
 
 /* Image Pyramid Container */
 .image_pyramid {
@@ -164,39 +133,85 @@
 }
 
 /* About Content Section */
+.about_section {
+  margin-top: 2rem;
+  padding: 100px 0;
+  background: var(--background-gradient);
+  position: relative;
+  overflow: hidden;
+}
+
+/* ── GRID LAYOUT ── */
+.about_grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 72px;
+  align-items: center;
+}
+
+/* ── 2×2 IMAGE GRID ── */
+.image_grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 12px;
+}
+
+.image_grid_item {
+  border-radius: 16px;
+  overflow: hidden;
+  aspect-ratio: 1 / 1;
+  position: relative;
+}
+
+/* nudge the second item down to break the symmetry slightly */
+
+
+.image_grid_item img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+  transition: transform 0.45s ease;
+}
+
+.image_grid_item:hover img {
+  transform: scale(1.05);
+}
+
+/* ── CONTENT ── */
 .about_content {
-    padding: 0 20px;
+  padding: 0 12px;
 }
 
 .top_title {
-    font-size: 0.85rem;
-    font-weight: 700;
-    letter-spacing: 3px;
-    text-transform: uppercase;
-    font-family: var(--font-mono, 'Space Mono', monospace);
-    background: var(--red-dark);
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-    margin-bottom: 16px;
-    display: inline-block;
+  font-size: 0.8rem;
+  font-weight: 700;
+  letter-spacing: 3px;
+  text-transform: uppercase;
+  font-family: var(--font-mono, 'Space Mono', monospace);
+  color: var(--red-dark, #b91c1c);
+  margin-bottom: 16px;
+  display: inline-block;
 }
 
 .about_content h2 {
-    font-size: 3rem;
-    font-weight: 700;
-    font-family: var(--font-display, 'Playfair Display', Georgia, serif);
-    color: var(--text-primary);
-    margin-bottom: 24px;
-    line-height: 1.2;
-    letter-spacing: -0.02em;
+  font-size: clamp(1.9rem, 3vw, 3rem);
+  font-weight: 700;
+  font-family: var(--font-display, 'Playfair Display', Georgia, serif);
+  color: var(--text-primary);
+  margin-bottom: 24px;
+  line-height: 1.2;
+  letter-spacing: -0.02em;
 }
 
 .about_content p {
-    font-size: 1.1rem;
-    color: var(--text-secondary);
-    margin-bottom: 24px;
-    line-height: 1.8;
+  font-size: 1.05rem;
+  color: var(--text-secondary);
+  margin-bottom: 32px;
+  line-height: 1.8;
 }
+
+
 
 
 /* Primary CTA Button */
@@ -261,7 +276,7 @@
     background: var(--background-primary);
     padding: 2.5rem;
     border-radius: 20px;
-    text-align: center;
+    text-align: left;
     border: 2px solid var(--border-light);
     transition: all 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
     position: relative;
@@ -301,7 +316,9 @@
 
 .program-features {
     list-style: none;
-    margin-bottom: 24px;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
 }
 
 .program-features li {
@@ -1122,10 +1139,7 @@
 /* Tablet (768px - 1023px) */
 @media (max-width: 1023px) {
     /* About Section Responsive */
-    .about_grid {
-        grid-template-columns: 1fr;
-        gap: 60px;
-    }
+   
 
     .image_pyramid {
         min-height: 500px;
@@ -1160,39 +1174,14 @@
 
 /* Mobile Landscape & Tablet Portrait (768px - 991px) */
 @media (max-width: 991px) {
-    .about_section {
-        padding: 60px 0;
-    }
+    .about_grid {
+    grid-template-columns: 1fr;
+    gap: 48px;
+  }
 
-    .about_content h2 {
-        font-size: 2rem;
-    }
+  .image_grid_item:nth-child(2) { margin-top: 0; }
+  .image_grid_item:nth-child(4) { margin-top: 0; }
 
-    .about_content p {
-        font-size: 1rem;
-    }
-
-    .image_pyramid {
-        min-height: 450px;
-    }
-
-    .bg_image {
-        width: 100%;
-        height: 300px;
-    }
-
-    .portrait_image {
-        height: 400px;
-        width: 55%;
-        top: 60px;
-    }
-
-    .small_landscape {
-        width: 60%;
-        height: 220px;
-        bottom: 20px;
-        left: 30px;
-    }
 }
 
 /* Tablet Portrait (768px - 899px) */
@@ -1391,6 +1380,11 @@
 
 /* Small Mobile (max-width: 479px) */
 @media (max-width: 479px) {
+    
+    .about_section { padding: 64px 0; }
+    .image_grid { gap: 8px; }
+    .about_content { padding: 0; }
+
     .section-title {
         font-size: 1.75rem;
     }
