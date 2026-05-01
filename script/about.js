@@ -1,7 +1,7 @@
 
 
   // ── OUTREACH CAROUSEL — manual + auto-scroll ──────────────────────────────
-  (function () {
+
     const track   = document.getElementById('outreachTrack');
     const prevBtn = document.getElementById('outreachPrev');
     const nextBtn = document.getElementById('outreachNext');
@@ -90,4 +90,4 @@
 
     window.addEventListener('resize', init);
     init();
-  })();
+  

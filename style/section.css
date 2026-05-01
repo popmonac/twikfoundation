@@ -184,12 +184,12 @@
 }
 
 .top_title {
-  font-size: 0.8rem;
+  font-size: 1.0rem;
   font-weight: 700;
   letter-spacing: 3px;
   text-transform: uppercase;
   font-family: var(--font-mono, 'Space Mono', monospace);
-  color: var(--red-dark, #b91c1c);
+  color: var(--red-dark);
   margin-bottom: 16px;
   display: inline-block;
 }
@@ -204,7 +204,7 @@
   letter-spacing: -0.02em;
 }
 
-.about_content p {
+.about_p {
   font-size: 1.05rem;
   color: var(--text-secondary);
   margin-bottom: 32px;
@@ -344,7 +344,6 @@
     position: relative;
     height: 70vh;
     margin: 0 0 2rem 0;
-    border-radius: 25px;
     overflow: hidden;
     box-shadow: var(--shadow-primary);
 }

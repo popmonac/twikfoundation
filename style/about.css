@@ -1092,8 +1092,7 @@
       .partnership-network { height: 300px; }
       .partnership-network::after { width: 200px; height: 200px; }
       .orbit-ring-inner { width: 120px; height: 120px; }
-      .network-partner { width: 50px; height: 50px; font-size: 0.5rem; padding: 4px; }
-      .network-hub { width: 64px; height: 64px; font-size: 0.68rem; }
+     
 
     }
   
