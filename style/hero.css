@@ -377,6 +377,77 @@ body {
     
 }
 
+@media (max-width: 960px){
+    .all-hero {
+        margin-top: 75px;
+    }
+    
+    .hero-container {
+        padding: 1.75rem 1.25rem;
+    }
+    
+    .hero-content {
+        max-width: 92%;
+        padding: 2.25rem;
+        border-radius: 22px;
+        background: rgba(255, 255, 255, 0.88);
+    }
+    
+    .hero-text h1 {
+        font-size: clamp(1.9rem, 5.5vw, 2.8rem);
+        margin-bottom: 1.75rem;
+        letter-spacing: -0.02em;
+    }
+    
+    .hero-text h1::after {
+        width: 100px;
+        height: 3px;
+        bottom: -8px;
+    }
+    
+    .hero-question {
+        font-size: clamp(0.95rem, 2.3vw, 1.15rem);
+        margin-bottom: 1.75rem;
+        line-height: 1.5;
+    }
+    
+    .hero-slider {
+        gap: 0.6rem;
+        padding: 0.75rem;
+    }
+    
+    .hero-slider::before {
+        background: rgba(0, 0, 0, 0.08);
+    }
+    
+    .image-column {
+        animation-duration: 18s;
+        gap: 0.6rem;
+    }
+    
+    .image-column:nth-child(2) {
+        animation-duration: 23s;
+    }
+    
+    .image-column:nth-child(3) {
+        animation-duration: 28s;
+    }
+    
+    .image-column:nth-child(4) {
+        animation-duration: 20s;
+    }
+    
+    .image-item {
+        min-height: 200px;
+        border-radius: 12px;
+    }
+    
+    .btn {
+        padding: 0.9rem 1.8rem;
+        font-size: 0.95rem;
+    }
+}
+
 @media (max-width: 768px) {
     .hero-container {
         padding: 1.5rem 1rem;
