@@ -1,0 +1,1090 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Bouwnce — Card System</title>
+<link href="https://fonts.googleapis.com/css2?family=Syne:wght@600;700;800&family=Plus+Jakarta+Sans:wght@300;400;500;600&display=swap" rel="stylesheet"/>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@3.19.0/dist/tabler-icons.min.css"/>
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+
+:root{
+  --bg:#f5f2ef;
+  --surface:#ffffff;
+  --surface2:#f9f7f5;
+  --surface3:#f0ede9;
+  --border:#e8e3de;
+  --border2:#d0c9c2;
+  --tx:#1a1512;
+  --tx2:#6b6460;
+  --tx3:#a8a29d;
+  --r:#FF4B2B;
+  --r2:#ff6a4d;
+  --r3:#e03a1c;
+  --r-soft:#fff1ee;
+  --rdim:rgba(255,75,43,.08);
+  --rbd:rgba(255,75,43,.22);
+  --green:#1D9E75;
+  --green-soft:rgba(29,158,117,.1);
+  --ff-h:'Syne',sans-serif;
+  --ff-b:'Plus Jakarta Sans',sans-serif;
+  --rad:16px;
+  --rad-sm:10px;
+  --pill:100px;
+  --nav-h:62px;
+  --side-w:244px;
+}
+
+body{font-family:var(--ff-b);background:var(--bg);color:var(--tx);min-height:100vh}
+a{text-decoration:none;color:inherit}
+button{cursor:pointer;font-family:var(--ff-b);outline:none}
+input{font-family:var(--ff-b)}
+
+/* ═══════════ HEADER ═══════════ */
+.hdr{
+  position:fixed;top:0;left:0;right:0;z-index:200;
+  height:var(--nav-h);
+  background:rgba(255,255,255,.92);
+  backdrop-filter:blur(24px);
+  border-bottom:1px solid var(--border);
+  display:flex;align-items:center;
+  padding:0 28px;gap:16px;
+}
+.hdr-logo{
+  font-family:var(--ff-h);font-size:18px;font-weight:800;
+  background:linear-gradient(120deg,#FF4B2B,#ff7a5a);
+  -webkit-background-clip:text;-webkit-text-fill-color:transparent;
+  white-space:nowrap;flex-shrink:0;
+}
+.hdr-sep{width:1px;height:20px;background:var(--border);flex-shrink:0}
+.hdr-info{min-width:0}
+.hdr-title{font-size:13px;font-weight:600;color:var(--tx2)}
+.hdr-sub{font-size:11px;color:var(--tx3)}
+.hdr-pills{display:flex;gap:8px;margin-left:auto;align-items:center;flex-shrink:0}
+.hdr-pill{
+  background:var(--surface2);border:1px solid var(--border);
+  border-radius:var(--pill);padding:5px 12px;
+  font-size:11px;color:var(--tx3);
+  display:flex;align-items:center;gap:6px;white-space:nowrap;
+}
+.live-dot{width:6px;height:6px;border-radius:50%;background:#22c274;flex-shrink:0;animation:pulse 2s infinite}
+
+/* ═══════════ LAYOUT ═══════════ */
+.layout{
+  display:grid;
+  grid-template-columns:var(--side-w) 1fr;
+  min-height:calc(100vh - var(--nav-h));
+  margin-top:var(--nav-h);
+}
+
+/* ═══════════ SIDEBAR ═══════════ */
+.sidebar{
+  position:sticky;top:var(--nav-h);
+  height:calc(100vh - var(--nav-h));
+  overflow-y:auto;
+  background:var(--surface);
+  border-right:1px solid var(--border);
+  padding:20px 0 40px;
+}
+.sidebar::-webkit-scrollbar{width:0}
+
+.sb-group{font-size:9.5px;font-weight:700;letter-spacing:.13em;text-transform:uppercase;color:var(--tx3);padding:0 18px 7px;margin-top:22px}
+.sb-group:first-child{margin-top:0}
+.sb-link{
+  display:flex;align-items:center;gap:9px;
+  padding:8px 18px;
+  font-size:12.5px;font-weight:500;color:var(--tx2);
+  border-left:2px solid transparent;
+  transition:all .14s;cursor:pointer;
+}
+.sb-link:hover{color:var(--tx);background:var(--surface2)}
+.sb-link.on{color:var(--r);border-left-color:var(--r);background:var(--rdim);font-weight:600}
+.sb-link i{font-size:14px;flex-shrink:0;opacity:.65}
+.sb-link.on i{opacity:1}
+.sb-num{margin-left:auto;font-size:10px;background:var(--surface3);border-radius:var(--pill);padding:2px 7px;color:var(--tx3);flex-shrink:0}
+.sb-link.on .sb-num{background:rgba(255,75,43,.12);color:var(--r)}
+.sb-note{padding:16px 18px 0;font-size:11px;color:var(--tx3);line-height:1.7;border-top:1px solid var(--border);margin-top:16px}
+
+/* ═══════════ MAIN ═══════════ */
+.main{padding:36px 40px 100px;max-width:960px}
+
+/* ═══════════ PAGE HEADER ═══════════ */
+.page-hdr{padding-bottom:32px;border-bottom:1px solid var(--border);margin-bottom:52px}
+.page-eyebrow{font-size:10px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:var(--r);margin-bottom:8px}
+.page-title{font-family:var(--ff-h);font-size:32px;font-weight:800;letter-spacing:-.03em;color:var(--tx);margin-bottom:8px;line-height:1.1}
+.page-desc{font-size:14px;color:var(--tx2);line-height:1.65;max-width:520px;margin-bottom:16px}
+.page-chips{display:flex;gap:8px;flex-wrap:wrap}
+.page-chip{display:inline-flex;align-items:center;gap:5px;background:var(--surface);border:1px solid var(--border);border-radius:var(--pill);padding:5px 12px;font-size:11px;color:var(--tx3)}
+.page-chip i{font-size:12px}
+
+/* ═══════════ SECTION ═══════════ */
+.sec{margin-bottom:64px;scroll-margin-top:80px}
+.sec-head{margin-bottom:24px;padding-bottom:18px;border-bottom:1px solid var(--border)}
+.sec-idx{font-size:9.5px;font-weight:700;letter-spacing:.13em;text-transform:uppercase;color:var(--tx3);margin-bottom:4px}
+.sec-title{font-family:var(--ff-h);font-size:20px;font-weight:800;letter-spacing:-.025em;color:var(--tx);margin-bottom:5px}
+.sec-desc{font-size:13px;color:var(--tx2);line-height:1.65;max-width:540px;margin-bottom:10px}
+.trig-tag{display:inline-flex;align-items:center;gap:6px;background:var(--surface2);border:1px solid var(--border);border-radius:var(--pill);padding:4px 11px;font-size:11px;color:var(--tx3)}
+.trig-tag i{font-size:11px}
+.trig-dot{width:5px;height:5px;border-radius:50%;background:var(--r);flex-shrink:0;animation:tdot 1.8s infinite}
+@keyframes tdot{0%,100%{opacity:.3}50%{opacity:1}}
+
+.sec-sep{height:1px;background:var(--border);margin:60px 0}
+
+/* ═══════════ CARD GRID ═══════════ */
+.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:14px}
+.grid.wide{grid-template-columns:1fr;max-width:440px}
+.grid.pair{grid-template-columns:repeat(2,1fr)}
+.gc-full{grid-column:1/-1}
+
+/* ═══════════ BASE CARD ═══════════ */
+.card{
+  background:var(--surface);
+  border:1px solid var(--border);
+  border-radius:var(--rad);
+  padding:20px;
+  position:relative;
+  overflow:hidden;
+  transition:box-shadow .2s,transform .2s,border-color .2s;
+}
+.card:hover{transform:translateY(-2px);box-shadow:0 8px 28px rgba(0,0,0,.07);border-color:var(--border2)}
+
+/* accent lines */
+.a-top{height:3px;position:absolute;top:0;left:0;right:0;background:var(--r)}
+.a-top.soft{opacity:.25}
+.a-left{width:3px;position:absolute;top:0;left:0;bottom:0;background:var(--r)}
+.a-left.soft{opacity:.3}
+
+/* confetti strip */
+.confetti{height:5px;width:100%;margin-bottom:16px;border-radius:3px;background:repeating-linear-gradient(90deg,var(--r) 0,var(--r) 8px,var(--r-soft) 8px,var(--r-soft) 16px)}
+
+/* placement label */
+.pl{display:inline-flex;align-items:center;gap:5px;background:var(--surface2);border:1px solid var(--border);border-radius:var(--pill);padding:4px 10px;font-size:10px;font-weight:500;color:var(--tx3);margin-bottom:14px;letter-spacing:.02em}
+.pl i{font-size:11px}
+
+/* icon box */
+.ic{width:42px;height:42px;border-radius:11px;display:flex;align-items:center;justify-content:center;flex-shrink:0;background:var(--r-soft);margin-bottom:12px}
+.ic i{font-size:20px;color:var(--r)}
+.ic.sm{width:34px;height:34px;border-radius:9px;margin-bottom:0}
+.ic.sm i{font-size:16px}
+.ic.neutral{background:var(--surface3)}.ic.neutral i{color:var(--tx2)}
+
+/* typography */
+.c-title{font-family:var(--ff-h);font-size:15px;font-weight:700;color:var(--tx);margin-bottom:5px;line-height:1.2}
+.c-title.lg{font-size:17px}
+.c-body{font-size:13px;color:var(--tx2);line-height:1.6;margin-bottom:14px}
+.c-body strong{color:var(--tx);font-weight:600}
+.c-tiny{font-size:11px;color:var(--tx3);margin-bottom:12px;line-height:1.5}
+
+/* badge */
+.bdg{display:inline-block;font-size:10px;font-weight:700;letter-spacing:.07em;text-transform:uppercase;background:var(--r-soft);color:var(--r);border-radius:var(--pill);padding:3px 10px;flex-shrink:0}
+.bdg.soft{opacity:.7}
+.bdg.neutral{background:var(--surface3);color:var(--tx3)}
+.bdg.success{background:var(--green-soft);color:var(--green)}
+.bdg-row{display:flex;gap:6px;flex-wrap:wrap;margin-bottom:10px;align-items:center}
+
+/* chips */
+.chips{display:flex;gap:6px;flex-wrap:wrap;margin-bottom:12px}
+.chip{font-size:11px;font-weight:500;padding:4px 10px;border-radius:var(--pill);border:1px solid var(--border);color:var(--tx3);background:var(--surface2);display:flex;align-items:center;gap:4px}
+.chip i{font-size:11px}
+
+/* avatars */
+.av-row{display:flex;align-items:center;margin-bottom:12px}
+.av{width:30px;height:30px;border-radius:50%;border:2px solid var(--surface);display:flex;align-items:center;justify-content:center;font-family:var(--ff-h);font-size:9px;font-weight:700;margin-left:-7px;flex-shrink:0;background:var(--r-soft);color:var(--r)}
+.av:first-child{margin-left:0}
+.av-lbl{font-size:12px;color:var(--tx3);margin-left:10px}
+
+/* stats */
+.stats{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin-bottom:14px}
+.stat{background:var(--surface2);border-radius:var(--rad-sm);padding:10px;text-align:center}
+.stat-n{font-family:var(--ff-h);font-size:17px;font-weight:800;color:var(--tx);line-height:1}
+.stat-l{font-size:10px;color:var(--tx3);margin-top:3px;line-height:1.3}
+
+/* progress */
+.prog{margin-bottom:14px}
+.prog-top{display:flex;justify-content:space-between;font-size:11px;color:var(--tx3);margin-bottom:6px}
+.prog-track{height:4px;background:var(--surface3);border-radius:4px;overflow:hidden}
+.prog-fill{height:100%;border-radius:4px;background:var(--r)}
+
+/* steps */
+.steps{display:flex;flex-direction:column;margin-bottom:14px}
+.step{display:flex;align-items:flex-start;gap:9px;padding:8px 0;border-bottom:1px solid var(--border)}
+.step:last-child{border-bottom:none;padding-bottom:0}
+.s-node{width:20px;height:20px;border-radius:50%;flex-shrink:0;display:flex;align-items:center;justify-content:center;margin-top:1px}
+.sn-done{background:rgba(255,75,43,.1)}.sn-done i{font-size:10px;color:var(--r)}
+.sn-pend{background:var(--surface3)}.sn-pend i{font-size:10px;color:var(--tx3)}
+.s-txt{font-size:12.5px;color:var(--tx2);line-height:1.5}
+.s-txt.done{color:var(--tx)}
+
+/* meta row */
+.meta{display:flex;align-items:center;gap:7px;font-size:12px;color:var(--tx2);margin-bottom:7px}
+.meta i{font-size:14px;color:var(--tx3);flex-shrink:0}
+
+/* mini profile */
+.mini-profile{display:flex;align-items:center;gap:10px;background:var(--surface2);border:1px solid var(--border);border-radius:var(--rad-sm);padding:10px 12px;margin-bottom:14px}
+.mini-av{width:36px;height:36px;border-radius:50%;background:var(--r-soft);display:flex;align-items:center;justify-content:center;font-family:var(--ff-h);font-size:11px;font-weight:700;color:var(--r);flex-shrink:0}
+.mini-name{font-size:13px;font-weight:600;color:var(--tx);margin-bottom:1px}
+.mini-meta{font-size:11px;color:var(--tx3)}
+.mini-right{margin-left:auto;flex-shrink:0}
+
+/* store live row */
+.store-row{background:var(--surface2);border:1px solid var(--border);border-left:3px solid var(--r);border-radius:var(--rad-sm);padding:12px 14px;margin-bottom:14px}
+.store-name{font-family:var(--ff-h);font-size:14px;font-weight:700;color:var(--tx);margin-bottom:2px}
+.store-cat{font-size:12px;color:var(--tx3)}
+.live-badge-row{display:inline-flex;align-items:center;gap:5px;margin-top:7px;font-size:11px;color:var(--r);font-weight:600}
+
+/* order row */
+.order-row{background:var(--surface2);border:1px solid var(--border);border-left:3px solid var(--r);border-radius:var(--rad-sm);padding:12px 14px;margin-bottom:14px;display:flex;align-items:center;justify-content:space-between;gap:8px}
+.order-name{font-size:13px;font-weight:500;color:var(--tx);margin-bottom:2px}
+.order-meta-txt{font-size:11px;color:var(--tx3)}
+.order-amt{font-family:var(--ff-h);font-size:16px;font-weight:800;color:var(--r);flex-shrink:0}
+
+/* react rows */
+.react-row{display:flex;align-items:center;justify-content:space-between;background:var(--surface2);border:1px solid var(--border);border-radius:var(--rad-sm);padding:10px 12px;margin-bottom:8px}
+.react-left{display:flex;align-items:center;gap:10px}
+.react-title{font-size:13px;font-weight:500;color:var(--tx)}
+.react-btn{font-size:11px;font-weight:600;color:var(--r);cursor:pointer;border:1px solid rgba(255,75,43,.25);border-radius:var(--pill);padding:4px 12px;background:var(--r-soft);white-space:nowrap;transition:all .15s}
+.react-btn:hover{background:var(--r);color:#fff}
+
+/* split layout */
+.split{display:flex;align-items:flex-start;gap:16px;flex-wrap:wrap}
+.split-main{flex:1;min-width:160px}
+.split-side{flex-shrink:0;background:var(--surface2);border:1px solid var(--border);border-radius:var(--rad-sm);padding:16px;display:flex;flex-direction:column;align-items:center;min-width:100px}
+.big-num{font-family:var(--ff-h);font-size:28px;font-weight:800;color:var(--r);line-height:1}
+.big-lbl{font-size:10px;color:var(--tx3);margin-top:4px;text-align:center}
+
+/* toast card */
+.toast-card{background:var(--surface);border:1px solid var(--border);border-radius:14px;padding:12px 14px;display:flex;align-items:flex-start;gap:10px;position:relative;overflow:hidden;transition:box-shadow .18s}
+.toast-card:hover{box-shadow:0 6px 20px rgba(0,0,0,.07)}
+.toast-card::before{content:'';position:absolute;top:0;left:0;right:0;height:2px;background:var(--r);opacity:.4}
+.toast-body{flex:1;min-width:0}
+.toast-title{font-size:13px;font-weight:600;color:var(--tx);margin-bottom:2px}
+.toast-sub{font-size:12px;color:var(--tx3);line-height:1.4}
+.toast-action{font-size:12px;font-weight:600;color:var(--r);margin-top:5px;display:inline-block;cursor:pointer}
+.toast-close{width:20px;height:20px;border-radius:50%;border:1px solid var(--border);display:flex;align-items:center;justify-content:center;flex-shrink:0;cursor:pointer;background:var(--surface2)}
+.toast-close i{font-size:10px;color:var(--tx3)}
+
+/* location input */
+.loc-input{width:100%;background:var(--surface2);border:1px solid var(--border2);border-radius:var(--rad-sm);padding:11px 14px;color:var(--tx);font-size:13px;outline:none;transition:border-color .2s;margin-bottom:12px}
+.loc-input:focus{border-color:var(--r)}
+
+/* inline progress strip */
+.strip{background:var(--surface);border:1px solid var(--border);border-radius:var(--rad);padding:14px 16px;display:flex;align-items:center;gap:12px}
+.strip-text{flex:1;min-width:0}
+.strip-title{font-size:13px;font-weight:600;color:var(--tx);margin-bottom:2px}
+.strip-sub{font-size:11px;color:var(--tx3);margin-bottom:6px}
+.strip-prog{height:3px;background:var(--surface3);border-radius:4px;overflow:hidden}
+.strip-prog-fill{height:100%;border-radius:4px;background:var(--r)}
+.strip-acts{display:flex;gap:6px;align-items:center;flex-shrink:0}
+
+/* spec note */
+.spec{background:var(--surface2);border-top:1px solid var(--border);padding:10px 14px;display:flex;align-items:flex-start;gap:7px;border-radius:0 0 var(--rad) var(--rad)}
+.spec i{font-size:12px;color:var(--tx3);flex-shrink:0;margin-top:1px}
+.spec span{font-size:11px;color:var(--tx3);line-height:1.6}
+
+/* divider */
+.div{height:1px;background:var(--border);margin:12px 0}
+
+/* ═══════════ BUTTONS ═══════════ */
+.btns{display:flex;gap:8px;flex-wrap:wrap;margin-top:4px}
+.bp{font-size:12px;font-weight:600;padding:9px 18px;border-radius:var(--pill);border:none;background:var(--r);color:#fff;transition:all .15s;white-space:nowrap;display:inline-flex;align-items:center;gap:6px}
+.bp:hover{background:var(--r2);transform:translateY(-1px)}
+.bp i{font-size:13px}
+.bs{font-size:12px;font-weight:500;padding:9px 18px;border-radius:var(--pill);background:transparent;border:1px solid var(--border2);color:var(--tx2);transition:all .15s;white-space:nowrap}
+.bs:hover{border-color:var(--border2);color:var(--tx);background:var(--surface2)}
+.bp-full{width:100%;justify-content:center;border-radius:var(--rad-sm);padding:12px 18px;font-family:var(--ff-h);font-size:13px;font-weight:700;letter-spacing:.02em}
+.bs-full{width:100%;border-radius:var(--rad-sm);padding:11px 18px;text-align:center}
+
+/* ═══════════ ANIMATIONS ═══════════ */
+@keyframes pulse{0%,100%{opacity:1}50%{opacity:.4}}
+@keyframes slideUp{from{opacity:0;transform:translateY(14px)}to{opacity:1;transform:translateY(0)}}
+.card{animation:slideUp .35s ease both}
+.grid .card:nth-child(2){animation-delay:.06s}
+.grid .card:nth-child(3){animation-delay:.12s}
+
+/* ═══════════ RESPONSIVE ═══════════ */
+@media(max-width:880px){
+  .sidebar{display:none}
+  .layout{grid-template-columns:1fr}
+  .main{padding:24px 18px 60px;max-width:100%}
+  .hdr-pills{display:none}
+  .grid.pair{grid-template-columns:1fr}
+  .main{max-width:100%}
+}
+</style>
+</head>
+<body>
+
+<!-- HEADER -->
+<header class="hdr">
+  <div class="hdr-logo">Bouwnce</div>
+  <div class="hdr-sep"></div>
+  <div class="hdr-info">
+    <div class="hdr-title">Card &amp; Popup System</div>
+    <div class="hdr-sub">Trigger states · Notifications · Moment cards</div>
+  </div>
+  <div class="hdr-pills">
+    <div class="hdr-pill"><div class="live-dot"></div>Light mode · v1.0</div>
+    <div class="hdr-pill"><i class="ti ti-cards" style="font-size:13px"></i>22 cards · 12 moments</div>
+  </div>
+</header>
+
+<div class="layout">
+
+<!-- ═══════════ SIDEBAR ═══════════ -->
+<nav class="sidebar">
+  <div class="sb-group">Onboarding</div>
+  <a class="sb-link on" href="#welcome"><i class="ti ti-confetti"></i>New user welcome<span class="sb-num">1</span></a>
+  <a class="sb-link" href="#vendor-start"><i class="ti ti-building-store"></i>Start selling<span class="sb-num">2</span></a>
+  <a class="sb-link" href="#vendor-done"><i class="ti ti-rosette"></i>Vendor complete<span class="sb-num">1</span></a>
+
+  <div class="sb-group">Social</div>
+  <a class="sb-link" href="#connect"><i class="ti ti-users"></i>Connect states<span class="sb-num">3</span></a>
+  <a class="sb-link" href="#messages"><i class="ti ti-message-2"></i>Messages<span class="sb-num">3</span></a>
+
+  <div class="sb-group">Events</div>
+  <a class="sb-link" href="#rsvp"><i class="ti ti-calendar-check"></i>Event RSVP<span class="sb-num">2</span></a>
+  <a class="sb-link" href="#post-event"><i class="ti ti-mood-happy"></i>Post-event<span class="sb-num">1</span></a>
+
+  <div class="sb-group">Commerce</div>
+  <a class="sb-link" href="#first-order"><i class="ti ti-shopping-bag"></i>First order<span class="sb-num">1</span></a>
+  <a class="sb-link" href="#milestone"><i class="ti ti-trophy"></i>Milestone<span class="sb-num">1</span></a>
+
+  <div class="sb-group">Utility</div>
+  <a class="sb-link" href="#profile-nudge"><i class="ti ti-user-circle"></i>Profile completion<span class="sb-num">2</span></a>
+  <a class="sb-link" href="#location"><i class="ti ti-map-pin"></i>Location access<span class="sb-num">2</span></a>
+  <a class="sb-link" href="#saved"><i class="ti ti-heart"></i>Saved &amp; waitlist<span class="sb-num">3</span></a>
+  <a class="sb-link" href="#reactivation"><i class="ti ti-sparkles"></i>Re-engagement<span class="sb-num">2</span></a>
+
+  <div class="sb-note">
+    <strong style="color:var(--tx2);font-size:10px;font-weight:700;letter-spacing:.06em;text-transform:uppercase">Legend</strong><br/>
+    Top bar = modal / overlay<br/>
+    Left bar = inline or toast<br/>
+    One primary action per card
+  </div>
+</nav>
+
+<!-- ═══════════ MAIN ═══════════ -->
+<main class="main">
+
+  <div class="page-hdr">
+    <div class="page-eyebrow">Design system</div>
+    <h1 class="page-title">Popup &amp; Card System</h1>
+    <p class="page-desc">Trigger-based cards for every key moment in the Bouwnce experience. One action per card, short copy, mobile-first. No rating system — we're building trust first.</p>
+    <div class="page-chips">
+      <span class="page-chip"><i class="ti ti-layout-cards"></i>22 cards</span>
+      <span class="page-chip"><i class="ti ti-device-mobile"></i>Mobile-first</span>
+      <span class="page-chip"><i class="ti ti-bolt"></i>12 trigger moments</span>
+      <span class="page-chip"><i class="ti ti-info-circle"></i>Spec note on each</span>
+    </div>
+  </div>
+
+
+  <!-- ─────────────────────────────────────────
+       01  NEW USER WELCOME
+  ───────────────────────────────────────── -->
+  <section class="sec" id="welcome">
+    <div class="sec-head">
+      <div class="sec-idx">Onboarding · 01</div>
+      <div class="sec-title">New user welcome</div>
+      <div class="sec-desc">First thing a new user sees after sign-up. Warm, action-oriented, sets up the core loop immediately.</div>
+      <div class="trig-tag"><div class="trig-dot"></div>Trigger — account created successfully</div>
+    </div>
+    <div class="grid wide">
+      <div>
+        <div style="display:flex;align-items:center;gap:7px;margin-bottom:10px">
+          <div class="pl"><i class="ti ti-layout-2"></i>Full-screen modal — fires once on first login</div>
+        </div>
+        <div class="card gc-full">
+          <div class="a-top"></div>
+          <div class="confetti"></div>
+          <div style="display:flex;align-items:center;gap:12px;margin-bottom:10px">
+            <div class="ic"><i class="ti ti-bolt"></i></div>
+            <div>
+              <div class="c-title lg">You're in, Adaora.</div>
+              <div style="font-size:12px;color:var(--tx3);margin-top:2px">Welcome to Bouwnce · Awka, Anambra</div>
+            </div>
+          </div>
+          <div class="c-body">Find vendors, connect with people, catch events near you — all in one place.</div>
+          <div class="steps">
+            <div class="step"><div class="s-node sn-pend"><i class="ti ti-map-pin"></i></div><div class="s-txt">Confirm your location</div></div>
+            <div class="step"><div class="s-node sn-pend"><i class="ti ti-adjustments-horizontal"></i></div><div class="s-txt">Pick your interests</div></div>
+            <div class="step"><div class="s-node sn-pend"><i class="ti ti-user-circle"></i></div><div class="s-txt">Add a short bio</div></div>
+          </div>
+          <div class="btns" style="margin-top:4px">
+            <button class="bp bp-full">Let's go <i class="ti ti-arrow-right"></i></button>
+          </div>
+          <div class="btns" style="margin-top:6px">
+            <button class="bs bs-full">I'll explore on my own</button>
+          </div>
+        </div>
+        <div class="spec"><i class="ti ti-info-circle"></i><span>One-time only. Cannot be dismissed with a back gesture. "I'll explore on my own" still navigates to home — never block navigation.</span></div>
+      </div>
+    </div>
+  </section>
+  <div class="sec-sep"></div>
+
+
+  <!-- ─────────────────────────────────────────
+       02  START SELLING
+  ───────────────────────────────────────── -->
+  <section class="sec" id="vendor-start">
+    <div class="sec-head">
+      <div class="sec-idx">Onboarding · 02</div>
+      <div class="sec-title">Start selling</div>
+      <div class="sec-desc">Two states — initial pitch when vendor toggle is tapped, and a progress nudge for incomplete setups.</div>
+      <div class="trig-tag"><div class="trig-dot"></div>Trigger — vendor toggle interaction</div>
+    </div>
+    <div class="grid pair">
+      <div>
+        <div class="pl"><i class="ti ti-pointer"></i>Bottom sheet — first time toggle tapped</div>
+        <div class="card">
+          <div class="a-top"></div>
+          <div class="ic"><i class="ti ti-building-store"></i></div>
+          <div class="c-title">Ready to sell?</div>
+          <div class="c-body">Your store, live in 3 minutes. Customers near you are already searching.</div>
+          <div class="stats">
+            <div class="stat"><div class="stat-n">3 min</div><div class="stat-l">Setup time</div></div>
+            <div class="stat"><div class="stat-n">Free</div><div class="stat-l">To list</div></div>
+            <div class="stat"><div class="stat-n">2.1k+</div><div class="stat-l">Orders placed</div></div>
+          </div>
+          <div class="steps" style="margin-bottom:16px">
+            <div class="step"><div class="s-node sn-pend"><i class="ti ti-dots"></i></div><div class="s-txt">Store name &amp; category</div></div>
+            <div class="step"><div class="s-node sn-pend"><i class="ti ti-dots"></i></div><div class="s-txt">Add a product</div></div>
+            <div class="step"><div class="s-node sn-pend"><i class="ti ti-dots"></i></div><div class="s-txt">Location &amp; hours</div></div>
+          </div>
+          <div class="btns">
+            <button class="bp">Set up my store <i class="ti ti-arrow-right"></i></button>
+            <button class="bs">Not now</button>
+          </div>
+        </div>
+        <div class="spec"><i class="ti ti-info-circle"></i><span>Bottom sheet. Checklist previews steps so the user knows what to expect before committing. Tapping the CTA opens vendor flow directly.</span></div>
+      </div>
+      <div>
+        <div class="pl"><i class="ti ti-clock"></i>Inline on profile — toggle on, setup incomplete</div>
+        <div class="card">
+          <div class="a-top soft"></div>
+          <div class="bdg-row"><span class="bdg soft">Almost there</span></div>
+          <div class="c-title">2 steps left to go live</div>
+          <div class="prog">
+            <div class="prog-top"><span>Setup progress</span><span>2 of 4 done</span></div>
+            <div class="prog-track"><div class="prog-fill" style="width:50%"></div></div>
+          </div>
+          <div class="steps">
+            <div class="step"><div class="s-node sn-done"><i class="ti ti-check"></i></div><div class="s-txt done">Store name &amp; category</div></div>
+            <div class="step"><div class="s-node sn-done"><i class="ti ti-check"></i></div><div class="s-txt done">First product added</div></div>
+            <div class="step"><div class="s-node sn-pend"><i class="ti ti-dots"></i></div><div class="s-txt">Location &amp; hours</div></div>
+            <div class="step"><div class="s-node sn-pend"><i class="ti ti-dots"></i></div><div class="s-txt">Delivery options</div></div>
+          </div>
+          <div class="btns">
+            <button class="bp">Continue setup</button>
+          </div>
+        </div>
+        <div class="spec"><i class="ti ti-info-circle"></i><span>Inline, not a modal. Progress updates live as steps complete. Disappears permanently when all 4 steps are done.</span></div>
+      </div>
+    </div>
+  </section>
+  <div class="sec-sep"></div>
+
+
+  <!-- ─────────────────────────────────────────
+       03  VENDOR ONBOARDING COMPLETE
+  ───────────────────────────────────────── -->
+  <section class="sec" id="vendor-done">
+    <div class="sec-head">
+      <div class="sec-idx">Onboarding · 03</div>
+      <div class="sec-title">Vendor onboarding complete</div>
+      <div class="sec-desc">Celebratory full overlay — fires immediately after all setup steps are done. Surfaces live stats and 3 quick next actions.</div>
+      <div class="trig-tag"><div class="trig-dot"></div>Trigger — all vendor setup steps completed</div>
+    </div>
+    <div class="grid wide" style="max-width:460px">
+      <div>
+        <div class="pl"><i class="ti ti-layout-2"></i>Full modal — fires once on setup completion</div>
+        <div class="card">
+          <div class="a-top"></div>
+          <div class="confetti"></div>
+          <div style="display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:8px;margin-bottom:10px">
+            <div style="display:flex;align-items:center;gap:12px">
+              <div class="ic"><i class="ti ti-rosette"></i></div>
+              <div>
+                <div class="c-title lg">You're live!</div>
+                <div style="font-size:12px;color:var(--tx3)">Sultan Shawarma · Awka</div>
+              </div>
+            </div>
+            <span class="bdg">Live now</span>
+          </div>
+          <div class="c-body">Customers searching near you can find your store right now.</div>
+          <div class="store-row">
+            <div class="store-name">Sultan Shawarma</div>
+            <div class="store-cat">Street Food · Shawarma</div>
+            <div class="live-badge-row"><div class="live-dot" style="background:var(--green)"></div>Live on Bouwnce</div>
+          </div>
+          <div class="stats">
+            <div class="stat"><div class="stat-n">0</div><div class="stat-l">Orders</div></div>
+            <div class="stat"><div class="stat-n">0</div><div class="stat-l">Views today</div></div>
+            <div class="stat"><div class="stat-n">3</div><div class="stat-l">Products</div></div>
+          </div>
+          <div class="div"></div>
+          <div style="font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.09em;color:var(--tx3);margin:10px 0 8px">Do this to get your first order faster</div>
+          <div class="steps">
+            <div class="step"><div class="s-node sn-pend"><i class="ti ti-photo"></i></div><div class="s-txt">Add product photos — 3× more clicks</div></div>
+            <div class="step"><div class="s-node sn-pend"><i class="ti ti-share"></i></div><div class="s-txt">Share your store link on WhatsApp</div></div>
+            <div class="step"><div class="s-node sn-pend"><i class="ti ti-bell"></i></div><div class="s-txt">Turn on order notifications</div></div>
+          </div>
+          <div class="btns" style="margin-top:8px">
+            <button class="bp">Go to my store</button>
+            <button class="bs">Share link <i class="ti ti-share" style="font-size:12px"></i></button>
+          </div>
+        </div>
+        <div class="spec"><i class="ti ti-info-circle"></i><span>Store name must pull from the just-created record — never placeholder text. Stats start at zero and update in real time if the overlay stays open.</span></div>
+      </div>
+    </div>
+  </section>
+  <div class="sec-sep"></div>
+
+
+  <!-- ─────────────────────────────────────────
+       04  CONNECT STATES
+  ───────────────────────────────────────── -->
+  <section class="sec" id="connect">
+    <div class="sec-head">
+      <div class="sec-idx">Social · 01</div>
+      <div class="sec-title">Connect states</div>
+      <div class="sec-desc">Three states — request sent, accepted, and when a connection RSVPs for the same event.</div>
+      <div class="trig-tag"><div class="trig-dot"></div>Trigger — see placement label on each card</div>
+    </div>
+    <div class="grid">
+      <div>
+        <div class="pl"><i class="ti ti-send"></i>Bottom toast — after tapping "Connect"</div>
+        <div class="card">
+          <div class="a-left soft"></div>
+          <div style="padding-left:10px">
+            <div class="av-row">
+              <div class="av">AJ</div><div class="av">ZO</div>
+              <div class="av-lbl">You &amp; Zara Okafor</div>
+            </div>
+            <div class="c-title">Request sent</div>
+            <div class="c-body">Zara will get a notification. You can message once she accepts.</div>
+            <div class="btns"><button class="bp">View profile</button><button class="bs">Done</button></div>
+          </div>
+        </div>
+        <div class="spec"><i class="ti ti-info-circle"></i><span>Auto-dismisses in 5s. Shows recipient name — never generic copy. "View profile" navigates to their profile page.</span></div>
+      </div>
+      <div>
+        <div class="pl"><i class="ti ti-check"></i>Push or in-app — when request accepted</div>
+        <div class="card">
+          <div class="a-left"></div>
+          <div style="padding-left:10px">
+            <div class="av-row">
+              <div class="av">ZO</div><div class="av">AJ</div>
+              <div class="av-lbl">Zara accepted</div>
+            </div>
+            <div class="c-title">You're connected!</div>
+            <div class="c-body">You both love <strong>Afrobeats &amp; live shows</strong>. Say hi.</div>
+            <div class="btns"><button class="bp">Send a message <i class="ti ti-send"></i></button><button class="bs">Later</button></div>
+          </div>
+        </div>
+        <div class="spec"><i class="ti ti-info-circle"></i><span>"Send a message" opens chat pre-loaded with this contact. Deliver even when app is backgrounded.</span></div>
+      </div>
+      <div>
+        <div class="pl"><i class="ti ti-calendar-event"></i>In-app — connection RSVPs to your event</div>
+        <div class="card">
+          <div class="a-top soft"></div>
+          <div class="bdg-row"><span class="bdg">Event overlap</span></div>
+          <div class="c-title">Tunde is going to Burna Boy Live too</div>
+          <div class="chips">
+            <span class="chip"><i class="ti ti-map-pin"></i>1.1 km away</span>
+            <span class="chip"><i class="ti ti-ticket"></i>General floor</span>
+          </div>
+          <div class="btns"><button class="bp">Message Tunde</button><button class="bs">Dismiss</button></div>
+        </div>
+        <div class="spec"><i class="ti ti-info-circle"></i><span>Only fires if this user has already connected with Tunde. Drives the core event + social loop.</span></div>
+      </div>
+    </div>
+  </section>
+  <div class="sec-sep"></div>
+
+
+  <!-- ─────────────────────────────────────────
+       05  MESSAGES
+  ───────────────────────────────────────── -->
+  <section class="sec" id="messages">
+    <div class="sec-head">
+      <div class="sec-idx">Social · 02</div>
+      <div class="sec-title">Messages</div>
+      <div class="sec-desc">Three message notification states — toast for incoming messages, and two vendor enquiry variants (first ever enquiry vs regular).</div>
+      <div class="trig-tag"><div class="trig-dot"></div>Trigger — message received while off the chat screen</div>
+    </div>
+    <div class="grid">
+      <div>
+        <div class="pl"><i class="ti ti-message-2"></i>Slides from top — message received (regular user)</div>
+        <div style="display:flex;flex-direction:column;gap:8px">
+          <div class="toast-card">
+            <div class="ic sm"><i class="ti ti-message-2"></i></div>
+            <div class="toast-body">
+              <div class="toast-title">Zara Okafor</div>
+              <div class="toast-sub">Let's meet at the main gate at 7PM</div>
+              <span class="toast-action">Reply</span>
+            </div>
+            <div class="toast-close"><i class="ti ti-x"></i></div>
+          </div>
+          <div class="toast-card">
+            <div class="ic sm"><i class="ti ti-message-2"></i></div>
+            <div class="toast-body">
+              <div class="toast-title">Favour's Kitchen</div>
+              <div class="toast-sub">Your order is ready! Come pick up or we'll deliver now.</div>
+              <span class="toast-action">Open chat</span>
+            </div>
+            <div class="toast-close"><i class="ti ti-x"></i></div>
+          </div>
+        </div>
+        <div class="spec" style="margin-top:8px"><i class="ti ti-info-circle"></i><span>Auto-dismisses in 6s. Max 2 stacked — collapse extras into "2 new messages". Tap anywhere to open chat.</span></div>
+      </div>
+      <div>
+        <div class="pl"><i class="ti ti-building-store"></i>Push or vendor dashboard — first customer enquiry</div>
+        <div class="card">
+          <div class="a-left"></div>
+          <div style="padding-left:10px">
+            <div class="bdg-row"><span class="bdg">First enquiry</span></div>
+            <div class="ic"><i class="ti ti-message-dots"></i></div>
+            <div class="c-title">A customer messaged your store</div>
+            <div class="c-body"><strong>Chioma A.</strong> is asking about <strong>Chicken Shawarma</strong>. Replying fast = more orders.</div>
+            <div class="btns"><button class="bp">Reply now</button><button class="bs">Later</button></div>
+          </div>
+        </div>
+        <div class="spec"><i class="ti ti-info-circle"></i><span>Use "First enquiry" badge only once. Subsequent messages use a plain label. Reply nudge is removed after their first 3 replies.</span></div>
+      </div>
+    </div>
+  </section>
+  <div class="sec-sep"></div>
+
+
+  <!-- ─────────────────────────────────────────
+       06  EVENT RSVP
+  ───────────────────────────────────────── -->
+  <section class="sec" id="rsvp">
+    <div class="sec-head">
+      <div class="sec-idx">Events · 01</div>
+      <div class="sec-title">Event RSVP states</div>
+      <div class="sec-desc">Confirmation right after RSVP, and a reminder 24 hours before. Both push the social connect angle.</div>
+      <div class="trig-tag"><div class="trig-dot"></div>Trigger — RSVP confirmed / 24hrs before saved event</div>
+    </div>
+    <div class="grid pair">
+      <div>
+        <div class="pl"><i class="ti ti-check"></i>Modal step — after RSVP confirmed</div>
+        <div class="card">
+          <div class="a-top"></div>
+          <div class="bdg-row"><span class="bdg">You're going</span></div>
+          <div class="c-title">Burna Boy Live — March 28</div>
+          <div class="c-tiny">7:00 PM · Awka Stadium · Saved to calendar</div>
+          <div class="div"></div>
+          <div class="meta"><i class="ti ti-users"></i>3 people near you are also going</div>
+          <div class="av-row" style="margin-bottom:14px">
+            <div class="av">ZO</div><div class="av">TA</div><div class="av">AC</div>
+            <div class="av-lbl">Zara, Tunde + 1 more</div>
+          </div>
+          <div class="btns">
+            <button class="bp">See who's going <i class="ti ti-users"></i></button>
+            <button class="bs">Just RSVP</button>
+          </div>
+        </div>
+        <div class="spec"><i class="ti ti-info-circle"></i><span>"See who's going" is the key conversion — moves user to people discovery filtered by this event. Core Bouwnce loop.</span></div>
+      </div>
+      <div>
+        <div class="pl"><i class="ti ti-clock"></i>Push notification — 24hrs before event</div>
+        <div class="card">
+          <div class="a-top soft"></div>
+          <div class="bdg-row"><span class="bdg soft">Tomorrow</span></div>
+          <div class="c-title">Burna Boy Live is tomorrow night</div>
+          <div class="meta"><i class="ti ti-map-pin"></i>Awka Stadium · 0.4 km away</div>
+          <div class="meta"><i class="ti ti-users"></i>47 new people RSVPd since you did</div>
+          <div style="margin:12px 0">
+            <div class="prog-top"><span>Venue capacity</span><span>412 / 2,000</span></div>
+            <div class="prog-track"><div class="prog-fill" style="width:21%"></div></div>
+          </div>
+          <div class="btns">
+            <button class="bp">Find a concert buddy</button>
+            <button class="bs">Got it</button>
+          </div>
+        </div>
+        <div class="spec"><i class="ti ti-info-circle"></i><span>Suppress if user has already connected with an attendee of this event. Never send more than once per event per user.</span></div>
+      </div>
+    </div>
+  </section>
+  <div class="sec-sep"></div>
+
+
+  <!-- ─────────────────────────────────────────
+       07  POST-EVENT
+  ───────────────────────────────────────── -->
+  <section class="sec" id="post-event">
+    <div class="sec-head">
+      <div class="sec-idx">Events · 02</div>
+      <div class="sec-title">Post-event check-in</div>
+      <div class="sec-desc">Shown the morning after an event. No ratings — just a simple check-in to close the loop and gather signal.</div>
+      <div class="trig-tag"><div class="trig-dot"></div>Trigger — day after event date, 10AM local time</div>
+    </div>
+    <div class="grid wide">
+      <div>
+        <div class="pl"><i class="ti ti-mood-happy"></i>Bottom sheet — morning after event date</div>
+        <div class="card">
+          <div class="a-top soft"></div>
+          <div class="ic"><i class="ti ti-mood-happy"></i></div>
+          <div class="c-title">Did you make it to Burna Boy?</div>
+          <div class="c-body">Did you connect with anyone from Bouwnce there? We'd love to know.</div>
+          <div class="btns">
+            <button class="bp">Yes — it was amazing!</button>
+            <button class="bs">Couldn't go</button>
+          </div>
+        </div>
+        <div class="spec"><i class="ti ti-info-circle"></i><span>"Yes" opens a 2-question micro-survey. "Couldn't go" flags as missed in backend for re-targeting. One card per event per user. No rating stars — platform is too new.</span></div>
+      </div>
+    </div>
+  </section>
+  <div class="sec-sep"></div>
+
+
+  <!-- ─────────────────────────────────────────
+       08  FIRST ORDER
+  ───────────────────────────────────────── -->
+  <section class="sec" id="first-order">
+    <div class="sec-head">
+      <div class="sec-idx">Commerce · 01</div>
+      <div class="sec-title">First order received</div>
+      <div class="sec-desc">Vendor-only. Fires the moment their first order comes in — vibrate device, show inline summary, one tap to confirm.</div>
+      <div class="trig-tag"><div class="trig-dot"></div>Trigger — first incoming order</div>
+    </div>
+    <div class="grid wide">
+      <div>
+        <div class="pl"><i class="ti ti-shopping-bag"></i>Full overlay — vendor's first ever order</div>
+        <div class="card">
+          <div class="a-top"></div>
+          <div class="confetti"></div>
+          <div style="display:flex;align-items:center;gap:12px;margin-bottom:10px">
+            <div class="ic"><i class="ti ti-shopping-bag"></i></div>
+            <div>
+              <div class="c-title lg">First order is in.</div>
+              <div style="font-size:12px;color:var(--r);font-weight:600;margin-top:2px">Someone just ordered from you!</div>
+            </div>
+          </div>
+          <div class="order-row">
+            <div>
+              <div class="order-name">Chicken Shawarma × 2</div>
+              <div class="order-meta-txt">Order #001 · Awaiting confirmation</div>
+            </div>
+            <div class="order-amt">₦3,000</div>
+          </div>
+          <div class="btns">
+            <button class="bp bp-full">Confirm order <i class="ti ti-check"></i></button>
+          </div>
+          <div class="btns" style="margin-top:6px">
+            <button class="bs bs-full">View full details</button>
+          </div>
+        </div>
+        <div class="spec"><i class="ti ti-info-circle"></i><span>Vibrate device on arrival. Order summary must be visible inline — vendor should be able to confirm without navigating away. Full overlay recommended.</span></div>
+      </div>
+    </div>
+  </section>
+  <div class="sec-sep"></div>
+
+
+  <!-- ─────────────────────────────────────────
+       09  ORDER MILESTONE
+  ───────────────────────────────────────── -->
+  <section class="sec" id="milestone">
+    <div class="sec-head">
+      <div class="sec-idx">Commerce · 02</div>
+      <div class="sec-title">Order milestone</div>
+      <div class="sec-desc">Fires when a vendor reaches a key order count. Celebrates progress and surfaces a tangible benefit.</div>
+      <div class="trig-tag"><div class="trig-dot"></div>Trigger — 10th order completed (then 50, 100, 500)</div>
+    </div>
+    <div class="grid wide">
+      <div>
+        <div class="pl"><i class="ti ti-trophy"></i>Bottom sheet — fires on milestone order</div>
+        <div class="card">
+          <div class="a-top"></div>
+          <div class="confetti"></div>
+          <div class="ic"><i class="ti ti-trophy"></i></div>
+          <div class="c-title">10 orders done.</div>
+          <div class="c-body">You now get 3× more discovery in local search results.</div>
+          <div class="stats">
+            <div class="stat"><div class="stat-n">10</div><div class="stat-l">Orders</div></div>
+            <div class="stat"><div class="stat-n">3×</div><div class="stat-l">Search boost</div></div>
+            <div class="stat"><div class="stat-n">0</div><div class="stat-l">Refunds</div></div>
+          </div>
+          <div class="btns">
+            <button class="bp">Share this win <i class="ti ti-share"></i></button>
+            <button class="bs">View store analytics</button>
+          </div>
+        </div>
+        <div class="spec"><i class="ti ti-info-circle"></i><span>The 3× boost claim must reflect actual product behaviour — confirm with engineering before shipping. Schedule at 10 → 50 → 100 → 500 orders.</span></div>
+      </div>
+    </div>
+  </section>
+  <div class="sec-sep"></div>
+
+
+  <!-- ─────────────────────────────────────────
+       10  PROFILE COMPLETION
+  ───────────────────────────────────────── -->
+  <section class="sec" id="profile-nudge">
+    <div class="sec-head">
+      <div class="sec-idx">Utility · 01</div>
+      <div class="sec-title">Profile completion</div>
+      <div class="sec-desc">Two formats — an inline banner with split layout for the profile screen, and a compact bottom strip for home.</div>
+      <div class="trig-tag"><div class="trig-dot"></div>Trigger — profile completeness below 70%</div>
+    </div>
+    <div class="grid pair">
+      <div>
+        <div class="pl"><i class="ti ti-user"></i>Inline card — below profile stats bar</div>
+        <div class="card">
+          <div class="a-top soft"></div>
+          <div class="split">
+            <div class="split-main">
+              <div class="c-title">Profile 40% done</div>
+              <div class="c-body" style="margin-bottom:12px">Complete it and get <strong>3× more connection requests.</strong></div>
+              <div class="steps" style="margin-bottom:0">
+                <div class="step"><div class="s-node sn-done"><i class="ti ti-check"></i></div><div class="s-txt done">Name &amp; handle</div></div>
+                <div class="step"><div class="s-node sn-done"><i class="ti ti-check"></i></div><div class="s-txt done">Interests selected</div></div>
+                <div class="step"><div class="s-node sn-pend"><i class="ti ti-dots"></i></div><div class="s-txt">Add a short bio</div></div>
+                <div class="step"><div class="s-node sn-pend"><i class="ti ti-dots"></i></div><div class="s-txt">Upload a photo</div></div>
+                <div class="step"><div class="s-node sn-pend"><i class="ti ti-dots"></i></div><div class="s-txt">Confirm your area</div></div>
+              </div>
+            </div>
+            <div class="split-side">
+              <div class="big-num">40%</div>
+              <div class="big-lbl">Complete</div>
+              <div class="prog-track" style="width:72px;margin-top:10px"><div class="prog-fill" style="width:40%"></div></div>
+            </div>
+          </div>
+          <div class="btns" style="margin-top:14px">
+            <button class="bp">Complete profile</button>
+            <button class="bs">Later</button>
+          </div>
+        </div>
+        <div class="spec"><i class="ti ti-info-circle"></i><span>Once per session max. Progress updates live. Disappears permanently when profile hits 70%.</span></div>
+      </div>
+      <div>
+        <div class="pl"><i class="ti ti-home"></i>Compact strip — below search bar on home</div>
+        <div class="strip" style="margin-bottom:0">
+          <div class="ic sm neutral"><i class="ti ti-user-circle"></i></div>
+          <div class="strip-text">
+            <div class="strip-title">Profile 40% complete</div>
+            <div class="strip-sub">Add a bio to get 3× better matches</div>
+            <div class="strip-prog"><div class="strip-prog-fill" style="width:40%"></div></div>
+          </div>
+          <div class="strip-acts">
+            <button class="bp" style="padding:8px 14px;font-size:11px">Complete <i class="ti ti-arrow-right"></i></button>
+            <button class="bs" style="padding:8px 10px;font-size:12px"><i class="ti ti-x"></i></button>
+          </div>
+        </div>
+        <div class="spec" style="border-radius:0 0 var(--rad) var(--rad);margin-top:0"><i class="ti ti-info-circle"></i><span>Not a modal — inline. Strip version shows on home screen only. Profile version shows on profile screen only. Never show both at once.</span></div>
+      </div>
+    </div>
+  </section>
+  <div class="sec-sep"></div>
+
+
+  <!-- ─────────────────────────────────────────
+       11  LOCATION ACCESS
+  ───────────────────────────────────────── -->
+  <section class="sec" id="location">
+    <div class="sec-head">
+      <div class="sec-idx">Utility · 02</div>
+      <div class="sec-title">Location access</div>
+      <div class="sec-desc">Two states — pre-permission prompt to warm up the OS dialog, and manual entry fallback after denial.</div>
+      <div class="trig-tag"><div class="trig-dot"></div>Trigger — first search with no location granted / OS permission denied</div>
+    </div>
+    <div class="grid pair">
+      <div>
+        <div class="pl"><i class="ti ti-map-pin"></i>Bottom sheet — before OS dialog shown</div>
+        <div class="card">
+          <div class="a-top"></div>
+          <div class="ic"><i class="ti ti-map-pin"></i></div>
+          <div class="c-title">Turn on location.</div>
+          <div class="c-body">Without it we can't show what's near you.</div>
+          <div class="steps" style="margin-bottom:16px">
+            <div class="step"><div class="s-node sn-done"><i class="ti ti-check"></i></div><div class="s-txt done">Vendors nearby</div></div>
+            <div class="step"><div class="s-node sn-done"><i class="ti ti-check"></i></div><div class="s-txt done">Events in your area</div></div>
+            <div class="step"><div class="s-node sn-done"><i class="ti ti-check"></i></div><div class="s-txt done">People close to you</div></div>
+          </div>
+          <div class="btns">
+            <button class="bp">Enable location <i class="ti ti-map-pin"></i></button>
+            <button class="bs">Enter manually</button>
+          </div>
+        </div>
+        <div class="spec"><i class="ti ti-info-circle"></i><span>Show this before triggering the OS dialog. Pre-framing significantly improves grant rates. "Enter manually" goes to the fallback card.</span></div>
+      </div>
+      <div>
+        <div class="pl"><i class="ti ti-map-search"></i>Bottom sheet — OS permission denied</div>
+        <div class="card">
+          <div class="a-top soft"></div>
+          <div class="ic"><i class="ti ti-map-search"></i></div>
+          <div class="c-title">Where are you?</div>
+          <div class="c-body">Type your city and we'll personalise from there.</div>
+          <input class="loc-input" type="text" value="Awka, Anambra" placeholder="City or neighbourhood"/>
+          <div class="btns">
+            <button class="bp">Set location <i class="ti ti-check"></i></button>
+            <button class="bs">Skip</button>
+          </div>
+        </div>
+        <div class="spec"><i class="ti ti-info-circle"></i><span>Autocomplete input. "Skip" shows national results unfiltered. Never re-request OS permission after denial — always offer manual entry.</span></div>
+      </div>
+    </div>
+  </section>
+  <div class="sec-sep"></div>
+
+
+  <!-- ─────────────────────────────────────────
+       12  SAVED & WAITLIST
+  ───────────────────────────────────────── -->
+  <section class="sec" id="saved">
+    <div class="sec-head">
+      <div class="sec-idx">Utility · 03</div>
+      <div class="sec-title">Saved &amp; waitlist</div>
+      <div class="sec-desc">Lightweight toast confirmations. Not modals — never block the screen. Same component, only icon and copy change.</div>
+      <div class="trig-tag"><div class="trig-dot"></div>Trigger — tap "Save" on a vendor, event or person</div>
+    </div>
+    <div class="grid wide" style="max-width:420px">
+      <div>
+        <div class="pl"><i class="ti ti-heart"></i>Top toast — slides in from top, auto-dismisses</div>
+        <div style="display:flex;flex-direction:column;gap:8px">
+          <div class="toast-card">
+            <div class="ic sm"><i class="ti ti-heart"></i></div>
+            <div class="toast-body">
+              <div class="toast-title">Sultan Shawarma saved</div>
+              <div class="toast-sub">Find it in your saved vendors.</div>
+            </div>
+            <div class="toast-close"><i class="ti ti-x"></i></div>
+          </div>
+          <div class="toast-card">
+            <div class="ic sm"><i class="ti ti-bookmark"></i></div>
+            <div class="toast-body">
+              <div class="toast-title">Burna Boy Live saved</div>
+              <div class="toast-sub">Reminder set for 3 days before.</div>
+              <span class="toast-action">RSVP now instead</span>
+            </div>
+            <div class="toast-close"><i class="ti ti-x"></i></div>
+          </div>
+          <div class="toast-card">
+            <div class="ic sm neutral"><i class="ti ti-bell"></i></div>
+            <div class="toast-body">
+              <div class="toast-title">You're on the waitlist</div>
+              <div class="toast-sub">We'll notify you when pizza vendors join near Awka.</div>
+            </div>
+            <div class="toast-close"><i class="ti ti-x"></i></div>
+          </div>
+        </div>
+        <div class="spec" style="margin-top:8px"><i class="ti ti-info-circle"></i><span>Max 2 stacked at once. "RSVP now instead" only shows if event is within 14 days. Auto-dismisses in 5s.</span></div>
+      </div>
+    </div>
+  </section>
+  <div class="sec-sep"></div>
+
+
+  <!-- ─────────────────────────────────────────
+       13  RE-ENGAGEMENT
+  ───────────────────────────────────────── -->
+  <section class="sec" id="reactivation">
+    <div class="sec-head">
+      <div class="sec-idx">Utility · 04</div>
+      <div class="sec-title">Re-engagement nudges</div>
+      <div class="sec-desc">Two lightweight cards for users inactive 7+ days. Both use real data — if nothing has changed, suppress entirely.</div>
+      <div class="trig-tag"><div class="trig-dot"></div>Trigger — app opened after 7+ days inactive</div>
+    </div>
+    <div class="grid pair">
+      <div>
+        <div class="pl"><i class="ti ti-sparkles"></i>Home banner — inactive user, new local activity</div>
+        <div class="card">
+          <div class="a-left soft"></div>
+          <div style="padding-left:10px">
+            <div class="bdg-row"><span class="bdg neutral">While you were away</span></div>
+            <div class="c-title">Awka didn't slow down.</div>
+            <div class="c-body">While you were gone:</div>
+            <div style="margin-bottom:14px">
+              <div class="react-row">
+                <div class="react-left">
+                  <div class="ic sm"><i class="ti ti-building-store"></i></div>
+                  <div class="react-title">3 new vendors nearby</div>
+                </div>
+                <div class="react-btn">See them</div>
+              </div>
+              <div class="react-row">
+                <div class="react-left">
+                  <div class="ic sm"><i class="ti ti-calendar-event"></i></div>
+                  <div class="react-title">2 upcoming events</div>
+                </div>
+                <div class="react-btn">Browse</div>
+              </div>
+            </div>
+            <div class="btns">
+              <button class="bp" style="width:100%;justify-content:center;border-radius:var(--rad-sm)">See what's new <i class="ti ti-arrow-right"></i></button>
+            </div>
+          </div>
+        </div>
+        <div class="spec"><i class="ti ti-info-circle"></i><span>Pull real data — if nothing changed, suppress this card entirely. Generic "we missed you" copy kills retention. Max once per week.</span></div>
+      </div>
+      <div>
+        <div class="pl"><i class="ti ti-users"></i>Home banner — 0 connections after 7 days</div>
+        <div class="card">
+          <div class="a-left"></div>
+          <div style="padding-left:10px">
+            <div class="bdg-row"><span class="bdg">People near you</span></div>
+            <div class="c-title">You haven't connected yet.</div>
+            <div class="c-body">4 people in Awka are looking to meet someone right now.</div>
+            <div class="av-row" style="margin-bottom:14px">
+              <div class="av">AJ</div><div class="av">ZO</div><div class="av">TC</div><div class="av">EM</div>
+              <div class="av-lbl">4 nearby</div>
+            </div>
+            <div class="btns">
+              <button class="bp" style="width:100%;justify-content:center;border-radius:var(--rad-sm)">See who's nearby <i class="ti ti-map-pin"></i></button>
+            </div>
+          </div>
+        </div>
+        <div class="spec"><i class="ti ti-info-circle"></i><span>Avatar stack must show real users, anonymised until connected. Opens people discovery directly. Show max once per week.</span></div>
+      </div>
+    </div>
+  </section>
+
+
+  <!-- FOOTER -->
+  <div style="border-top:1px solid var(--border);padding-top:28px;margin-top:8px;display:flex;align-items:flex-start;justify-content:space-between;flex-wrap:wrap;gap:16px">
+    <div>
+      <div style="font-family:var(--ff-h);font-size:15px;font-weight:800;letter-spacing:-.02em;color:var(--tx)">Bouwnce Card System</div>
+      <div style="font-size:11px;color:var(--tx3);margin-top:3px">Internal · v1.0 · No rating cards — platform is new</div>
+    </div>
+    <div style="font-size:11.5px;color:var(--tx3);line-height:1.85;max-width:460px">
+      <strong style="color:var(--tx2);font-weight:600">Dev notes:</strong> Top accent bar = modal or overlay. Left accent bar = inline, toast or banner. Strong opacity = primary action moment. Soft opacity = secondary nudge. All body copy max 2 lines. One primary action per card, always.
+    </div>
+  </div>
+
+</main>
+</div>
+
+<script>
+var secs = document.querySelectorAll('.sec[id]');
+var links = document.querySelectorAll('.sb-link');
+function syncNav(){
+  var y = window.scrollY + 90;
+  secs.forEach(function(s){
+    if(s.offsetTop <= y && s.offsetTop + s.offsetHeight > y){
+      var id = s.id;
+      links.forEach(function(l){
+        l.classList.remove('on');
+        if(l.getAttribute('href') === '#'+id) l.classList.add('on');
+      });
+    }
+  });
+}
+window.addEventListener('scroll', syncNav, {passive:true});
+links.forEach(function(l){
+  l.addEventListener('click', function(e){
+    e.preventDefault();
+    var t = document.querySelector(l.getAttribute('href'));
+    if(t) t.scrollIntoView({behavior:'smooth',block:'start'});
+  });
+});
+</script>
+</body>
+</html>
